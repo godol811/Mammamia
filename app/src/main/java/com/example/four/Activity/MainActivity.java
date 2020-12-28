@@ -29,6 +29,9 @@ public class MainActivity extends Activity {
 
 
     String urlAddr = null;
+    //ip 변수 추가
+    String urlIp = null;
+    //-----------------
     ArrayList<AddressDto> members;
     AddressAdapter adapter = null;
     private RecyclerView recyclerView = null;
@@ -53,7 +56,7 @@ public class MainActivity extends Activity {
 
         recyclerView = findViewById(R.id.rl_address);
 
-        //recyclerView의 아이템 사이즈를 고정하여 리소스를 줄임
+
         recyclerView.setHasFixedSize(true);
 
 
@@ -61,7 +64,15 @@ public class MainActivity extends Activity {
         recyclerView.setLayoutManager(layoutManager);
 
 
-        urlAddr = "http://192.168.0.105:8080/test/mammamia.jsp";
+        //inwoo 추가
+        //헤이! 여기 아이피만 교체해주세요!
+        urlIp = "222.106.89.206";
+
+
+
+
+
+        urlAddr = "http://"+urlIp+":8080/test/mammamia.jsp";
 
         //검색 인텐트로 이동하기 위해 버튼 선언--------------------
         ivSearchActivity = findViewById(R.id.btn_search_main);
@@ -82,6 +93,9 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this,InsertActivity.class);
+
+                //ip주소 보내기
+                intent.putExtra("urlIp", urlIp);
                 startActivity(intent);
             }
         });
@@ -129,14 +143,6 @@ public class MainActivity extends Activity {
         });
     }
 
-    //검색 인텐트로 이동
-    View.OnClickListener searchClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent(getApplicationContext(),SearchActivity.class);
-            startActivity(intent);
-        }
-    };
 
     private void connectGetData() {
         try {

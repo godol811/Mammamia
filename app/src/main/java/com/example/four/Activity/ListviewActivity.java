@@ -34,6 +34,10 @@ public class ListviewActivity extends AppCompatActivity
 
         implements OnMapReadyCallback {
 
+
+    //ip변수
+    String urlIp = null;
+
     String urlAddr = null;
 
     //addrAddr 추가
@@ -151,17 +155,17 @@ public class ListviewActivity extends AppCompatActivity
         }
     };
 
-    View.OnClickListener onClickListener1 = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            onBackPressed();
-        }
-    };
+//    View.OnClickListener onClickListener1 = new View.OnClickListener() {
+//        @Override
+//        public void onClick(View v) {
+//            onBackPressed();
+//        }
+//    };
 
     View.OnClickListener onClickListener2 = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            urlAddr = "http:///192.168.0.105:8080/test/mammamiaDelete.jsp?";
+            urlAddr = "http://222.106.89.206:8080/test/mammamiaDelete.jsp?";
             urlAddr = urlAddr + "addrNo=" + addrNo;
             connectDeleteData();
 
