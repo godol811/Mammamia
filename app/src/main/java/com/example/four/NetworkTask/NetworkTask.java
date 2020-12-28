@@ -160,7 +160,7 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
         try {
 
             JSONObject jsonObject = new JSONObject(s);
-            JSONArray jsonArray = new JSONArray(jsonObject.getString("students_info"));
+            JSONArray jsonArray = new JSONArray(jsonObject.getString("addrlist"));
             Address.clear();
             Log.v(TAG,"s"+s);
 
@@ -168,18 +168,18 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
 
             for(int i = 0; i < jsonArray.length(); i++){
                 JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
-                int addrNo = jsonObject1.getInt("addrNO");
+                int addrNo = jsonObject1.getInt("addrNo");
                 String addrName = jsonObject1.getString("addrName");
                 String addrTel = jsonObject1.getString("addrTel");
                 String addrAddr = jsonObject1.getString("addrAddr");
                 String addrDetail = jsonObject1.getString("addrDetail");
-                String addrLike = jsonObject1.getString("addrLike");
                 String addrTag = jsonObject1.getString("addrTag");
-                String addrImagePath = jsonObject1.getString("addrImagePath");
+
+//                String addrImagePath = jsonObject1.getString("addrImagePath");
 
 
 
-                AddressDto address = new AddressDto(addrNo,addrName,addrTel,addrAddr,addrDetail,addrLike,addrTag,addrImagePath);
+                AddressDto address = new AddressDto(addrNo,addrName,addrTel,addrAddr,addrDetail,addrTag);
                 Address.add(address);
                 // Log.v(TAG, member.toString());
                 Log.v(TAG, "----------------------------------");

@@ -10,6 +10,25 @@ public class AddressDto {
     String addrTag;
     String addrImagePath;
 
+    public AddressDto(int addrNo, String addrName, String addrTel, String addrAddr, String addrDetail, String addrTag) {
+        this.addrNo = addrNo;
+        this.addrName = addrName;
+        this.addrTel = addrTel;
+        this.addrAddr = addrAddr;
+        this.addrDetail = addrDetail;
+        this.addrTag = addrTag;
+    }
+
+    public AddressDto(int addrNo, String addrName, String addrTel, String addrAddr, String addrDetail, String addrTag, String addrImagePath) {
+        this.addrNo = addrNo;
+        this.addrName = addrName;
+        this.addrTel = addrTel;
+        this.addrAddr = addrAddr;
+        this.addrDetail = addrDetail;
+        this.addrTag = addrTag;
+        this.addrImagePath = addrImagePath;
+    }
+
     public AddressDto(int addrNo, String addrName, String addrTel, String addrAddr, String addrDetail, String addrLike, String addrTag, String addrImagePath) {
         this.addrNo = addrNo;
         this.addrName = addrName;
