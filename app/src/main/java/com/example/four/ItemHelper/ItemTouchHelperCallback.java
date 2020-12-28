@@ -105,6 +105,8 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
             buttonInstance = rightButton;
 
 
+
+
         }
     }
 

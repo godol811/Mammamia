@@ -28,6 +28,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ItemViewHolder
     ArrayList<AddressDto> items = new ArrayList<>();
     Context context;
 
+
     int addrNo;
 
     public ListAdapter(Context context) {
