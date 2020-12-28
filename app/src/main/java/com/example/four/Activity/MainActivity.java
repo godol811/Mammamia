@@ -61,7 +61,7 @@ public class MainActivity extends Activity {
         recyclerView.setLayoutManager(layoutManager);
 
 
-        urlAddr = "http://192.168.0.105:8080/test/mammamia.jsp";
+        urlAddr = "http://172.30.1.27:8080/test/mammamia.jsp";
 
         //검색 인텐트로 이동하기 위해 버튼 선언--------------------
         ivSearchActivity = findViewById(R.id.btn_search_main);
@@ -113,6 +113,7 @@ public class MainActivity extends Activity {
 
 
                 intent.putExtra("urlAddr", urlAddr);
+
                 intent.putExtra("addrNo", members.get(position).getAddrNo());
                 intent.putExtra("addrName", members.get(position).getAddrName());
                 intent.putExtra("addrTag", members.get(position).getAddrTag());
