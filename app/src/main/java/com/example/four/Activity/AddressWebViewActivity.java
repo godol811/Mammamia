@@ -50,6 +50,6 @@ public class AddressWebViewActivity extends AppCompatActivity {
             }
         });
 
-        browser.loadUrl("http://192.168.35.147:8080/test/daum.html");
+        browser.loadUrl("http://192.168.0.105:8080/test/daum.html"); //여기 자기 주소로 바꾸기
     }
 }
