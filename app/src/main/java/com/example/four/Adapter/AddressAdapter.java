@@ -1,6 +1,8 @@
 package com.example.four.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -108,11 +110,12 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         public TextView addrTag;
         public TextView addrName;
         public TextView addrTel;
-        public TextView addrLike;
+        public TextView addrAddr;
+
 
 
         //추가
-        public TextView addrAddr;
+        public TextView addrLike;
         public ImageView addrTagImg;
 
 
@@ -147,6 +150,11 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
             });
 
 
+
+
+
+
+
             //-----------------Click Event---------------------
             //-----------------Click Event---------------------
 
@@ -161,6 +169,10 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
 //                    if (position != RecyclerView.NO_POSITION) {
 //                        if (mLongListener != null) {
 //                            mLongListener.onItemLongClick(view, position);
+//                            Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+cal));
+//                            mContext.startActivity(intent);
+//
+//
 //                        }
 //                    }
 //
