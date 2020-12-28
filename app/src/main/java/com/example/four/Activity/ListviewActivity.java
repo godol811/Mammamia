@@ -161,7 +161,7 @@ public class ListviewActivity extends AppCompatActivity
     View.OnClickListener onClickListener2 = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            urlAddr = "http://172.30.1.27:8080/test/mammamiaDelete.jsp?";
+            urlAddr = "http:///192.168.0.105:8080/test/mammamiaDelete.jsp?";
             urlAddr = urlAddr + "addrNo=" + addrNo;
             connectDeleteData();
 
