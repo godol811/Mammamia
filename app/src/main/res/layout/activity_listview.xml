@@ -1,47 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Activity.ListviewActivity">
 
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="0px"
-    android:layout_weight="0.7"
-    android:orientation="vertical"
-    android:layout_gravity="right">
-
-            <ImageButton
-                android:id="@+id/btn_search_listview"
-                android:layout_gravity="right"
-                android:layout_width="33dp"
-                android:layout_height="33dp"
-                android:src="@drawable/search"
-                android:scaleType="fitXY"
-                android:background="#00ffffff"
-                android:layout_marginRight="30dp"
-                android:layout_marginTop="5dp"
-               />
-</LinearLayout>
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="주소록" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0px"
-        android:layout_weight="9"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/lv_student"
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!--나중에 바뀔거,선택시 태그변경 가능하게-->
+
+            <ImageView
+                android:id="@+id/iv_tagimg_listview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/shape_circle"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/tv_tagname_listview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_name_listview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_tel_listview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+            <!--     addrAddr tv 추가       -->
+
+            <TextView
+                android:id="@+id/tv_addr_listview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <!--            -->
+            <TextView
+                android:id="@+id/tv_detail_listview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="4"
+        android:orientation="vertical"
+        >
+
+
+        <!-- Fragment는 앱에 지도를 표시하기 위해 사용되는 컴포넌트 관련 처리를 자동으로 해줌 -->
+        <!-- 앱에서 사용하기 위해서는 레이아웃의 액티비티에 <fragment> 태그를 사용하여 추가 -->
+        <fragment
+            android:id="@+id/fg_map_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".mapdetail"
+            android:name="com.google.android.gms.maps.SupportMapFragment" />
 
     </LinearLayout>
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_update_listview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="편집" />
+
+        <Button
+            android:id="@+id/btn_back_listview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="뒤로가기" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <Button
+            android:id="@+id/btn_delete_listview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="삭제" />
+    </LinearLayout>
+
 </LinearLayout>
+
+
+
+
