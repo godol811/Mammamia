@@ -48,7 +48,7 @@ public class MainActivity extends Activity {
         recyclerView.setLayoutManager(layoutManager);
 
 
-        urlAddr = "http://172.30.1.27:8080/test/mammamia.jsp";
+        urlAddr = "http://222.106.89.206:8080/test/mammamia.jsp";
 
 
 
