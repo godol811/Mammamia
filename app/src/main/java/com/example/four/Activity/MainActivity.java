@@ -93,6 +93,7 @@ public class MainActivity extends Activity {
 
 
                 intent.putExtra("urlAddr", urlAddr);
+
                 intent.putExtra("addrNo", members.get(position).getAddrNo());
                 intent.putExtra("addrName", members.get(position).getAddrName());
                 intent.putExtra("addrTag", members.get(position).getAddrTag());

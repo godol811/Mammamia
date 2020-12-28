@@ -165,10 +165,9 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
             Log.v(TAG,"s"+s);
 
 
-
             for(int i = 0; i < jsonArray.length(); i++){
                 JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
-                int addrNo = jsonObject1.getInt("addrNO");
+                int addrNo = jsonObject1.getInt("addrNo");
                 String addrName = jsonObject1.getString("addrName");
                 String addrTel = jsonObject1.getString("addrTel");
                 String addrAddr = jsonObject1.getString("addrAddr");
