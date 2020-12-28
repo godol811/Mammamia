@@ -60,19 +60,11 @@ public class SearchActivity extends Activity {
         recyclerView.setLayoutManager(layoutManager);
 
 
-        urlAddr = "http://192.168.0.105:8080/test/mammamia.jsp";
+        urlAddr = "http://192.168.0.105:8080/test/mammamiaSearch.jsp";
 
 
 
 
-
-        findViewById(R.id.btn_insert_listview).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SearchActivity.this,InsertActivity.class);
-                startActivity(intent);
-            }
-        });
 
 
 
@@ -120,12 +112,10 @@ public class SearchActivity extends Activity {
     View.OnClickListener searchClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = getIntent();
-
+            urlAddr = "http://192.168.0.105:8080/test/mammamiaSearch.jsp";
 
             stSearch = etSearch.getText().toString();
-            urlAddr = urlAddr + "?addrName="+ stSearch +"&addrTel="+ stSearch;
-
+            urlAddr = urlAddr + "?addrName="+ stSearch +"&addrTel="+ stSearch + "&addrTag="+ stSearch;
 
             connectGetData();
         }
