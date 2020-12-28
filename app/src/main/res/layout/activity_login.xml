@@ -39,10 +39,11 @@
                     android:textStyle="bold"/>
 
                 <EditText
-                    android:id="@+id/et_name_main"
+                    android:id="@+id/et_name_login"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"/>
+                    android:layout_marginLeft="15dp"
+                    android:maxLines="1"/>
 
             </LinearLayout>
 
@@ -59,13 +60,17 @@
                     android:text="전화번호"
                     android:textColor="#fff"
                     android:textSize="20dp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    />
 
                 <EditText
-                    android:id="@+id/et_tel_main"
+                    android:id="@+id/et_tel_login"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"/>
+                    android:layout_marginLeft="15dp"
+                    android:inputType="phone"
+                    android:maxLines="1"
+                    />
 
             </LinearLayout>
 
@@ -84,11 +89,13 @@
                     android:textSize="20dp"
                     android:textStyle="bold"/>
 
-                <EditText
-                    android:id="@+id/et_addr_main"
+                <TextView
+                    android:id="@+id/et_addr_login"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"/>
+                    android:layout_marginLeft="15dp"
+                    android:hint="  주소를 찾기 위해 눌러주세요"
+                    android:maxLines="2"/>
 
             </LinearLayout>
 
@@ -105,13 +112,16 @@
                     android:text="상세주소"
                     android:textColor="#fff"
                     android:textSize="20dp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    />
 
                 <EditText
-                    android:id="@+id/et_addrDetail_main"
+                    android:id="@+id/et_addrDetail_login"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"/>
+                    android:layout_marginLeft="15dp"
+                    android:inputType="text"
+                    android:maxLines="1"/>
 
             </LinearLayout>
 
@@ -145,10 +155,21 @@
             android:layout_width="match_parent"
             android:layout_height="0px"
             android:layout_weight="1">
+            <CheckBox
+                android:id="@+id/cb_agree_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="이용약관에 동의합니다.(필수)"
+                />
 
 
 
         </LinearLayout>
+    <Button
+        android:id="@+id/btn_login_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="시작하기" />
 
 
     </LinearLayout>
