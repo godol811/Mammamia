@@ -61,6 +61,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
 
 
 
+
     }
 
     @Override
@@ -107,6 +108,9 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         public TextView addrTag;
         public TextView addrName;
         public TextView addrTel;
+        public TextView addrLike;
+
+
         //추가
         public TextView addrAddr;
         public ImageView addrTagImg;
@@ -115,6 +119,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         MyViewHolder(View v) {
 
             super(v);
+            addrAddr = v.findViewById(R.id.tv_address_listlayout);
             addrTag = v.findViewById(R.id.tv_tag_listlayout);
             addrName = v.findViewById(R.id.tv_name_listlayout);
             addrTel = v.findViewById(R.id.tv_tel_listlayout);

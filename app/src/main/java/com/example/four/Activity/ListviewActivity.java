@@ -96,9 +96,9 @@ public class ListviewActivity extends AppCompatActivity
 
 
 
-        addrName = findViewById(R.id.tv_name_listlayout);
-        addrTag = findViewById(R.id.tv_tag_listlayout);
-        addrTel = findViewById(R.id.tv_tel_listlayout);
+        addrName = findViewById(R.id.tv_name_listview);
+        addrTag = findViewById(R.id.tv_tagname_listview);
+        addrTel = findViewById(R.id.tv_tel_listview);
 
         //addrAddr추가
         addrAddr = findViewById(R.id.tv_addr_listview);
@@ -161,7 +161,7 @@ public class ListviewActivity extends AppCompatActivity
     View.OnClickListener onClickListener2 = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            urlAddr = "http://222.106.89.206:8080/test/mammamiaDelete.jsp?";
+            urlAddr = "http://172.30.1.27:8080/test/mammamiaDelete.jsp?";
             urlAddr = urlAddr + "addrNo=" + addrNo;
             connectDeleteData();
 

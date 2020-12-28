@@ -48,7 +48,7 @@ public class MainActivity extends Activity {
         recyclerView.setLayoutManager(layoutManager);
 
 
-        urlAddr = "http://222.106.89.206:8080/test/mammamia.jsp";
+        urlAddr = "http://172.30.1.27:8080/test/mammamia.jsp";
 
 
 
@@ -83,11 +83,7 @@ public class MainActivity extends Activity {
             @Override
             public void onItemClick(View v, int position) {
 
-//                //전화걸기
-//                Intent intent1 = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+members.get(position).getPhone()));
-//
-//
-//                startActivity(intent1);
+
 
                 Intent intent = new Intent(MainActivity.this, ListviewActivity.class);
 
