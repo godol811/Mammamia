@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.four.Adapter.AddressAdapter;
@@ -32,6 +33,9 @@ public class MainActivity extends Activity {
 
     private RecyclerView.LayoutManager layoutManager = null;
 
+    //---------------검색 버튼
+    ImageButton ivSearchActivity;
+    //------------------------
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +52,12 @@ public class MainActivity extends Activity {
         recyclerView.setLayoutManager(layoutManager);
 
 
-        urlAddr = "http://172.30.1.27:8080/test/mammamia.jsp";
+        urlAddr = "http://192.168.0.105:8080/test/mammamia.jsp";
 
-
+        //검색 인텐트로 이동하기 위해 버튼 선언--------------------
+        ivSearchActivity = findViewById(R.id.btn_search_main);
+        ivSearchActivity.setOnClickListener(searchClickListener);
+        //--------------------------------------------------------
 
 
 
@@ -104,6 +111,14 @@ public class MainActivity extends Activity {
         });
     }
 
+    //검색 인텐트로 이동
+    View.OnClickListener searchClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(getApplicationContext(),SearchActivity.class);
+            startActivity(intent);
+        }
+    };
 
     private void connectGetData() {
         try {

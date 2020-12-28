@@ -19,7 +19,7 @@
             android:background="@drawable/search_back">
 
             <EditText
-                android:id="@+id/search_edit"
+                android:id="@+id/et_search"
                 android:layout_width="280dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="50dp"
