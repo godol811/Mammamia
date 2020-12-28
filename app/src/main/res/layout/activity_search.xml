@@ -14,28 +14,28 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:orientation="horizontal"
-            android:background="@drawable/search_back">
+            android:layout_height="wrap_content"
+            android:background="@drawable/search_back"
+            android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/et_search"
                 android:layout_width="280dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginLeft="50dp"
-                android:hint="Search"
-                android:layout_gravity="center"/>
+                android:hint="Search" />
 
             <ImageButton
                 android:id="@+id/btn_search_searchactivity"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/search"
-                android:background="#00ffffff"
                 android:layout_gravity="right|center"
+                android:layout_marginLeft="15dp"
                 android:layout_marginRight="30dp"
-                android:layout_marginLeft="15dp"/>
+                android:background="#00ffffff"
+                android:scaleType="fitXY"
+                android:src="@drawable/search" />
         </LinearLayout>
 
     </LinearLayout>
@@ -44,13 +44,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0px"
-        android:layout_weight="9"
-        android:orientation="vertical">
+        android:layout_weight="8"
+        android:orientation="vertical"
+        android:layout_marginTop="15dp">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rl_address"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content" />
 
 
     </LinearLayout>
