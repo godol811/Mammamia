@@ -1,6 +1,7 @@
 package com.example.four.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,6 +16,8 @@ import android.widget.Toast;
 
 import com.example.four.Adapter.AddressAdapter;
 import com.example.four.Bean.AddressDto;
+import com.example.four.ItemHelper.ItemTouchHelperCallback;
+import com.example.four.ItemHelper.ListAdapter;
 import com.example.four.NetworkTask.NetworkTask;
 import com.example.four.R;
 
@@ -33,6 +36,12 @@ public class MainActivity extends Activity {
 
     private RecyclerView.LayoutManager layoutManager = null;
 
+    //여기서부터 하진추가
+    ///////////////////////////////////////////////
+    ListAdapter adapter2;
+    ItemTouchHelper helper;
+    ///////////////////////////////////////////////
+
     //---------------검색 버튼
     ImageButton ivSearchActivity;
     //------------------------
@@ -44,7 +53,7 @@ public class MainActivity extends Activity {
 
         recyclerView = findViewById(R.id.rl_address);
 
-
+        //recyclerView의 아이템 사이즈를 고정하여 리소스를 줄임
         recyclerView.setHasFixedSize(true);
 
 
@@ -52,7 +61,7 @@ public class MainActivity extends Activity {
         recyclerView.setLayoutManager(layoutManager);
 
 
-        urlAddr = "http://192.168.0.105:8080/test/mammamia.jsp";
+        urlAddr = "http://172.30.1.27:8080/test/mammamia.jsp";
 
         //검색 인텐트로 이동하기 위해 버튼 선언--------------------
         ivSearchActivity = findViewById(R.id.btn_search_main);
@@ -60,7 +69,15 @@ public class MainActivity extends Activity {
         //--------------------------------------------------------
 
 
+        //여기서부터 하진추가
+        //////////////////////////////////////////////////////
+        //ItemTouchHelper 생성
+        helper = new ItemTouchHelper(new ItemTouchHelperCallback(adapter2));
 
+        //RecyclerView에 ItemTouchHelper 붙이기
+        helper.attachToRecyclerView(recyclerView);
+
+        //////////////////////////////////////////////////////
         findViewById(R.id.btn_insert_listview).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,6 +113,7 @@ public class MainActivity extends Activity {
 
 
                 intent.putExtra("urlAddr", urlAddr);
+
                 intent.putExtra("addrNo", members.get(position).getAddrNo());
                 intent.putExtra("addrName", members.get(position).getAddrName());
                 intent.putExtra("addrTag", members.get(position).getAddrTag());

@@ -108,7 +108,7 @@ public class ListviewActivity extends AppCompatActivity
 
 
         upbtn = findViewById(R.id.btn_update_listview);
-        backbtn = findViewById(R.id.btn_back_listview);
+//        backbtn = findViewById(R.id.btn_back_listview);
         delebtn = findViewById(R.id.btn_delete_listview);
 
 
@@ -122,7 +122,7 @@ public class ListviewActivity extends AppCompatActivity
 
 
         upbtn.setOnClickListener(onClickListener);
-        backbtn.setOnClickListener(onClickListener1);
+//        backbtn.setOnClickListener(onClickListener1);
         delebtn.setOnClickListener(onClickListener2);
 
         //inwoo추가-----------------------------------
@@ -161,7 +161,7 @@ public class ListviewActivity extends AppCompatActivity
     View.OnClickListener onClickListener2 = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            urlAddr = "http://192.168.0.105:8080/test/mammamiaDelete.jsp?";
+            urlAddr = "http://172.30.1.27:8080/test/mammamiaDelete.jsp?";
             urlAddr = urlAddr + "addrNo=" + addrNo;
             connectDeleteData();
 

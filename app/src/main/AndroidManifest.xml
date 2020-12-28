@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.Four">
-        <activity android:name=".Activity.MapDetailActivity"></activity>
+        <activity android:name=".Activity.MapDetailActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity android:name=".Activity.AddressWebViewActivity" /> <!-- Google ApiKey -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -31,7 +32,8 @@
         <activity android:name=".Activity.SearchActivity" />
         <activity android:name=".Activity.InsertActivity" />
         <activity android:name=".Activity.UpdateActivity" />
-        <activity android:name=".Activity.ListviewActivity" />
+        <activity android:name=".Activity.ListviewActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity android:name=".Activity.MainActivity" />
     </application>
 

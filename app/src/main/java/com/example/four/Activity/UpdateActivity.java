@@ -33,7 +33,7 @@ public class UpdateActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update);
 
-        urlAddr = "http://192.168.0.105:8080/test/mammamiaUpdate.jsp?";
+        urlAddr = "http://172.30.1.27:8080/test/mammamiaUpdate.jsp?";
 
 
 

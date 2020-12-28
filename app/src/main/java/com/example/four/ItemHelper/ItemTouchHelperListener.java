@@ -1,5 +1,16 @@
 package com.example.four.ItemHelper;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 public interface ItemTouchHelperListener {
-    final static String TAG = "아이템터치헬퍼리스너";
+    boolean onItemMove(int from_position, int to_position);
+
+    void onItemSwipe(int position);
+
+    void onLeftClick(int position, RecyclerView.ViewHolder viewHolder);
+
+    void onRightClick(int position, RecyclerView.ViewHolder viewHolder);
 }
+
+
+
