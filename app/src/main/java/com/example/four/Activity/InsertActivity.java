@@ -16,6 +16,7 @@ public class InsertActivity extends Activity {
 
 
     String urlAddr = null;
+    String urlIp = null;
 
     EditText insertName, insertTag, insertTel, insertAddr, insertDetail;
     Button addrinsertBtn;
@@ -27,8 +28,15 @@ public class InsertActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_insert);
-        urlAddr = "http://222.106.89.206:8080/test/mammamiaInsert.jsp?";
 
+
+
+        //받아오는 ip값
+        Intent intent = getIntent();
+
+        urlIp = intent.getStringExtra("urlIp");
+
+        urlAddr = "http://"+urlIp+":8080/test/mammamiaInsert.jsp?";
 
 
         insertTag = findViewById(R.id.et_tagname_insert);

@@ -25,6 +25,9 @@ public class MainActivity extends Activity {
 
 
     String urlAddr = null;
+    //ip 변수 추가
+    String urlIp = null;
+    //-----------------
     ArrayList<AddressDto> members;
     AddressAdapter adapter = null;
     private RecyclerView recyclerView = null;
@@ -48,7 +51,15 @@ public class MainActivity extends Activity {
         recyclerView.setLayoutManager(layoutManager);
 
 
-        urlAddr = "http://222.106.89.206:8080/test/mammamia.jsp";
+        //inwoo 추가
+        //헤이! 여기 아이피만 교체해주세요!
+        urlIp = "222.106.89.206";
+
+
+
+
+
+        urlAddr = "http://"+urlIp+":8080/test/mammamia.jsp";
 
 
 
@@ -58,6 +69,9 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this,InsertActivity.class);
+
+                //ip주소 보내기
+                intent.putExtra("urlIp", urlIp);
                 startActivity(intent);
             }
         });
@@ -87,8 +101,8 @@ public class MainActivity extends Activity {
 
                 Intent intent = new Intent(MainActivity.this, ListviewActivity.class);
 
-
-                intent.putExtra("urlAddr", urlAddr);
+                //ip주소 보내기
+                intent.putExtra("urlIp", urlIp);
 
                 intent.putExtra("addrNo", members.get(position).getAddrNo());
                 intent.putExtra("addrName", members.get(position).getAddrName());

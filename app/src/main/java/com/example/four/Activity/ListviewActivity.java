@@ -34,6 +34,10 @@ public class ListviewActivity extends AppCompatActivity
 
         implements OnMapReadyCallback {
 
+
+    //ip변수
+    String urlIp = null;
+
     String urlAddr = null;
 
     //addrAddr 추가
@@ -81,11 +85,12 @@ public class ListviewActivity extends AppCompatActivity
         //-------------------------------------------------------
 
 
-
-
         Intent intent = getIntent();
-        addrNo = intent.getIntExtra("addrNo",0);
 
+
+        urlIp = intent.getStringExtra("urlIp");
+
+        addrNo = intent.getIntExtra("addrNo",0);
         name = intent.getStringExtra("addrName");
         tel = intent.getStringExtra("addrTel");
         tagName = intent.getStringExtra("addrTag");
@@ -136,6 +141,11 @@ public class ListviewActivity extends AppCompatActivity
         @Override
         public void onClick(View v) {
             Intent intent1 = new Intent(ListviewActivity.this, UpdateActivity.class);
+
+
+            //ip값 보내기
+            intent1.putExtra("urlIp",urlIp);
+
             intent1.putExtra("urlAddr",urlAddr);
             intent1.putExtra("addrNo",addrNo);
             intent1.putExtra("addrName",name);
@@ -161,7 +171,13 @@ public class ListviewActivity extends AppCompatActivity
     View.OnClickListener onClickListener2 = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            urlAddr = "http://222.106.89.206:8080/test/mammamiaDelete.jsp?";
+
+
+
+
+
+            urlAddr = "http://"+urlIp+":8080/test/mammamiaDelete.jsp?";
+
             urlAddr = urlAddr + "addrNo=" + addrNo;
             connectDeleteData();
 
@@ -222,7 +238,6 @@ public class ListviewActivity extends AppCompatActivity
                 Intent intent = new Intent(ListviewActivity.this, MapDetailActivity.class);
 
                 //주소값 보내주기 마커위치에서 시작하기 위해서
-//                addr = dept1.getText().toString();'
                 intent.putExtra("intentLat", intentLat);
                 intent.putExtra("intentLng", intentLng);
                 Log.d(TAG, addr);

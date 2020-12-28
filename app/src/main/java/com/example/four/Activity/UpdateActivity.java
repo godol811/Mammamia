@@ -24,6 +24,8 @@ public class UpdateActivity extends Activity {
     EditText tag, name, tel, detail, addr;
 
     String urlAddr = null;
+    String urlIp = null;
+
     Button okbtn;
     Button backbtn;
 
@@ -33,11 +35,11 @@ public class UpdateActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update);
 
-        urlAddr = "http://222.106.89.206:8080/test/mammamiaUpdate.jsp?";
-
 
 
         Intent intent = getIntent();
+
+        urlIp = intent.getStringExtra("urlIp");
 
         tag1 = intent.getStringExtra("addrTag");
         name1 = intent.getStringExtra("addrName");
@@ -45,6 +47,12 @@ public class UpdateActivity extends Activity {
         addr1 = intent.getStringExtra("addrAddr");
         detail1 = intent.getStringExtra("addrDetail");
         num = intent.getIntExtra("addrNo",0);
+
+
+
+        urlAddr = "http://"+urlIp+":8080/test/mammamiaUpdate.jsp?";
+
+
 
 
         tag = findViewById(R.id.et_tagname_update);
