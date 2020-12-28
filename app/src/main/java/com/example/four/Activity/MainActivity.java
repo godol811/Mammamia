@@ -66,7 +66,7 @@ public class MainActivity extends Activity {
 
         //inwoo 추가
         //헤이! 여기 아이피만 교체해주세요!
-        urlIp = "222.106.89.206";
+        urlIp = "192.168.0.105";
 
 
 
@@ -88,7 +88,6 @@ public class MainActivity extends Activity {
         //RecyclerView에 ItemTouchHelper 붙이기
         helper.attachToRecyclerView(recyclerView);
 
-        //////////////////////////////////////////////////////
         findViewById(R.id.btn_insert_listview).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -142,6 +141,17 @@ public class MainActivity extends Activity {
             }
         });
     }
+
+
+    //돋보기 버튼 클릭 - 검색 인텐트로 이동
+    View.OnClickListener searchClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(getApplicationContext(),SearchActivity.class);
+            intent.putExtra("urlIp", urlIp);
+            startActivity(intent);
+        }
+    };
 
 
     private void connectGetData() {

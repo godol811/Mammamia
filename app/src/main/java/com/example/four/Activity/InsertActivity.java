@@ -28,7 +28,7 @@ public class InsertActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_insert);
-        urlAddr = "http://192.168.0.105:8080/test/mammamiaInsert.jsp?";
+
 
 
 
