@@ -20,6 +20,16 @@ import android.widget.Toast;
 import com.example.four.NetworkTask.NetworkTask;
 import com.example.four.R;
 
+import java.io.File;
+import java.io.IOException;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
 public class UpdateActivity extends Activity {
 
     String imagePath;
@@ -113,9 +123,10 @@ public class UpdateActivity extends Activity {
             String st_tel = tel.getText().toString();
             String st_addr = addr.getText().toString();
             String st_detail = detail.getText().toString();
+            doMultiPartRequest();//사진 넣는 okHttp3 메소드
 
 
-            urlAddr = urlAddr + "addrNo=" + num + "&addrName=" + st_name + "&addrTel=" + st_tel + "&addrAddr=" + st_addr + "&addrDetail=" + st_detail + "&addrTag=" + st_tag + "&addrImagePath=" + imagePath;
+            urlAddr = urlAddr + "addrNo=" + num + "&addrName=" + st_name + "&addrTel=" + st_tel + "&addrAddr=" + st_addr + "&addrDetail=" + st_detail + "&addrTag=" + st_tag + "&addrImagePath=" + imageName;
             connectUpdateData();
 
             Intent intent = new Intent(UpdateActivity.this, MainActivity.class);
@@ -145,6 +156,7 @@ public class UpdateActivity extends Activity {
     }
 
 
+
     //----------------------이미지 관련 메소드----------------------------------------------
     //
     //고종찬 = 바지사장
@@ -169,7 +181,7 @@ public class UpdateActivity extends Activity {
 
                     //image_bitmap 으로 받아온 이미지의 사이즈를 임의적으로 조절함. width: 400 , height: 300
                     image_bitmap_copy = Bitmap.createScaledBitmap(image_bitmap, 400, 300, true);
-                    ImageView image = (ImageView) findViewById(R.id.iv_profile_update);  //이미지를 띄울 위젯 ID값
+                    ImageView image = (ImageView) findViewById(R.id.iv_image_insert);  //이미지를 띄울 위젯 ID값
                     image.setImageBitmap(image_bitmap_copy);
 
 
@@ -196,15 +208,57 @@ public class UpdateActivity extends Activity {
         String imgName = imgPath.substring(imgPath.lastIndexOf("/") + 1);
         Toast.makeText(UpdateActivity.this, "이미지 이름 : " + imgName, Toast.LENGTH_SHORT).show();
         this.imageName = imgName;
-        this.imagePath = imgPath;
+//        this.imagePath = imgPath;
 
         return imgPath;
     }//end of getImagePathToUri()
+
+    //파일 변환
+    private void doMultiPartRequest() {
+
+        File f = new File(img_path);
+
+        DoActualRequest(f);
+    }
+
+    //서버 보내기
+    private void DoActualRequest(File file) {
+        OkHttpClient client = new OkHttpClient();
+        String url = "http://"+urlIp+":8080/test/multipartRequest.jsp";
+
+        RequestBody body = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("image", file.getName(),
+                        RequestBody.create(MediaType.parse("image/jpeg"), file))
+
+                .build();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+
+        try {
+            Response response = client.newCall(request).execute();
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+
+
+
+
+
     //----------------------이미지 관련 메소드----------------------------------------------
     //
     //고종찬 = 바지사장
     //
     //---------------------------------------------------------------------------------
-
 
 }//-----------------

@@ -32,7 +32,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
     int layout = 0;
     LayoutInflater inflater = null;
     private ArrayList<AddressDto> mDataset;
-    String urlAddr = null;
+    String urlAddr = "http://192.168.35.147:8080/pictures/";
     int pos=0;
 
     String cal = null;
@@ -64,7 +64,11 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         holder.addrName.setText(mDataset.get(position).getAddrName()); //position = 인덱스값
         holder.addrAddr.setText(mDataset.get(position).getAddrAddr()); //position = 인덱스값
         holder.addrTel.setText(mDataset.get(position).getAddrTel()); //position = 인덱스값
-        holder.addrProfile.setImageBitmap(BitmapFactory.decodeFile(mDataset.get(position).getAddrImagePath()));//사진
+//        holder.addrProfile.setImageURI(Uri.parse(urlAddr+mDataset.get(position).getAddrImagePath()));
+        Picasso.get().load(urlAddr+mDataset.get(position).getAddrImagePath()).into(holder.addrProfile);
+
+
+        Log.d(TAG,urlAddr+mDataset.get(position).getAddrImagePath());
 
 
 

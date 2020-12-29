@@ -135,8 +135,8 @@ public class ListviewActivity extends AppCompatActivity
         //addrimage 추가
         profileImage = findViewById(R.id.iv_profile_listview);
 
-        profileImage.setImageBitmap(BitmapFactory.decodeFile(imagePath));//가져온 경로를 imageView에 올리기
-//        Picasso.get().load(imagePath).fit().into(profileImage);
+        String urlAddr = "http://192.168.35.147:8080/pictures/";
+        Picasso.get().load(urlAddr+imagePath).into(profileImage);
         //-------------
         addrDetail = findViewById(R.id.tv_detail_listview);
 

@@ -23,6 +23,16 @@ import android.widget.TextView;
 import com.example.four.NetworkTask.NetworkTask;
 import com.example.four.R;
 
+import java.io.File;
+import java.io.IOException;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
 public class InsertActivity extends Activity {
 
 
@@ -108,7 +118,7 @@ public class InsertActivity extends Activity {
 
             //addrAddr추가
             //imgaepath 추가 - 종찬
-            urlAddr = urlAddr + "addrTag=" + addrTag + "&addrName=" + addrName + "&addrTel=" + addrTel + "&addrAddr=" + addrAddr + "&addrDetail=" + addrDetail + "&addrImagePath=" + imagePath;
+            urlAddr = urlAddr + "addrTag=" + addrTag + "&addrName=" + addrName + "&addrTel=" + addrTel + "&addrAddr=" + addrAddr + "&addrDetail=" + addrDetail + "&addrImagePath=" + imageName;
             connectInsertData();
             Intent intent = new Intent(InsertActivity.this, MainActivity.class);
             startActivity(intent);
@@ -218,15 +228,57 @@ public class InsertActivity extends Activity {
         String imgName = imgPath.substring(imgPath.lastIndexOf("/") + 1);
         Toast.makeText(InsertActivity.this, "이미지 이름 : " + imgName, Toast.LENGTH_SHORT).show();
         this.imageName = imgName;
-        this.imagePath = imgPath;
+//        this.imagePath = imgPath;
 
         return imgPath;
     }//end of getImagePathToUri()
+
+    //파일 변환
+    private void doMultiPartRequest() {
+
+        File f = new File(img_path);
+
+        DoActualRequest(f);
+    }
+
+    //서버 보내기
+    private void DoActualRequest(File file) {
+        OkHttpClient client = new OkHttpClient();
+        String url = "http://"+urlIp+":8080/test/multipartRequest.jsp";
+
+        RequestBody body = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("image", file.getName(),
+                        RequestBody.create(MediaType.parse("image/jpeg"), file))
+
+                .build();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+
+        try {
+            Response response = client.newCall(request).execute();
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+
+
+
+
+
     //----------------------이미지 관련 메소드----------------------------------------------
     //
     //고종찬 = 바지사장
     //
     //---------------------------------------------------------------------------------
-
 
 }//-------------------------------
