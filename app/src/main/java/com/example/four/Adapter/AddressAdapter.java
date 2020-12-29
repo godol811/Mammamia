@@ -4,13 +4,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,16 +22,19 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.four.Activity.ListviewActivity;
 import com.example.four.Bean.AddressDto;
+import com.example.four.ItemHelper.CustomDialog;
+import com.example.four.ItemHelper.ItemTouchHelperListener;
+import com.example.four.ItemHelper.OnDialogListener;
 import com.example.four.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 
-
-
-public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHolder> {
-
+public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHolder>
+    //하진추가
+        implements ItemTouchHelperListener, OnDialogListener {
+    ////////////////////////
 
     final static String TAG = "어드레스어뎁터";
 
@@ -37,6 +43,8 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
     int layout = 0;
     LayoutInflater inflater = null;
     private ArrayList<AddressDto> mDataset;
+    String urlAddr = null;
+    int pos = 0;
 
     String urlAddr = "http://222.106.89.206:8080/pictures/";//자기 ip로 바꾸기
     ///////////////////////////////////////////////////////////////////////////////////////
@@ -50,6 +58,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
     int pos=0;
 
     String cal = null;
+
     public AddressAdapter(Context mContext, int layout, ArrayList<AddressDto> data) {
         this.mContext = mContext;
         this.layout = layout;
@@ -61,6 +70,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        //LayoutInflater를 이용해서 원하는 레이아웃을 띄워줌
         LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.listlayout, parent, false);
 
@@ -98,8 +108,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         Log.d(TAG,urlAddr+mDataset.get(position).getAddrImagePath());
 
 
-        
-        if(mDataset.get(position).getAddrTag().equals("병원")){
+        if (mDataset.get(position).getAddrTag().equals("병원")) {
             holder.addrTagImg.setImageResource(R.drawable.tag_hospital);
         }else if(mDataset.get(position).getAddrTag().equals("유치원")){
             holder.addrTagImg.setImageResource(R.drawable.tag_kindergaden);
@@ -235,8 +244,83 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
 
         }
     }
+    @Override
+    public boolean onItemMove(int from_position, int to_position) {
+        //이동할 객체 저장
+        AddressDto addressDto = mDataset.get(from_position);
+        //이동할 객체 삭제
+        mDataset.remove(from_position);
+        //이동하고 싶은 position에 추가
+        mDataset.add(to_position, addressDto);
+        //Adapter에 데이터 이동알림
+        notifyItemMoved(from_position, to_position);
+        return true;
+    }
+
+    @Override
+    public void onItemSwipe(int position) {
+        mDataset.remove(position);
+        notifyItemRemoved(position);
+    }
+    //왼쪽 버튼 누르면 수정할 다이얼로그 띄우기
+
+    @Override
+    public void onLeftClick(int position, RecyclerView.ViewHolder viewHolder) {
+        //수정 버튼 클릭시 다이얼로그 생성
+        CustomDialog dialog = new CustomDialog(mContext, position, mDataset.get(position));
+        //화면 사이즈 구하기
+        DisplayMetrics dm = mContext.getApplicationContext().getResources().getDisplayMetrics();
+        int width = dm.widthPixels;
+        int height = dm.heightPixels;
+        //다이얼로그 사이즈 세팅
+        WindowManager.LayoutParams wm = dialog.getWindow().getAttributes();
+        wm.copyFrom(dialog.getWindow().getAttributes());
+        wm.width = (int) (width * 0.7);
+        wm.height = height / 2;
+        //다이얼로그 Listener 세팅
+        dialog.setDialogListener(this);
+        //다이얼로그 띄우기
+        dialog.show();
+    }
+
+    //오른쪽 버튼 누르면 아이템 삭제
+    @Override
+    public void onRightClick(int position, RecyclerView.ViewHolder viewHolder) {
+        //수정 버튼 클릭시 다이얼로그 생성
+        CustomDialog dialog = new CustomDialog(mContext, position, mDataset.get(position));
+        //화면 사이즈 구하기
+        DisplayMetrics dm = mContext.getApplicationContext().getResources().getDisplayMetrics();
+        int width = dm.widthPixels;
+        int height = dm.heightPixels;
+        //다이얼로그 사이즈 세팅
+        WindowManager.LayoutParams wm = dialog.getWindow().getAttributes();
+        wm.copyFrom(dialog.getWindow().getAttributes());
+        wm.width = (int) (width * 0.7);
+        wm.height = height / 2;
+        //다이얼로그 Listener 세팅
+        dialog.setDialogListener(this);
+        //다이얼로그 띄우기
+        dialog.show();
+    }
 
 
 
+    @Override
+    public void onFinish(int position, AddressDto addressDto) {
+        mDataset.set(position, addressDto);
+        notifyItemChanged(position);
+    }
+//    public ItemViewHolder(View itemView) {
+//        super(itemView);
+//        list_name = itemView.findViewById(R.id.list_name);
+//        list_age = itemView.findViewById(R.id.list_age);
+//        list_image = itemView.findViewById(R.id.list_image);
+//    }
+//
+//    public void onBind(AddressDto addressDto) {
+//        list_name.setText(addressDto.getName());
+//        list_age.setText(String.valueOf(addressDto.getAge()));
+//        list_image.setImageResource(addressDto.getImage());
+//    }
 }//-------------------------------
 
