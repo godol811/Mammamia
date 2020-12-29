@@ -173,6 +173,7 @@ public class InsertActivity extends Activity {
 
                 afterLenght = s.length();
 
+
                 // 타자를 입력 중이면
                 if (beforeLenght < afterLenght) {
                     if (afterLenght == 4 && s.toString().indexOf("-") < 0) {
@@ -185,7 +186,6 @@ public class InsertActivity extends Activity {
                     }
                 }
                 insertTel.setSelection(insertTel.length());
-
             }
 
             @Override

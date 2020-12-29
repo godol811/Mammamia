@@ -10,6 +10,8 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -112,7 +114,60 @@ public class UpdateActivity extends Activity {
         okbtn.setOnClickListener(onClickListener);
         backbtn.setOnClickListener(onClickListener1);
 
+        //12월 29일 인우 추가
+        //자동으로 "-" 생성해서 전화번호에 붙여주기------------------------
+        tel.addTextChangedListener(new TextWatcher() {
 
+
+            private int beforeLenght = 0;
+            private int afterLenght = 0;
+
+            //입력 혹은 삭제 전의 길이와 지금 길이를 비교하기 위해 beforeTextChanged에 저장
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                beforeLenght = s.length();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                //아무글자도 없는데 지우려고 하면 로그띄우기 에러방지
+                if (s.length() <= 0) {
+                    Log.d("addTextChangedListener", "onTextChanged: Intput text is wrong (Type : Length)");
+                    return;
+                }
+
+                //특수문자 입력 방지
+                char inputChar = s.charAt(s.length() - 1);
+                if (inputChar != '-' && (inputChar < '0' || inputChar > '9')) {
+                    tel.getText().delete(s.length() - 1, s.length());
+                    Log.d("addTextChangedListener", "onTextChanged: Intput text is wrong (Type : Number)");
+                    return;
+                }
+
+                afterLenght = s.length();
+
+
+                // 타자를 입력 중이면
+                if (beforeLenght < afterLenght) {
+                    if (afterLenght == 4 && s.toString().indexOf("-") < 0) {
+                        //subSequence로 지정된 문자열을 반환해서 "-"폰을 붙여주고 substring
+                        tel.setText(s.toString().subSequence(0, 3) + "-" + s.toString().substring(3, s.length()));
+                        Log.v(TAG, String.valueOf(s.toString().substring(3, s.length())));
+                    } else if (afterLenght == 9) {
+                        tel.setText(s.toString().subSequence(0, 8) + "-" + s.toString().substring(8, s.length()));
+                        Log.v(TAG, String.valueOf(s.toString().substring(8, s.length())));
+                    }
+                }
+                tel.setSelection(tel.length());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // 생략
+            }
+
+        });
     }
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
