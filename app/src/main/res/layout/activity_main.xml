@@ -52,6 +52,8 @@
         android:backgroundTint="#FF9B94"
         android:text="+"
         android:textColor="#FFFFFF"
-        android:textSize="30sp" />
+        android:textSize="30sp"
+        android:background="@drawable/button_round"
+        />
 
 </LinearLayout>
