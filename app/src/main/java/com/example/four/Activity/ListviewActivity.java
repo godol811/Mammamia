@@ -100,6 +100,8 @@ public class ListviewActivity extends AppCompatActivity
         urlIp = intent.getStringExtra("urlIp");
         addrNo = intent.getIntExtra("addrNo",0);
 
+
+
         name = intent.getStringExtra("addrName");
         tel = intent.getStringExtra("addrTel");
         tagName = intent.getStringExtra("addrTag");
@@ -117,7 +119,7 @@ public class ListviewActivity extends AppCompatActivity
 
 
 
-
+        urlAddr = "http://"+urlIp+":8080/test/mammamiaDelete.jsp?";
 
 
         addrName = findViewById(R.id.tv_name_listview);
@@ -195,7 +197,7 @@ public class ListviewActivity extends AppCompatActivity
     View.OnClickListener onClickListener2 = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            urlAddr = "http://"+urlIp+":8080/test/mammamiaDelete.jsp?";
+
             urlAddr = urlAddr + "addrNo=" + addrNo;
             connectDeleteData();
 
