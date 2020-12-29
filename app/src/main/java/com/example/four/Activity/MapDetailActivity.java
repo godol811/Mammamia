@@ -224,6 +224,9 @@ public class MapDetailActivity extends FragmentActivity implements OnMapReadyCal
 
     // 구글맵 주소 검색 메서드
     protected void search(List<Address> addresses) {
+
+        previous_marker.clear();
+
         Log.v(TAG,"여기가 안들어오나");
         Address address = addresses.get(0);
         LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
@@ -232,6 +235,7 @@ public class MapDetailActivity extends FragmentActivity implements OnMapReadyCal
         Log.v(TAG, String.valueOf(address));
 
         editText.getText();
+
 //        검색안되던거 애 지움
 //        locationText.setVisibility(View.VISIBLE);
 //        locationText.setText(address.getLongitude() + "\n" + addressText.split(","));
@@ -305,18 +309,17 @@ public class MapDetailActivity extends FragmentActivity implements OnMapReadyCal
 
 
     public void showPlaceInformation(LatLng location) {
+
         //맵이 시작됨과 동시에 마커위치를 표시해줄것이므로 메소드에서 초기화 하면 안돼!
-
-//        mMap.clear();//지도 클리어
-
-//        if (previous_marker != null) {
-//            previous_marker.clear();//지역정보 마커 클리어
-//        }
+//            mMap.clear();//지도 클리어
+        if (previous_marker != null) {
+            previous_marker.clear();//지역정보 마커 클리어
+        }
 
         Log.d(TAG, tagName);
 
 
-
+            if (tagName == "병원")
             Log.d(TAG, "병원" + tagName);
             new NRPlaces.Builder()
                     .listener(MapDetailActivity.this)
