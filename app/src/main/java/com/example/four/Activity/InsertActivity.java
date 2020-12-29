@@ -1,6 +1,7 @@
 package com.example.four.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -12,6 +13,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.telephony.PhoneNumberFormattingTextWatcher;
+import android.telephony.PhoneNumberUtils;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -26,6 +30,7 @@ import com.example.four.R;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Locale;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -96,6 +101,17 @@ public class InsertActivity extends Activity {
         addrinsertBtn.setOnClickListener(onClickListener);
         insertBackBtn.setOnClickListener(onClickListener1);
 
+
+
+
+//        insertTel.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
+
+
+
+
+
+
+
 //---------------------------------------사진 불러오기 onclick-----------------------
         findViewById(R.id.iv_image_insert).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,6 +126,8 @@ public class InsertActivity extends Activity {
 
 //---------------------------------------사진 불러오기 onclick-----------------------
 
+
+
         //12월 29일 추가
         //주소검색 API--------------------------------------------------------------
 
@@ -120,8 +138,68 @@ public class InsertActivity extends Activity {
                 startActivityForResult(i, SEARCH_ADDRESS_ACTIVITY);
             }
         });
+
+
+        //12월 29일 인우 추가
+        //자동으로 "-" 생성해서 전화번호에 붙여주기------------------------
+        insertTel.addTextChangedListener(new TextWatcher() {
+
+
+            private int beforeLenght = 0;
+            private int afterLenght = 0;
+
+            //입력 혹은 삭제 전의 길이와 지금 길이를 비교하기 위해 beforeTextChanged에 저장
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                beforeLenght = s.length();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                //아무글자도 없는데 지우려고 하면 로그띄우기 에러방지
+                if (s.length() <= 0) {
+                    Log.d("addTextChangedListener", "onTextChanged: Intput text is wrong (Type : Length)");
+                    return;
+                }
+
+                //특수문자 입력 방지
+                char inputChar = s.charAt(s.length() - 1);
+                if (inputChar != '-' && (inputChar < '0' || inputChar > '9')) {
+                    insertTel.getText().delete(s.length() - 1, s.length());
+                    Log.d("addTextChangedListener", "onTextChanged: Intput text is wrong (Type : Number)");
+                    return;
+                }
+
+                afterLenght = s.length();
+
+                // 타자를 입력 중이면
+                if (beforeLenght < afterLenght) {
+                    if (afterLenght == 4 && s.toString().indexOf("-") < 0) {
+                      //subSequence로 지정된 문자열을 반환해서 "-"폰을 붙여주고 substring
+                        insertTel.setText(s.toString().subSequence(0, 3) + "-" + s.toString().substring(3, s.length()));
+                        Log.v(TAG, String.valueOf(s.toString().substring(3, s.length())));
+                    } else if (afterLenght == 9) {
+                        insertTel.setText(s.toString().subSequence(0, 8) + "-" + s.toString().substring(8, s.length()));
+                        Log.v(TAG, String.valueOf(s.toString().substring(8, s.length())));
+                    }
+                }
+                insertTel.setSelection(insertTel.length());
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // 생략
+            }
+
+        });
+
     }
-//-----------------------------------------------
+
+////자동으로 "-" 생성해서 전화번호에 붙여주기-------------------------------------------------------
+
+
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
