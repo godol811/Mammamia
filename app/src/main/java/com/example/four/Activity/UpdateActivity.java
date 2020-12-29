@@ -17,6 +17,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.four.NetworkTask.NetworkTask;
 import com.example.four.R;
 
@@ -32,8 +34,8 @@ import okhttp3.Response;
 
 public class UpdateActivity extends Activity {
 
-    String imagePath;
-    String imageName;
+    String imagePath  = null;
+    String imageName  = null;
     private String img_path = new String();
     private Bitmap image_bitmap_copy = null;
     private Bitmap image_bitmap = null;
@@ -95,16 +97,21 @@ public class UpdateActivity extends Activity {
         addr.setText(addr1);
         detail.setText(detail1);
 
-        profileImage.setImageBitmap(BitmapFactory.decodeFile(imagePath));//가져온 경로를 imageView에 올리기
+            Glide.with(UpdateActivity.this).load(urlAddr + imagePath).override(300, 300).placeholder(R.drawable.shape_circle).apply(new RequestOptions().circleCrop()).into(profileImage);
+
+
+//        profileImage.setImageBitmap(BitmapFactory.decodeFile(imagePath));//가져온 경로를 imageView에 올리기
 
         //--------------------이미지 올리기---------------------------
         profileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
-                intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
+
+                    Intent intent = new Intent(Intent.ACTION_PICK);
+                    intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
+                    intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
+
             }
         });
 
@@ -118,21 +125,30 @@ public class UpdateActivity extends Activity {
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            String st_tag = tag.getText().toString();
-            String st_name = name.getText().toString();
-            String st_tel = tel.getText().toString();
-            String st_addr = addr.getText().toString();
-            String st_detail = detail.getText().toString();
-            doMultiPartRequest();//사진 넣는 okHttp3 메소드
+            switch (v.getId()) {
+                case R.id.btn_ok_update:
+                    String st_tag = tag.getText().toString();
+                    String st_name = name.getText().toString();
+                    String st_tel = tel.getText().toString();
+                    String st_addr = addr.getText().toString();
+                    String st_detail = detail.getText().toString();
+
+                    if (imagePath != null) {
+
+                        doMultiPartRequest();//사진 넣는 okHttp3 메소드}}}
+                    }else{
+                        imagePath = null;
+                    }
 
 
-            urlAddr = urlAddr + "addrNo=" + num + "&addrName=" + st_name + "&addrTel=" + st_tel + "&addrAddr=" + st_addr + "&addrDetail=" + st_detail + "&addrTag=" + st_tag + "&addrImagePath=" + imageName;
-            connectUpdateData();
+                    urlAddr = urlAddr + "addrNo=" + num + "&addrName=" + st_name + "&addrTel=" + st_tel + "&addrAddr=" + st_addr + "&addrDetail=" + st_detail + "&addrTag=" + st_tag + "&addrImagePath=" + imageName;
+                    connectUpdateData();
+                    Log.d(TAG, urlAddr);
 
-            Intent intent = new Intent(UpdateActivity.this, MainActivity.class);
-            Toast.makeText(UpdateActivity.this, "수정이완료돼싸", Toast.LENGTH_SHORT).show();
-            startActivity(intent);
-
+                    Intent intent = new Intent(UpdateActivity.this, MainActivity.class);
+                    Toast.makeText(UpdateActivity.this, "수정이완료돼싸", Toast.LENGTH_SHORT).show();
+                    startActivity(intent);
+            }
 
         }
     };
@@ -154,7 +170,6 @@ public class UpdateActivity extends Activity {
         }
 
     }
-
 
 
     //----------------------이미지 관련 메소드----------------------------------------------
@@ -224,7 +239,7 @@ public class UpdateActivity extends Activity {
     //서버 보내기
     private void DoActualRequest(File file) {
         OkHttpClient client = new OkHttpClient();
-        String url = "http://"+urlIp+":8080/test/multipartRequest.jsp";
+        String url = "http://" + urlIp + ":8080/test/multipartRequest.jsp";
 
         RequestBody body = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
@@ -246,13 +261,6 @@ public class UpdateActivity extends Activity {
             e.printStackTrace();
         }
     }
-
-
-
-
-
-
-
 
 
     //----------------------이미지 관련 메소드----------------------------------------------

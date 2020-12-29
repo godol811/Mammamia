@@ -80,18 +80,20 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         holder.addrTel.setText(mDataset.get(position).getAddrTel()); //position = 인덱스값
 //        holder.addrProfile.setImageURI(Uri.parse(urlAddr+mDataset.get(position).getAddrImagePath()));
 
-        Glide.with(holder.addrProfile).load(urlAddr+mDataset.get(position).getAddrImagePath()).override(120,120).apply(new RequestOptions().circleCrop()).into(holder.addrProfile);
-  
+        Log.d(TAG,mDataset.get(position).getAddrImagePath());
+
+
+            Glide.with(holder.addrProfile).load(urlAddr+mDataset.get(position).getAddrImagePath()).placeholder(R.drawable.shape_circle).override(120,120).apply(new RequestOptions().circleCrop()).into(holder.addrProfile);
+
         ///////////////////////////////////////////////////////////////////////////////////////
         // Date : 2020.12.29
         //
         // Description:
-        // -urlAddr은 사진 불러올라고 어쩔 수 없이 넣는 값이므로 이해 부탁 Picasso 사용
+        // -if 사진이없으면 빈 동그라미 아니면 데이터 사진 가져오기
         //
         ///////////////////////////////////////////////////////////////////////////////////////
 
 
-        Log.d(TAG,urlAddr+mDataset.get(position).getAddrImagePath());
 
 
         
