@@ -1,17 +1,21 @@
 package com.example.four.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.four.Adapter.AddressAdapter;
@@ -54,6 +58,9 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MODE_PRIVATE); //사용자에게 사진 사용 권한 받기 (가장중요함)
+
+
         recyclerView = findViewById(R.id.rl_address);
 
 
@@ -66,7 +73,7 @@ public class MainActivity extends Activity {
 
         //inwoo 추가
         //헤이! 여기 아이피만 교체해주세요!
-        urlIp = "222.106.89.206";
+        urlIp = "192.168.0.105";
 
 
 
@@ -95,6 +102,7 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this,InsertActivity.class);
 
+
                 //ip주소 보내기
                 intent.putExtra("urlIp", urlIp);
                 startActivity(intent);
@@ -115,12 +123,14 @@ public class MainActivity extends Activity {
         connectGetData();
         registerForContextMenu(recyclerView);
 
+        Log.v(TAG, "onResume"); //태그 선언
 
 
         Log.v(TAG, "onResume");
         adapter.setOnItemClickListener(new AddressAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
+
 
 
                 Intent intent = new Intent(MainActivity.this, ListviewActivity.class);
@@ -138,6 +148,7 @@ public class MainActivity extends Activity {
                 intent.putExtra("addrTel", members.get(position).getAddrTel());
                 intent.putExtra("addrDetail", members.get(position).getAddrDetail());
                 intent.putExtra("addrAddr", members.get(position).getAddrAddr());
+                intent.putExtra("addrImagePath",members.get(position).getAddrImagePath());
 
 
                 startActivity(intent);
@@ -169,6 +180,7 @@ public class MainActivity extends Activity {
 
             adapter = new AddressAdapter(MainActivity.this, R.layout.listlayout, members);
             recyclerView.setAdapter(adapter);
+
 
 
         } catch (Exception e) {
