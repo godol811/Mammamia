@@ -50,6 +50,9 @@ public class InsertActivity extends Activity {
     Button insertBackBtn;
     Button tagSelectBtn;
 
+    private static final int SEARCH_ADDRESS_ACTIVITY = 10000;
+
+
     //Tag 추가-------------------------------------
     boolean[] tagSelect = {false,false,false,false};
     //---------------------------------------------
@@ -63,8 +66,6 @@ public class InsertActivity extends Activity {
         setContentView(R.layout.activity_insert);
 
 
-
-
         //받아오는 ip값
         Intent intent = getIntent();
 
@@ -76,7 +77,6 @@ public class InsertActivity extends Activity {
         insertTag = findViewById(R.id.et_tagname_insert);
         insertName = findViewById(R.id.et_name_insert);
         insertTel = findViewById(R.id.et_tel_insert);
-
 
 
         //주소입력 추가 -----------
@@ -96,11 +96,6 @@ public class InsertActivity extends Activity {
         addrinsertBtn.setOnClickListener(onClickListener);
         insertBackBtn.setOnClickListener(onClickListener1);
 
-
-
-
-
-
 //---------------------------------------사진 불러오기 onclick-----------------------
         findViewById(R.id.iv_image_insert).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,8 +110,18 @@ public class InsertActivity extends Activity {
 
 //---------------------------------------사진 불러오기 onclick-----------------------
 
+        //12월 29일 추가
+        //주소검색 API--------------------------------------------------------------
 
+        insertAddr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(InsertActivity.this, AddressWebViewActivity.class);
+                startActivityForResult(i, SEARCH_ADDRESS_ACTIVITY);
+            }
+        });
     }
+//-----------------------------------------------
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
@@ -200,6 +205,25 @@ public class InsertActivity extends Activity {
     //---------------------------------------------------------------------------------
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+
+        //12월 29일 추가
+        //주소 api  인서트에 추가
+        //-----------------------------------------------------
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case SEARCH_ADDRESS_ACTIVITY:
+                if (resultCode == RESULT_OK) {
+                    String data1 = data.getExtras().getString("data");
+                    if (data1 != null) {
+                        insertAddr.setText(data1);
+                    }
+                }
+                break;
+        }
+        //-----------------------------------------------------
+
 
         Toast.makeText(getBaseContext(), "resultCode : " + data, Toast.LENGTH_SHORT).show();
 

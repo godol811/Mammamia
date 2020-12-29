@@ -254,10 +254,7 @@ public class ListviewActivity extends AppCompatActivity
 
            // builder.setMessage(buffer.toString()).setPositiveButton("OK",null).create().show();
 
-
-
             //다이얼로그로 좌표 띄우기
-
 //            builder.setMessage(buffer.toString()).setPositiveButton("OK",null).create().show();
 
 

@@ -79,7 +79,8 @@
                 android:id="@+id/et_addr_insert"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="주소" />
+                android:hint="주소를 찾기 위해 눌러주세요"
+                />
 
             <EditText
                 android:id="@+id/et_detail_insert"
