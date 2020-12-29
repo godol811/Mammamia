@@ -123,6 +123,8 @@ public class ListviewActivity extends AppCompatActivity
 
         출처: https://wimir-dev.tistory.com/63 [[위미르 개발팀] Android, iOS , Web 제작]
         //-------------
+
+
         addrDetail = findViewById(R.id.tv_detail_listview);
         upbtn = findViewById(R.id.btn_update_listview);
 //        backbtn = findViewById(R.id.btn_back_listview);
@@ -142,6 +144,8 @@ public class ListviewActivity extends AppCompatActivity
         geocoding();
         //-------------------------------------------------
     }
+
+
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
