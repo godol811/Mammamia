@@ -43,7 +43,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
     int layout = 0;
     LayoutInflater inflater = null;
     private ArrayList<AddressDto> mDataset;
-    String urlAddr = null;
+    //String urlAddr = null;
     int pos = 0;
 
     String urlAddr = "http://222.106.89.206:8080/pictures/";//자기 ip로 바꾸기
@@ -55,7 +55,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
     //
     ///////////////////////////////////////////////////////////////////////////////////////
 
-    int pos=0;
+    //int pos=0;
 
     String cal = null;
 
@@ -117,8 +117,9 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         }else if(mDataset.get(position).getAddrTag().equals("기타")){
             holder.addrTagImg.setImageResource(R.drawable.tag_user);
         }
+        holder.onBind(items.get(position));
 
-
+        
     }
 
     @Override
@@ -131,6 +132,10 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         return mDataset.size();
     }
 
+    @Override
+    public void onFinish(int position, AddressDto addressDto) {
+
+    }
 
 
     //인터페이스 선언
@@ -303,24 +308,5 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         dialog.show();
     }
 
-
-
-    @Override
-    public void onFinish(int position, AddressDto addressDto) {
-        mDataset.set(position, addressDto);
-        notifyItemChanged(position);
-    }
-//    public ItemViewHolder(View itemView) {
-//        super(itemView);
-//        list_name = itemView.findViewById(R.id.list_name);
-//        list_age = itemView.findViewById(R.id.list_age);
-//        list_image = itemView.findViewById(R.id.list_image);
-//    }
-//
-//    public void onBind(AddressDto addressDto) {
-//        list_name.setText(addressDto.getName());
-//        list_age.setText(String.valueOf(addressDto.getAge()));
-//        list_image.setImageResource(addressDto.getImage());
-//    }
 }//-------------------------------
 
