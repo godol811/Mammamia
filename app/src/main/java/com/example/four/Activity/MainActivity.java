@@ -120,6 +120,7 @@ public class MainActivity extends Activity {
         connectGetData();
         registerForContextMenu(recyclerView);
 
+        Log.v(TAG, "onResume"); //태그 선언
 
 
         Log.v(TAG, "onResume");
@@ -133,7 +134,6 @@ public class MainActivity extends Activity {
 
 
                 intent.putExtra("urlAddr", urlAddr);
-
                 intent.putExtra("addrNo", members.get(position).getAddrNo());
                 intent.putExtra("addrName", members.get(position).getAddrName());
                 intent.putExtra("addrTag", members.get(position).getAddrTag());
@@ -174,12 +174,10 @@ public class MainActivity extends Activity {
             recyclerView.setAdapter(adapter);
 
 
-
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 
 
 

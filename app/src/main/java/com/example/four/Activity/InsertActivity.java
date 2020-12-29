@@ -1,14 +1,9 @@
 package com.example.four.Activity;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -61,7 +56,7 @@ public class InsertActivity extends Activity {
 
         urlAddr = "http://" + urlIp + ":8080/test/mammamiaInsert.jsp?";
 
-
+        //id 받아오기
         insertTag = findViewById(R.id.et_tagname_insert);
         insertName = findViewById(R.id.et_name_insert);
         insertTel = findViewById(R.id.et_tel_insert);
@@ -69,11 +64,6 @@ public class InsertActivity extends Activity {
         //주소입력 추가 -----------
         insertAddr = findViewById(R.id.et_addr_insert);
         //----------------------
-
-        //태그 선택 버튼---------------------------------------
-        tagSelectBtn = findViewById(R.id.btn_tagselect_insert);
-        tagSelectBtn.setOnClickListener(tagselectClick);
-        //----------------------------------------------------
 
         insertDetail = findViewById(R.id.et_detail_insert);
         addrinsertBtn = findViewById(R.id.btn_ok_insert);
@@ -163,7 +153,7 @@ public class InsertActivity extends Activity {
 
     private void connectInsertData() {
         try {
-            NetworkTask insertworkTask = new NetworkTask(InsertActivity.this, urlAddr, "insert");
+            NetworkTask insertworkTask = new NetworkTask(InsertActivity.this, urlAddr,"insert");
             insertworkTask.execute().get();
         } catch (Exception e) {
             e.printStackTrace();
