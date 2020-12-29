@@ -41,17 +41,17 @@ public class ListviewActivity extends AppCompatActivity
     String urlIp = null;
     String urlAddr = null;
     //addrAddr 추가
-    TextView addrTag,addrName,addrTel,addrDetail,addrAddr;
+    TextView addrTag, addrName, addrTel, addrDetail, addrAddr;
     ImageView profileImage;
 
     ArrayList<Address> members;
-    Button backbtn,upbtn;
+    Button backbtn, upbtn;
     int addrNo;
     String tagName;
     String tel;
     String name;
     String detail;
-    String imagePath;
+    String imagePath = null;
 
     //addr 추가
     String addr;
@@ -86,7 +86,9 @@ public class ListviewActivity extends AppCompatActivity
         //-------------------------------------------------------
         Intent intent = getIntent();
         urlIp = intent.getStringExtra("urlIp");
-        addrNo = intent.getIntExtra("addrNo",0);
+
+        Log.d(TAG, urlIp);
+        addrNo = intent.getIntExtra("addrNo", 0);
         name = intent.getStringExtra("addrName");
         tel = intent.getStringExtra("addrTel");
         tagName = intent.getStringExtra("addrTag");
@@ -115,11 +117,13 @@ public class ListviewActivity extends AppCompatActivity
         //addrimage 추가
         profileImage = findViewById(R.id.iv_profile_listview);
 
-        String urlAddr = "http://"+urlIp+":8080/pictures/";
-//        Picasso.get().load(urlAddr+imagePath).into(profileImage);
-        Glide.with(ListviewActivity.this).load(urlAddr+imagePath).override(300,300).apply(new RequestOptions().circleCrop()).into(profileImage);
 
-        출처: https://wimir-dev.tistory.com/63 [[위미르 개발팀] Android, iOS , Web 제작]
+            String urlAddr = "http://" + urlIp + ":8080/pictures/";
+//        Picasso.get().load(urlAddr+imagePath).into(profileImage);
+            Glide.with(ListviewActivity.this).load(urlAddr + imagePath).override(300, 300).placeholder(R.drawable.shape_circle).apply(new RequestOptions().circleCrop()).into(profileImage);
+
+
+
         //-------------
         addrDetail = findViewById(R.id.tv_detail_listview);
         upbtn = findViewById(R.id.btn_update_listview);
@@ -140,21 +144,20 @@ public class ListviewActivity extends AppCompatActivity
         geocoding();
         //-------------------------------------------------
     }
-
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             Intent intent1 = new Intent(ListviewActivity.this, UpdateActivity.class);
             //ip값 보내기
-            intent1.putExtra("urlIp",urlIp);
-            intent1.putExtra("urlAddr",urlAddr);
-            intent1.putExtra("addrNo",addrNo);
-            intent1.putExtra("addrName",name);
+            intent1.putExtra("urlIp", urlIp);
+            intent1.putExtra("urlAddr", urlAddr);
+            intent1.putExtra("addrNo", addrNo);
+            intent1.putExtra("addrName", name);
             intent1.putExtra("addrTag", tagName);
             intent1.putExtra("addrTel", tel);
             intent1.putExtra("addrDetail", detail);
             //addr 변경
-            intent1.putExtra("addrAddr",addr);
+            intent1.putExtra("addrAddr", addr);
             //-----------------
             startActivity(intent1);
         }
@@ -168,20 +171,23 @@ public class ListviewActivity extends AppCompatActivity
     View.OnClickListener onClickListener2 = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            urlAddr = "http://"+urlIp+":8080/test/mammamiaDelete.jsp?";
+
+
+            urlAddr = "http://" + urlIp + ":8080/test/mammamiaDelete.jsp?";
             urlAddr = urlAddr + "addrNo=" + addrNo;
             connectDeleteData();
-            Log.v("헤이~",urlAddr);
+            Log.v("헤이~", urlAddr);
             Toast.makeText(ListviewActivity.this, "삭제가 완료되었습니다 ", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(ListviewActivity.this,MainActivity.class);
+            Intent intent = new Intent(ListviewActivity.this, MainActivity.class);
             startActivity(intent);
         }
     };
-    private void connectDeleteData(){
+
+    private void connectDeleteData() {
         try {
-            NetworkTask deleteworkTask = new NetworkTask(ListviewActivity.this,urlAddr,"delete");
+            NetworkTask deleteworkTask = new NetworkTask(ListviewActivity.this, urlAddr, "delete");
             deleteworkTask.execute().get();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -220,36 +226,37 @@ public class ListviewActivity extends AppCompatActivity
             }
         });
     }
+
     //지오코딩 해주는 메소드
     private void geocoding() {
-        Log.d(TAG,"지오코딩");
+        Log.d(TAG, "지오코딩");
         // 주소 -> 좌표 (지오코딩)
         //지오 코딩 작업을 수행하는 객체 생성
         //Locale 객체를 매개변수로 하여 Geocoder객체를 사용하면 주소 결과를 사용자의 지역에 맞게 가져올 수 있다.
-        Geocoder geocoder= new Geocoder(this, Locale.KOREA);
+        Geocoder geocoder = new Geocoder(this, Locale.KOREA);
         //지오코더에게 지오코딩작업 요청
-        Log.d(TAG,"지오코딩");
+        Log.d(TAG, "지오코딩");
         try {
 
             //getFromLocationName : 주소로 부터 가져온 위도와 경도 값
             //maxResults : 반환받고싶은 주소의 최대 개수
-            List<Address> addresses = geocoder.getFromLocationName(addr,3); //최대 3개까지 받는데, 0~3개까지 있으면 받는다.
+            List<Address> addresses = geocoder.getFromLocationName(addr, 3); //최대 3개까지 받는데, 0~3개까지 있으면 받는다.
             //StringBuffer객체 생성
-            StringBuffer buffer= new StringBuffer();
+            StringBuffer buffer = new StringBuffer();
 
-            for(android.location.Address t : addresses){
-                buffer.append(t.getLatitude()+", "+t.getLongitude()+"\n");
+            for (android.location.Address t : addresses) {
+                buffer.append(t.getLatitude() + ", " + t.getLongitude() + "\n");
             }
             //다이얼로그로 좌표들 보여주기
             //주소록에 입력하는 주소값을 좌표로 저장해놓자! 핀으로 찍어서 보여줘야지
-            AlertDialog.Builder builder= new AlertDialog.Builder(this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
             //좌표값 저장
             intentLat = addresses.get(0).getLatitude();
             intentLng = addresses.get(0).getLongitude();
 //            Log.v(TAG, "intentLat : " + String.valueOf(intentLat));
 //            Log.v(TAG, "intentLng : " + String.valueOf(intentLng));
 
-           // builder.setMessage(buffer.toString()).setPositiveButton("OK",null).create().show();
+            // builder.setMessage(buffer.toString()).setPositiveButton("OK",null).create().show();
 
 
 

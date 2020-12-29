@@ -80,7 +80,10 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         holder.addrTel.setText(mDataset.get(position).getAddrTel()); //position = 인덱스값
 //        holder.addrProfile.setImageURI(Uri.parse(urlAddr+mDataset.get(position).getAddrImagePath()));
 
-        Glide.with(holder.addrImagePath).load(urlAddr+mDataset.get(position).getAddrImagePath()).override(150,150).apply(new RequestOptions().circleCrop()).into(holder.addrImagePath);
+        Log.d(TAG,mDataset.get(position).getAddrImagePath());
+
+
+            Glide.with(holder.addrProfile).load(urlAddr+mDataset.get(position).getAddrImagePath()).placeholder(R.drawable.shape_circle).override(120,120).apply(new RequestOptions().circleCrop()).into(holder.addrProfile);
 
         ///////////////////////////////////////////////////////////////////////////////////////
         // Date : 2020.12.29
