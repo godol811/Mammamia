@@ -67,6 +67,13 @@ public class InsertActivity extends Activity {
         insertName = findViewById(R.id.et_name_insert);
         insertTel = findViewById(R.id.et_tel_insert);
 
+//                  인우 추가
+//      전화번호 "-" 자동입력 12월 29일 추가
+        insertTel.setInputType(android.text.InputType.TYPE_CLASS_PHONE);
+        insertTel.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
+
+
+
         //주소입력 추가 -----------
         insertAddr = findViewById(R.id.et_addr_insert);
         //----------------------
@@ -85,10 +92,8 @@ public class InsertActivity extends Activity {
         insertBackBtn.setOnClickListener(onClickListener1);
 
 
-//      인우 추가
-//      전화번호 "-" 자동입력 12월 29일 추가
-        insertTel.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
-//
+
+
 
 
 //---------------------------------------사진 불러오기 onclick-----------------------

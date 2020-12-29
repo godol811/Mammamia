@@ -130,10 +130,15 @@ public class ListviewActivity extends AppCompatActivity
         upbtn.setOnClickListener(onClickListener);
 //        backbtn.setOnClickListener(onClickListener1);
         delebtn.setOnClickListener(onClickListener2);
+
+
+
         //inwoo추가-----------------------------------
         //지오코딩해주는 메소드
         geocoding();
         //-------------------------------------------------
+
+
     }
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
@@ -186,6 +191,9 @@ public class ListviewActivity extends AppCompatActivity
     //  맵이 사용할 준비가 되었을 때(NULL이 아닌 GoogleMap 객체를 파라미터로 제공해 줄 수 있을 때) 호출되어지는 메소드
     @Override
     public void onMapReady(GoogleMap googleMap) {
+
+
+
         mMap = googleMap;
         //다시 변환후 넣어줘야됨
 //        String name2 = (String) name1.getText();
@@ -216,6 +224,8 @@ public class ListviewActivity extends AppCompatActivity
             }
         });
     }
+
+
     //지오코딩 해주는 메소드
     private void geocoding() {
         // 주소 -> 좌표 (지오코딩)
@@ -226,18 +236,26 @@ public class ListviewActivity extends AppCompatActivity
         try {
             //getFromLocationName : 주소로 부터 가져온 위도와 경도 값
             //maxResults : 반환받고싶은 주소의 최대 개수
-            List<Address> addresses = geocoder.getFromLocationName(addr,3); //최대 3개까지 받는데, 0~3개까지 있으면 받는다.
+            List<Address> addresses = geocoder.getFromLocationName(addr,1); //최대 3개까지 받는데, 0~3개까지 있으면 받는다.
             //StringBuffer객체 생성
             StringBuffer buffer= new StringBuffer();
+
+
+
             for(android.location.Address t : addresses){
                 buffer.append(t.getLatitude()+", "+t.getLongitude()+"\n");
             }
+
             //다이얼로그로 좌표들 보여주기
             //주소록에 입력하는 주소값을 좌표로 저장해놓자! 핀으로 찍어서 보여줘야지
             AlertDialog.Builder builder= new AlertDialog.Builder(this);
+
+
             //좌표값 저장
             intentLat = addresses.get(0).getLatitude();
             intentLng = addresses.get(0).getLongitude();
+
+
             Log.v(TAG, "intentLat : " + String.valueOf(intentLat));
             Log.v(TAG, "intentLng : " + String.valueOf(intentLng));
 
@@ -254,4 +272,8 @@ public class ListviewActivity extends AppCompatActivity
             Toast.makeText(this, "검색 실패", Toast.LENGTH_SHORT).show();
         }
     }
+
+
+
+
 }//------------------------------
