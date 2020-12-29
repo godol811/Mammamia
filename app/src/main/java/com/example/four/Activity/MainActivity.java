@@ -72,7 +72,7 @@ public class MainActivity extends Activity {
 
         //inwoo 추가
         //헤이! 여기 아이피만 교체해주세요!
-        urlIp = "192.168.35.147";
+        urlIp = "192.168.0.105";
 
 
 
