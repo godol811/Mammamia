@@ -78,6 +78,8 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
             holder.addrTagImg.setImageResource(R.drawable.tag_cafe);
         } else if(mDataset.get(position).getAddrTag().equals("기타")){
             holder.addrTagImg.setImageResource(R.drawable.tag_user);
+        }else{
+            holder.addrTagImg.setImageResource(R.drawable.tag_user);
         }
 
 
