@@ -2,16 +2,20 @@ package com.example.four.Activity;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +46,7 @@ public class ListviewActivity extends AppCompatActivity
 
     //addrAddr 추가
     TextView addrTag,addrName,addrTel,addrDetail,addrAddr;
+    ImageView profileImage;
 
     ArrayList<Address> members;
     Button backbtn,upbtn;
@@ -50,6 +55,7 @@ public class ListviewActivity extends AppCompatActivity
     String tel;
     String name;
     String detail;
+    String imagePath;
 
     //addr 추가
     String addr;
@@ -76,6 +82,9 @@ public class ListviewActivity extends AppCompatActivity
         setContentView(R.layout.activity_listview);
 
 
+        ActivityCompat.requestPermissions(ListviewActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MODE_PRIVATE); //사용자에게 사진 사용 권한 받기 (가장중요함)
+
+
         //inwoo 추가---------------------------------------
         //Fragment 가져오기
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fg_map_listview);
@@ -99,6 +108,16 @@ public class ListviewActivity extends AppCompatActivity
         addr = intent.getStringExtra("addrAddr");
 
 
+        //--이미지 추가-----//
+        imagePath = intent.getStringExtra("addrImagePath");
+
+
+
+
+
+
+
+
 
         addrName = findViewById(R.id.tv_name_listview);
         addrTag = findViewById(R.id.tv_tagname_listview);
@@ -108,6 +127,12 @@ public class ListviewActivity extends AppCompatActivity
         addrAddr = findViewById(R.id.tv_addr_listview);
 
         //------------------
+
+        //addrimage 추가
+        profileImage = findViewById(R.id.iv_profile_listview);
+
+        profileImage.setImageBitmap(BitmapFactory.decodeFile(imagePath));//가져온 경로를 imageView에 올리기
+        //-------------
         addrDetail = findViewById(R.id.tv_detail_listview);
 
 
@@ -149,6 +174,8 @@ public class ListviewActivity extends AppCompatActivity
             //addr 변경
             intent1.putExtra("addrAddr",addr);
             //-----------------
+            //imagePath
+            intent1.putExtra("addrImagePath",imagePath);
             startActivity(intent1);
 
 
