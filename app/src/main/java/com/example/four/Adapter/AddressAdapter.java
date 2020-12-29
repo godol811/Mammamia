@@ -15,6 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.four.Bean.AddressDto;
 import com.example.four.R;
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 
@@ -63,6 +65,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         holder.addrAddr.setText(mDataset.get(position).getAddrAddr()); //position = 인덱스값
         holder.addrTel.setText(mDataset.get(position).getAddrTel()); //position = 인덱스값
         holder.addrProfile.setImageBitmap(BitmapFactory.decodeFile(mDataset.get(position).getAddrImagePath()));//사진
+
 
 
 
