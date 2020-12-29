@@ -11,6 +11,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -76,6 +77,13 @@ public class InsertActivity extends Activity {
 
         addrinsertBtn.setOnClickListener(onClickListener);
         insertBackBtn.setOnClickListener(onClickListener1);
+
+
+//      인우 추가
+//      전화번호 "-" 자동입력 12월 29일 추가
+        insertTel.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
+//
+
 
 //---------------------------------------사진 불러오기 onclick-----------------------
         findViewById(R.id.iv_image_insert).setOnClickListener(new View.OnClickListener() {
