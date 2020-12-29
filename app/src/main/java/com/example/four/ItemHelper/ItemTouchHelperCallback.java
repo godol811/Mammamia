@@ -16,7 +16,7 @@ enum ButtonsState {GONE, LEFT_VISIBLE, RIGHT_VISIBLE}
 
 public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
 
-    final static String TAG = "여기보세요_ItemTouchHelper";
+    final static String TAG = "아이템터치헬퍼콜백_";
 
     private ItemTouchHelperListener listener;
 
@@ -175,13 +175,16 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
                 });
                 setItemsClickable(recyclerView, true);
                 swipeBack = false;
-                if (listener != null && buttonInstance != null && buttonInstance.contains(event.getX(), event.getY())) {
-                    if (buttonsShowedState == ButtonsState.LEFT_VISIBLE) {
+                Log.v(TAG, "Left2");
+                if (listener == null && buttonInstance != null && buttonInstance.contains(event.getX(), event.getY())) {
+                    Log.v(TAG, "Left1");
+                    if (listener !=null && buttonsShowedState == ButtonsState.LEFT_VISIBLE) {
                         listener.onLeftClick(viewHolder.getAdapterPosition(), viewHolder);
                     } else if (buttonsShowedState == ButtonsState.RIGHT_VISIBLE) {
                         listener.onRightClick(viewHolder.getAdapterPosition(), viewHolder);
                     }
                 }
+                Log.v(TAG, "left3");
                 buttonsShowedState = ButtonsState.GONE;
                 currenrtItemViewHolder = null;
                 return false;

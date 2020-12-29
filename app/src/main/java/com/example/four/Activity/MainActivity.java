@@ -38,10 +38,10 @@ public class MainActivity extends Activity {
     //-----------------
     ArrayList<AddressDto> members;
     AddressAdapter adapter = null;
-    private RecyclerView recyclerView = null;
+    RecyclerView recyclerView = null;
 
 
-    private RecyclerView.LayoutManager layoutManager = null;
+    RecyclerView.LayoutManager layoutManager = null;
 
     //여기서부터 하진추가
     ///////////////////////////////////////////////
@@ -73,9 +73,7 @@ public class MainActivity extends Activity {
 
         //inwoo 추가
         //헤이! 여기 아이피만 교체해주세요!
-//        urlIp = "192.168.0.105";
-        urlIp = "222.106.89.206";//종찬 아이피
-
+        urlIp = "192.168.0.105";
 
 
 
