@@ -90,6 +90,8 @@ public class ListviewActivity extends AppCompatActivity
 
         urlIp = intent.getStringExtra("urlIp");
 
+
+
         addrNo = intent.getIntExtra("addrNo",0);
         name = intent.getStringExtra("addrName");
         tel = intent.getStringExtra("addrTel");
