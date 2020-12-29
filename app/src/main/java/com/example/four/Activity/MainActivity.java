@@ -66,7 +66,7 @@ public class MainActivity extends Activity {
 
         //inwoo 추가
         //헤이! 여기 아이피만 교체해주세요!
-        urlIp = "192.168.0.105";
+        urlIp = "222.106.89.206";
 
 
 
@@ -89,6 +89,8 @@ public class MainActivity extends Activity {
         helper.attachToRecyclerView(recyclerView);
 
         findViewById(R.id.btn_insert_listview).setOnClickListener(new View.OnClickListener() {
+
+
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this,InsertActivity.class);
@@ -121,8 +123,11 @@ public class MainActivity extends Activity {
             public void onItemClick(View v, int position) {
 
 
-
                 Intent intent = new Intent(MainActivity.this, ListviewActivity.class);
+
+
+
+                intent.putExtra("urlIp", urlIp);
 
 
                 intent.putExtra("urlAddr", urlAddr);

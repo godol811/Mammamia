@@ -28,6 +28,7 @@ public class SearchActivity extends Activity {
 
 
     String urlAddr = null;
+    String urlIp = null;
     ArrayList<AddressDto> members;
     AddressAdapter adapter = null;
     private RecyclerView recyclerView = null;
@@ -60,9 +61,14 @@ public class SearchActivity extends Activity {
         recyclerView.setLayoutManager(layoutManager);
 
 
-        urlAddr = "http://192.168.0.105:8080/test/mammamiaSearch.jsp";
+
+        //받아오는 ip값
+        Intent intent = getIntent();
+
+        urlIp = intent.getStringExtra("urlIp");
 
 
+        urlAddr = "http://"+urlIp+":8080/test/mammamiaSearch.jsp";
 
 
 
@@ -112,8 +118,8 @@ public class SearchActivity extends Activity {
     View.OnClickListener searchClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            urlAddr = "http://192.168.0.105:8080/test/mammamiaSearch.jsp";
 
+            urlAddr = "http://"+urlIp+":8080/test/mammamiaSearch.jsp";
             stSearch = etSearch.getText().toString();
             urlAddr = urlAddr + "?addrName="+ stSearch +"&addrTel="+ stSearch + "&addrTag="+ stSearch;
 

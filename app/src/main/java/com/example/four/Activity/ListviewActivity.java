@@ -43,6 +43,8 @@ public class ListviewActivity extends AppCompatActivity
     //addrAddr 추가
     TextView addrTag,addrName,addrTel,addrDetail,addrAddr;
 
+
+
     ArrayList<Address> members;
     Button backbtn,upbtn;
     int addrNo;
@@ -60,6 +62,7 @@ public class ListviewActivity extends AppCompatActivity
     //inwoo-------------------------------------
     //지오코딩 변수
     double intentLat, intentLng;
+
     //지도 변수
     private GoogleMap mMap;
     final static String TAG = "리스트뷰액티비티";
@@ -90,6 +93,7 @@ public class ListviewActivity extends AppCompatActivity
 
         urlIp = intent.getStringExtra("urlIp");
 
+        Log.d(TAG,urlIp);
         addrNo = intent.getIntExtra("addrNo",0);
         name = intent.getStringExtra("addrName");
         tel = intent.getStringExtra("addrTel");
@@ -123,6 +127,7 @@ public class ListviewActivity extends AppCompatActivity
         addrAddr.setText(addr);
         //------------------
         addrTel.setText(tel);
+
         addrTag.setText(tagName);
 
 
@@ -173,11 +178,7 @@ public class ListviewActivity extends AppCompatActivity
         public void onClick(View v) {
 
 
-
-
-
             urlAddr = "http://"+urlIp+":8080/test/mammamiaDelete.jsp?";
-
             urlAddr = urlAddr + "addrNo=" + addrNo;
             connectDeleteData();
 
@@ -185,8 +186,8 @@ public class ListviewActivity extends AppCompatActivity
 
             Toast.makeText(ListviewActivity.this, "삭제가 완료되었습니다 ", Toast.LENGTH_SHORT).show();
 
-
             Intent intent = new Intent(ListviewActivity.this,MainActivity.class);
+
             startActivity(intent);
         }
     };
@@ -237,11 +238,15 @@ public class ListviewActivity extends AppCompatActivity
                 //mapdetail로 이동
                 Intent intent = new Intent(ListviewActivity.this, MapDetailActivity.class);
 
+                intent.putExtra("name", name);
+                intent.putExtra("tagName", tagName);
+
                 //주소값 보내주기 마커위치에서 시작하기 위해서
                 intent.putExtra("intentLat", intentLat);
                 intent.putExtra("intentLng", intentLng);
                 Log.d(TAG, addr);
                 startActivity(intent);
+
             }
         });
     }
@@ -271,7 +276,7 @@ public class ListviewActivity extends AppCompatActivity
             }
 
             //다이얼로그로 좌표들 보여주기
-            //주소록에 입력하는 주소값을 좌표로 저장해놓자! 핀으로 찍어서 보여줘야지
+
             AlertDialog.Builder builder= new AlertDialog.Builder(this);
 
             //좌표값 저장
@@ -282,7 +287,9 @@ public class ListviewActivity extends AppCompatActivity
             Log.v(TAG, "intentLat : " + String.valueOf(intentLat));
             Log.v(TAG, "intentLng : " + String.valueOf(intentLng));
 
-            builder.setMessage(buffer.toString()).setPositiveButton("OK",null).create().show();
+            //다이얼로그로 좌표 띄우기
+
+//            builder.setMessage(buffer.toString()).setPositiveButton("OK",null).create().show();
 
 
         } catch (IOException e) {
