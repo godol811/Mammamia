@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.four.Adapter.AddressAdapter;
@@ -174,12 +175,11 @@ public class MainActivity extends Activity {
             recyclerView.setAdapter(adapter);
 
 
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
-
 
 
 

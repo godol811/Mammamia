@@ -140,6 +140,7 @@ public class InsertActivity extends Activity {
                         public void onClick(DialogInterface dialog, int which) {
                             String[] tag = getResources().getStringArray(R.array.tag);
                             TextView text = findViewById(R.id.et_tagname_insert);
+
                             String result = "";
                             for (int i=0; i<tagSelect.length; i++){
                                 if (tagSelect[i]){
@@ -154,6 +155,7 @@ public class InsertActivity extends Activity {
 
         }
     };
+
 
 
     private void connectInsertData() {
