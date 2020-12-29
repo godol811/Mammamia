@@ -71,15 +71,16 @@
                 android:id="@+id/et_tel_insert"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="전화번호"
                 android:inputType="phone"
-                />
+                android:maxLength="13"
+                android:hint="전화번호" />
 
             <EditText
                 android:id="@+id/et_addr_insert"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="주소" />
+                android:hint="주소를 찾기 위해 눌러주세요"
+                />
 
             <EditText
                 android:id="@+id/et_detail_insert"
