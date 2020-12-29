@@ -23,7 +23,7 @@ public class SplashActivity extends Activity {
 
 
     //Splash 유지 시간
-    private final int SPLASH_DISPLAY_LENGTH = 5500;
+    private final int SPLASH_DISPLAY_LENGTH = 1000;
 
 
     //-------------------------------------------------------

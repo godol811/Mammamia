@@ -38,10 +38,10 @@ public class MainActivity extends Activity {
     //-----------------
     ArrayList<AddressDto> members;
     AddressAdapter adapter = null;
-    private RecyclerView recyclerView = null;
+    RecyclerView recyclerView = null;
 
 
-    private RecyclerView.LayoutManager layoutManager = null;
+    RecyclerView.LayoutManager layoutManager = null;
 
     //여기서부터 하진추가
     ///////////////////////////////////////////////
@@ -64,7 +64,7 @@ public class MainActivity extends Activity {
         recyclerView = findViewById(R.id.rl_address);
 
 
-        recyclerView.setHasFixedSize(true);
+        //recyclerView.setHasFixedSize(true);
 
 
         layoutManager = new LinearLayoutManager(this);
@@ -73,7 +73,7 @@ public class MainActivity extends Activity {
 
         //inwoo 추가
         //헤이! 여기 아이피만 교체해주세요!
-        urlIp = "192.168.0.105";
+        urlIp = "192.168.1.5";
 
 
 
@@ -95,19 +95,19 @@ public class MainActivity extends Activity {
         //RecyclerView에 ItemTouchHelper 붙이기
         helper.attachToRecyclerView(recyclerView);
 
-        findViewById(R.id.btn_insert_listview).setOnClickListener(new View.OnClickListener() {
-
-
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,InsertActivity.class);
-
-
-                //ip주소 보내기
-                intent.putExtra("urlIp", urlIp);
-                startActivity(intent);
-            }
-        });
+//        findViewById(R.id.btn_insert_listview).setOnClickListener(new View.OnClickListener() {
+//
+//
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(MainActivity.this,InsertActivity.class);
+//
+//
+//                //ip주소 보내기
+//                intent.putExtra("urlIp", urlIp);
+//                startActivity(intent);
+//            }
+//        });
 
 
 
@@ -127,35 +127,35 @@ public class MainActivity extends Activity {
 
 
         Log.v(TAG, "onResume");
-        adapter.setOnItemClickListener(new AddressAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View v, int position) {
-
-
-
-                Intent intent = new Intent(MainActivity.this, ListviewActivity.class);
-
-
-
-                intent.putExtra("urlIp", urlIp);
-
-
-                intent.putExtra("urlAddr", urlAddr);
-
-                intent.putExtra("addrNo", members.get(position).getAddrNo());
-                intent.putExtra("addrName", members.get(position).getAddrName());
-                intent.putExtra("addrTag", members.get(position).getAddrTag());
-                intent.putExtra("addrTel", members.get(position).getAddrTel());
-                intent.putExtra("addrDetail", members.get(position).getAddrDetail());
-                intent.putExtra("addrAddr", members.get(position).getAddrAddr());
-                intent.putExtra("addrImagePath",members.get(position).getAddrImagePath());
-
-
-                startActivity(intent);
-
-
-            }
-        });
+//        adapter.setOnItemClickListener(new AddressAdapter.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(View v, int position) {
+//
+//
+//
+//                Intent intent = new Intent(MainActivity.this, ListviewActivity.class);
+//
+//
+//
+//                intent.putExtra("urlIp", urlIp);
+//
+//
+//                intent.putExtra("urlAddr", urlAddr);
+//
+//                intent.putExtra("addrNo", members.get(position).getAddrNo());
+//                intent.putExtra("addrName", members.get(position).getAddrName());
+//                intent.putExtra("addrTag", members.get(position).getAddrTag());
+//                intent.putExtra("addrTel", members.get(position).getAddrTel());
+//                intent.putExtra("addrDetail", members.get(position).getAddrDetail());
+//                intent.putExtra("addrAddr", members.get(position).getAddrAddr());
+//                intent.putExtra("addrImagePath",members.get(position).getAddrImagePath());
+//
+//
+//                startActivity(intent);
+//
+//
+//            }
+//        });
     }
 
 

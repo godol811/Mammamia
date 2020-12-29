@@ -3,10 +3,12 @@ package com.example.four.ItemHelper;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,12 +26,9 @@ import java.util.ArrayList;
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ItemViewHolder>
         implements ItemTouchHelperListener {
 
-    final static String TAG = "여기보세요_ListAdapter";
+    final static String TAG = "리스트어댑터";
     ArrayList<AddressDto> items = new ArrayList<>();
     Context context;
-
-
-    int addrNo;
 
     public ListAdapter(Context context) {
         this.context = context;
@@ -50,11 +49,14 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ItemViewHolder
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
         //ItemViewHolder가 생성되고 넣어야할 코드들을 넣어준다.
         holder.onBind(items.get(position));
+        Log.v(TAG, "bind");
     }
 
     //아이템의 개수로 사이즈 측정
     @Override
     public int getItemCount() {
+
+        Log.v(TAG, "ItemCount");
         return items.size();
     }
 
@@ -83,15 +85,22 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ItemViewHolder
     //왼쪽버튼 누르면 즐겨찾기
     @Override
     public void onLeftClick(int position, RecyclerView.ViewHolder viewHolder) {
-        View.OnClickListener onClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                items.remove(position);
-                notifyItemRemoved(position);
-            }
-        };
-
-
+        //수정 버튼 클릭시 다이얼로그 생성
+        Log.v(TAG, "수정");
+        CustomDialog dialog = new CustomDialog(context, position, items.get(position));
+        //화면 사이즈 구하기
+        DisplayMetrics dm = context.getApplicationContext().getResources().getDisplayMetrics();
+        int width = dm.widthPixels;
+        int height = dm.heightPixels;
+        //다이얼로그 사이즈 세팅
+        WindowManager.LayoutParams wm = dialog.getWindow().getAttributes();
+        wm.copyFrom(dialog.getWindow().getAttributes());
+        wm.width = (int) (width * 0.7);
+        wm.height = height / 2;
+        //다이얼로그 Listener 세팅
+        //dialog.setDialogListener(this);
+        //다이얼로그 띄우기
+        dialog.show();
     }
 
 
