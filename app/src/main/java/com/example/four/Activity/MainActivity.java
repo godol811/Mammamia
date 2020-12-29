@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -166,10 +167,12 @@ public class MainActivity extends Activity {
             recyclerView.setAdapter(adapter);
 
 
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 
 
 

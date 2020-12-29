@@ -3,6 +3,7 @@ package com.example.four.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -126,6 +127,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
             addrTag = v.findViewById(R.id.tv_tag_listlayout);
             addrName = v.findViewById(R.id.tv_name_listlayout);
             addrTel = v.findViewById(R.id.tv_tel_listlayout);
+
 
 
             // 뷰홀더에서만 리스트 포지션값을 불러올 수 있음.
