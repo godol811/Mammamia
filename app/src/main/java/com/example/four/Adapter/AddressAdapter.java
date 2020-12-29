@@ -37,8 +37,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
     int layout = 0;
     LayoutInflater inflater = null;
     private ArrayList<AddressDto> mDataset;
-
-    String urlAddr = "http://222.106.89.206:8080/pictures/";//자기 ip로 바꾸기
+    String urlAddr = "http://172.30.1.27:8080/pictures/";
     ///////////////////////////////////////////////////////////////////////////////////////
     // Date : 2020.12.29
     //
@@ -81,8 +80,11 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         holder.addrTel.setText(mDataset.get(position).getAddrTel()); //position = 인덱스값
 //        holder.addrProfile.setImageURI(Uri.parse(urlAddr+mDataset.get(position).getAddrImagePath()));
 
-        Glide.with(holder.addrProfile).load(urlAddr+mDataset.get(position).getAddrImagePath()).override(120,120).apply(new RequestOptions().circleCrop()).into(holder.addrProfile);
-  
+        Log.d(TAG,mDataset.get(position).getAddrImagePath());
+
+
+            Glide.with(holder.addrProfile).load(urlAddr+mDataset.get(position).getAddrImagePath()).placeholder(R.drawable.shape_circle).override(120,120).apply(new RequestOptions().circleCrop()).into(holder.addrProfile);
+
         ///////////////////////////////////////////////////////////////////////////////////////
         // Date : 2020.12.29
         //
@@ -103,8 +105,6 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         } else if(mDataset.get(position).getAddrTag().equals("키즈카페")){
             holder.addrTagImg.setImageResource(R.drawable.tag_cafe);
         } else if(mDataset.get(position).getAddrTag().equals("기타")){
-            holder.addrTagImg.setImageResource(R.drawable.tag_user);
-        }else{
             holder.addrTagImg.setImageResource(R.drawable.tag_user);
         }
 

@@ -123,8 +123,6 @@ public class ListviewActivity extends AppCompatActivity
 
         출처: https://wimir-dev.tistory.com/63 [[위미르 개발팀] Android, iOS , Web 제작]
         //-------------
-
-
         addrDetail = findViewById(R.id.tv_detail_listview);
         upbtn = findViewById(R.id.btn_update_listview);
 //        backbtn = findViewById(R.id.btn_back_listview);
@@ -144,8 +142,6 @@ public class ListviewActivity extends AppCompatActivity
         geocoding();
         //-------------------------------------------------
     }
-
-
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -235,6 +231,7 @@ public class ListviewActivity extends AppCompatActivity
         Geocoder geocoder= new Geocoder(this, Locale.KOREA);
         //지오코더에게 지오코딩작업 요청
         try {
+
             //getFromLocationName : 주소로 부터 가져온 위도와 경도 값
             //maxResults : 반환받고싶은 주소의 최대 개수
             List<Address> addresses = geocoder.getFromLocationName(addr,3); //최대 3개까지 받는데, 0~3개까지 있으면 받는다.
@@ -254,7 +251,10 @@ public class ListviewActivity extends AppCompatActivity
 
            // builder.setMessage(buffer.toString()).setPositiveButton("OK",null).create().show();
 
+
+
             //다이얼로그로 좌표 띄우기
+
 //            builder.setMessage(buffer.toString()).setPositiveButton("OK",null).create().show();
 
 

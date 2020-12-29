@@ -46,13 +46,12 @@
                 android:orientation="horizontal">
 
                 <EditText
-                android:id="@+id/et_tagname_insert"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:id="@+id/et_tagname_insert"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="9"
-                android:hint="태그"
-
-                    />
+                android:hint="태그" />
 
                 <Button
                     android:id="@+id/btn_tagselect_insert"
@@ -114,16 +113,5 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="지도" />
-
-    </LinearLayout>
 </LinearLayout>
