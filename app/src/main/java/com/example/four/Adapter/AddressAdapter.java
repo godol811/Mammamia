@@ -100,13 +100,11 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         
         if(mDataset.get(position).getAddrTag().equals("병원")){
             holder.addrTagImg.setImageResource(R.drawable.tag_hospital);
-        } else if(mDataset.get(position).getAddrTag().equals("유치원")){
+        }else if(mDataset.get(position).getAddrTag().equals("유치원")){
             holder.addrTagImg.setImageResource(R.drawable.tag_kindergaden);
-        } else if(mDataset.get(position).getAddrTag().equals("키즈카페")){
+        }else if(mDataset.get(position).getAddrTag().equals("키즈카페")){
             holder.addrTagImg.setImageResource(R.drawable.tag_cafe);
-        } else if(mDataset.get(position).getAddrTag().equals("기타")){
-            holder.addrTagImg.setImageResource(R.drawable.tag_user);
-        }else{
+        }else if(mDataset.get(position).getAddrTag().equals("기타")){
             holder.addrTagImg.setImageResource(R.drawable.tag_user);
         }
 
