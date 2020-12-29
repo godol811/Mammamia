@@ -37,6 +37,8 @@ public class UpdateActivity extends Activity {
 
 
 
+
+
         Intent intent = getIntent();
 
         urlIp = intent.getStringExtra("urlIp");

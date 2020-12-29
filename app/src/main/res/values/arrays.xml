@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="tag">
+        <item>유치원</item>
+        <item>병원</item>
+        <item>키즈카페</item>
+        <item>기타</item>
+    </string-array>
+</resources>
