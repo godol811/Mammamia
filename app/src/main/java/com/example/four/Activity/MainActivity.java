@@ -65,7 +65,7 @@ public class MainActivity extends Activity {
 
         //inwoo 추가
         //헤이! 여기 아이피만 교체해주세요!
-        urlIp = "192.168.0.105";
+        urlIp = "172.30.1.27";
 
 
 
@@ -132,6 +132,7 @@ public class MainActivity extends Activity {
 
                 //intent 해줄 값
                 intent.putExtra("urlAddr", urlAddr);
+                intent.putExtra("urlIp",urlIp);
                 intent.putExtra("addrNo", members.get(position).getAddrNo());
                 intent.putExtra("addrName", members.get(position).getAddrName());
                 intent.putExtra("addrTag", members.get(position).getAddrTag());
