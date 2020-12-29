@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.four.Adapter.AddressAdapter;
@@ -72,8 +73,7 @@ public class MainActivity extends Activity {
 
         //inwoo 추가
         //헤이! 여기 아이피만 교체해주세요!
-//        urlIp = "192.168.0.105";
-        urlIp = "192.168.35.147";//PANTS CEO
+        urlIp = "192.168.0.105";
 
 
 
@@ -96,6 +96,8 @@ public class MainActivity extends Activity {
         helper.attachToRecyclerView(recyclerView);
 
         findViewById(R.id.btn_insert_listview).setOnClickListener(new View.OnClickListener() {
+
+
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this,InsertActivity.class);
@@ -134,7 +136,12 @@ public class MainActivity extends Activity {
                 Intent intent = new Intent(MainActivity.this, ListviewActivity.class);
 
 
+
+                intent.putExtra("urlIp", urlIp);
+
+
                 intent.putExtra("urlAddr", urlAddr);
+
                 intent.putExtra("addrNo", members.get(position).getAddrNo());
                 intent.putExtra("addrName", members.get(position).getAddrName());
                 intent.putExtra("addrTag", members.get(position).getAddrTag());
@@ -173,6 +180,7 @@ public class MainActivity extends Activity {
 
             adapter = new AddressAdapter(MainActivity.this, R.layout.listlayout, members);
             recyclerView.setAdapter(adapter);
+
 
 
         } catch (Exception e) {

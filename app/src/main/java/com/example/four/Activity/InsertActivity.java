@@ -80,6 +80,12 @@ public class InsertActivity extends Activity {
         insertAddr = findViewById(R.id.et_addr_insert);
         //----------------------
 
+        //tag----------------------
+        tagSelectBtn = findViewById(R.id.btn_tagselect_insert);
+        tagSelectBtn.setOnClickListener(tagselectClick);
+        //==-----------------------
+
+
         insertDetail = findViewById(R.id.et_detail_insert);
         addrinsertBtn = findViewById(R.id.btn_ok_insert);
         insertBackBtn = findViewById(R.id.btn_back_insert);
@@ -150,6 +156,7 @@ public class InsertActivity extends Activity {
                         public void onClick(DialogInterface dialog, int which) {
                             String[] tag = getResources().getStringArray(R.array.tag);
                             TextView text = findViewById(R.id.et_tagname_insert);
+
                             String result = "";
                             for (int i=0; i<tagSelect.length; i++){
                                 if (tagSelect[i]){
@@ -164,6 +171,7 @@ public class InsertActivity extends Activity {
 
         }
     };
+
 
 
     private void connectInsertData() {
