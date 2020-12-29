@@ -188,7 +188,7 @@ public class InsertActivity extends Activity {
     //----------------------이미지 관련 메소드----------------------------------------------
     //
     //고종찬 = 바지사장
-    //
+    //Multipart 사진 서버에 입력하는 부분 성공
     //---------------------------------------------------------------------------------
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

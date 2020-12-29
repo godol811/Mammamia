@@ -14,6 +14,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.example.four.Activity.ListviewActivity;
 import com.example.four.Bean.AddressDto;
 import com.example.four.R;
 import com.squareup.picasso.Picasso;
@@ -34,6 +38,14 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
     LayoutInflater inflater = null;
     private ArrayList<AddressDto> mDataset;
     String urlAddr = "http://192.168.35.147:8080/pictures/";
+    ///////////////////////////////////////////////////////////////////////////////////////
+    // Date : 2020.12.29
+    //
+    // Description:
+    // -urlAddr은 사진 불러올라고 어쩔 수 없이 넣는 값이므로 이해 부탁
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+
     int pos=0;
 
     String cal = null;
@@ -67,7 +79,16 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         holder.addrAddr.setText(mDataset.get(position).getAddrAddr()); //position = 인덱스값
         holder.addrTel.setText(mDataset.get(position).getAddrTel()); //position = 인덱스값
 //        holder.addrProfile.setImageURI(Uri.parse(urlAddr+mDataset.get(position).getAddrImagePath()));
-        Picasso.get().load(urlAddr+mDataset.get(position).getAddrImagePath()).into(holder.addrProfile);
+
+        Glide.with(holder.addrProfile).load(urlAddr+mDataset.get(position).getAddrImagePath()).override(150,150).apply(new RequestOptions().circleCrop()).into(holder.addrProfile);
+  
+        ///////////////////////////////////////////////////////////////////////////////////////
+        // Date : 2020.12.29
+        //
+        // Description:
+        // -urlAddr은 사진 불러올라고 어쩔 수 없이 넣는 값이므로 이해 부탁 Picasso 사용
+        //
+        ///////////////////////////////////////////////////////////////////////////////////////
 
 
         Log.d(TAG,urlAddr+mDataset.get(position).getAddrImagePath());
