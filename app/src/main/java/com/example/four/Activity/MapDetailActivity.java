@@ -153,7 +153,7 @@ public class MapDetailActivity extends FragmentActivity implements OnMapReadyCal
             public void onClick(View v) {
 
                 Log.v(TAG,"헤이!");
-
+                mMap.clear();//지도 클리어
                 // 검색창에서 텍스트를 가져온다
                 String str = editText.getText().toString();
                 Log.v(TAG,str);
@@ -316,10 +316,13 @@ public class MapDetailActivity extends FragmentActivity implements OnMapReadyCal
             previous_marker.clear();//지역정보 마커 클리어
         }
 
+
+
         Log.d(TAG, tagName);
 
 
-            if (tagName == "병원")
+
+
             Log.d(TAG, "병원" + tagName);
             new NRPlaces.Builder()
                     .listener(MapDetailActivity.this)
