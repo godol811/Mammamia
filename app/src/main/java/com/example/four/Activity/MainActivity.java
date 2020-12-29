@@ -1,5 +1,6 @@
 package com.example.four.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,7 +23,6 @@ import android.widget.Toast;
 import com.example.four.Adapter.AddressAdapter;
 import com.example.four.Bean.AddressDto;
 import com.example.four.ItemHelper.ItemTouchHelperCallback;
-import com.example.four.ItemHelper.ListAdapter;
 import com.example.four.NetworkTask.NetworkTask;
 import com.example.four.R;
 
@@ -45,7 +46,7 @@ public class MainActivity extends Activity {
 
     //여기서부터 하진추가
     ///////////////////////////////////////////////
-    ListAdapter adapter2;
+    //ListAdapter adapter2;
     ItemTouchHelper helper;
     ///////////////////////////////////////////////
 
@@ -76,10 +77,7 @@ public class MainActivity extends Activity {
         urlIp = "192.168.1.5";
 
 
-
-
-
-        urlAddr = "http://"+urlIp+":8080/test/mammamia.jsp";
+        urlAddr = "http://" + urlIp + ":8080/test/mammamia.jsp";
 
         //검색 인텐트로 이동하기 위해 버튼 선언--------------------
         ivSearchActivity = findViewById(R.id.btn_search_main);
@@ -90,7 +88,7 @@ public class MainActivity extends Activity {
         //여기서부터 하진추가
         //////////////////////////////////////////////////////
         //ItemTouchHelper 생성
-        helper = new ItemTouchHelper(new ItemTouchHelperCallback(adapter2));
+        helper = new ItemTouchHelper(new ItemTouchHelperCallback(adapter));
 
         //RecyclerView에 ItemTouchHelper 붙이기
         helper.attachToRecyclerView(recyclerView);
@@ -110,9 +108,7 @@ public class MainActivity extends Activity {
 //        });
 
 
-
     }
-
 
 
     @Override
@@ -163,7 +159,7 @@ public class MainActivity extends Activity {
     View.OnClickListener searchClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(getApplicationContext(),SearchActivity.class);
+            Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
             intent.putExtra("urlIp", urlIp);
             startActivity(intent);
         }
@@ -173,7 +169,7 @@ public class MainActivity extends Activity {
     private void connectGetData() {
         try {
 
-            NetworkTask networkTask = new NetworkTask(MainActivity.this, urlAddr,"select");
+            NetworkTask networkTask = new NetworkTask(MainActivity.this, urlAddr, "select");
             Object obj = networkTask.execute().get();
             members = (ArrayList<AddressDto>) obj;
 
@@ -182,14 +178,22 @@ public class MainActivity extends Activity {
             recyclerView.setAdapter(adapter);
 
 
-
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
 
-
+    private void setUpRecyclerView() {
+        recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void onDraw(@NonNull Canvas c, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+                helper.onDraw(c, parent, state);
+            }
+        });
+    }
 
 
 }//------------------------------
+
+
