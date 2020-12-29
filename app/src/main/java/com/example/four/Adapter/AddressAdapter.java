@@ -2,7 +2,9 @@ package com.example.four.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +12,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.four.Bean.AddressDto;
 import com.example.four.R;
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 
@@ -54,14 +59,28 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        Log.d(TAG,mDataset.get(position).getAddrImagePath());
+
 
         holder.addrTag.setText(mDataset.get(position).getAddrTag()); //position = 인덱스값
         holder.addrName.setText(mDataset.get(position).getAddrName()); //position = 인덱스값
         holder.addrAddr.setText(mDataset.get(position).getAddrAddr()); //position = 인덱스값
         holder.addrTel.setText(mDataset.get(position).getAddrTel()); //position = 인덱스값
+        holder.addrProfile.setImageBitmap(BitmapFactory.decodeFile(mDataset.get(position).getAddrImagePath()));//사진
 
 
-
+        
+        if(mDataset.get(position).getAddrTag().equals("병원")){
+            holder.addrTagImg.setImageResource(R.drawable.tag_hospital);
+        } else if(mDataset.get(position).getAddrTag().equals("유치원")){
+            holder.addrTagImg.setImageResource(R.drawable.tag_kindergaden);
+        } else if(mDataset.get(position).getAddrTag().equals("키즈카페")){
+            holder.addrTagImg.setImageResource(R.drawable.tag_cafe);
+        } else if(mDataset.get(position).getAddrTag().equals("기타")){
+            holder.addrTagImg.setImageResource(R.drawable.tag_user);
+        }else{
+            holder.addrTagImg.setImageResource(R.drawable.tag_user);
+        }
 
 
     }
@@ -111,12 +130,12 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         public TextView addrName;
         public TextView addrTel;
         public TextView addrAddr;
-
-
+        public ImageView addrProfile;
+        public ImageView addrTagImg;
 
         //추가
         public TextView addrLike;
-        public ImageView addrTagImg;
+
 
 
         MyViewHolder(View v) {
@@ -126,6 +145,8 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
             addrTag = v.findViewById(R.id.tv_tag_listlayout);
             addrName = v.findViewById(R.id.tv_name_listlayout);
             addrTel = v.findViewById(R.id.tv_tel_listlayout);
+            addrProfile = v.findViewById(R.id.iv_profile_listlayout);
+            addrTagImg = v.findViewById(R.id.iv_tag_listlayout);
 
 
             // 뷰홀더에서만 리스트 포지션값을 불러올 수 있음.
@@ -187,6 +208,8 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
 
         }
     }
+
+
 
 }//-------------------------------
 

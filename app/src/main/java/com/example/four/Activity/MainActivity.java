@@ -1,17 +1,21 @@
 package com.example.four.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.four.Adapter.AddressAdapter;
@@ -47,14 +51,18 @@ public class MainActivity extends Activity {
     ImageButton ivSearchActivity;
     //------------------------
 
+
     //-------------------------------------------------------
     //------------------onCreate start-----------------------
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //리사이클러뷰 레이아웃 가져오기
+        ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MODE_PRIVATE); //사용자에게 사진 사용 권한 받기 (가장중요함)
+
+
         recyclerView = findViewById(R.id.rl_address);
         recyclerView.setHasFixedSize(true); //Adapter Item View의 내용이 변경되어도 RecyclerView의 크기는 고정
 
@@ -63,13 +71,13 @@ public class MainActivity extends Activity {
         recyclerView.setLayoutManager(layoutManager);
 
 
+
         //inwoo 추가
         //헤이! 여기 아이피만 교체해주세요!
-        urlIp = "172.30.1.27";
+        urlIp = "192.168.0.105";
 
 
 
-        //Insert 버튼 실행
 
 
         urlAddr = "http://"+urlIp+":8080/test/mammamia.jsp";
@@ -89,11 +97,11 @@ public class MainActivity extends Activity {
         helper.attachToRecyclerView(recyclerView);
 
         findViewById(R.id.btn_insert_listview).setOnClickListener(new View.OnClickListener() {
+
+
             @Override
             public void onClick(View v) {
-                //버튼 클릭시 InsertActivity로 이동
-                Intent intent = new Intent(MainActivity.this, InsertActivity.class);
-
+                Intent intent = new Intent(MainActivity.this,InsertActivity.class);
 
                 //ip주소 보내기
                 intent.putExtra("urlIp", urlIp);
@@ -117,9 +125,9 @@ public class MainActivity extends Activity {
         super.onResume();
 
 
-        connectGetData();
-        registerForContextMenu(recyclerView);
+        connectGetData(); // data 갱신
 
+        Log.v(TAG, "onResume"); //태그 선언
 
 
         //리사이클러뷰는 직접 onClick,LongClick 이 불가해서 adapter 에서 가져온다.
@@ -132,13 +140,14 @@ public class MainActivity extends Activity {
 
                 //intent 해줄 값
                 intent.putExtra("urlAddr", urlAddr);
-                intent.putExtra("urlIp",urlIp);
+                intent.putExtra("urlIp", urlIp);
                 intent.putExtra("addrNo", members.get(position).getAddrNo());
                 intent.putExtra("addrName", members.get(position).getAddrName());
                 intent.putExtra("addrTag", members.get(position).getAddrTag());
                 intent.putExtra("addrTel", members.get(position).getAddrTel());
                 intent.putExtra("addrDetail", members.get(position).getAddrDetail());
                 intent.putExtra("addrAddr", members.get(position).getAddrAddr());
+                intent.putExtra("addrImagePath",members.get(position).getAddrImagePath());
 
 
                 startActivity(intent);
@@ -148,9 +157,12 @@ public class MainActivity extends Activity {
         });
     }
 
-
     //------------------onResume finish------------------------
     //---------------------------------------------------------
+
+
+    //-----------------------------------------------------------------------
+    //------------------method (connectGetData) start------------------------
 
     //돋보기 버튼 클릭 - 검색 인텐트로 이동
     View.OnClickListener searchClickListener = new View.OnClickListener() {
@@ -169,7 +181,7 @@ public class MainActivity extends Activity {
     private void connectGetData() {
         try {
 
-            NetworkTask networkTask = new NetworkTask(MainActivity.this, urlAddr,"select");
+            NetworkTask networkTask = new NetworkTask(MainActivity.this, urlAddr, "select");
             Object obj = networkTask.execute().get();
             members = (ArrayList<AddressDto>) obj;
 

@@ -27,7 +27,7 @@
             <!--나중에 바뀔거,선택시 태그변경 가능하게-->
 
             <ImageView
-                android:id="@+id/iv_tagimg_listview"
+                android:id="@+id/iv_profile_update"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                  android:src="@drawable/shape_circle"
