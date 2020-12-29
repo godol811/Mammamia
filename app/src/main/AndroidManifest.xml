@@ -35,7 +35,8 @@
         <activity android:name=".Activity.SearchActivity" />
         <activity android:name=".Activity.InsertActivity" />
         <activity android:name=".Activity.UpdateActivity" />
-        <activity android:name=".Activity.ListviewActivity"
+        <activity android:name=".Activity.ListviewActivity"/>
+        <activity android:name=".Activity.AddressWebViewActivity"/>
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity android:name=".Activity.MainActivity" />
     </application>

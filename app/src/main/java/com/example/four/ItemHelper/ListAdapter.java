@@ -98,7 +98,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ItemViewHolder
         wm.width = (int) (width * 0.7);
         wm.height = height / 2;
         //다이얼로그 Listener 세팅
-        //dialog.setDialogListener(this);
+        dialog.setDialogListener((OnDialogListener) this);
         //다이얼로그 띄우기
         dialog.show();
     }

@@ -52,7 +52,7 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
 
     @Override
     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-        listener.onItemSwipe(viewHolder.getAdapterPosition());
+         listener.onItemSwipe(viewHolder.getAdapterPosition());
     }
 
     //아이템을 터치하거나 스와이프하거나 뷰에 변화가 생길경우 불러오는 함수
@@ -176,7 +176,7 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
                 setItemsClickable(recyclerView, true);
                 swipeBack = false;
                 Log.v(TAG, "Left2");
-                if (listener == null && buttonInstance != null && buttonInstance.contains(event.getX(), event.getY())) {
+                if (listener != null && buttonInstance != null && buttonInstance.contains(event.getX(), event.getY())) {
                     Log.v(TAG, "Left1");
                     if (listener !=null && buttonsShowedState == ButtonsState.LEFT_VISIBLE) {
                         listener.onLeftClick(viewHolder.getAdapterPosition(), viewHolder);
