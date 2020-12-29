@@ -45,7 +45,7 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:enabled="true"
+                    android:enabled="false"
                     android:id="@+id/et_tagname_insert"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
