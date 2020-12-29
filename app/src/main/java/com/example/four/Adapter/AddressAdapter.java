@@ -16,6 +16,8 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.four.Bean.AddressDto;
 import com.example.four.R;
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 
@@ -77,6 +79,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         } else if(mDataset.get(position).getAddrTag().equals("기타")){
             holder.addrTagImg.setImageResource(R.drawable.tag_user);
         }
+
 
     }
 

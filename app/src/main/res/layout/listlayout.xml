@@ -22,10 +22,10 @@
 
     <ImageView
         android:id="@+id/iv_profile_listlayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:src="@drawable/shape_circle"
-        android:scaleType="fitXY"/>
+        android:scaleType="fitCenter"/>
 
 
     <LinearLayout

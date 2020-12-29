@@ -27,6 +27,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -135,6 +136,7 @@ public class ListviewActivity extends AppCompatActivity
         profileImage = findViewById(R.id.iv_profile_listview);
 
         profileImage.setImageBitmap(BitmapFactory.decodeFile(imagePath));//가져온 경로를 imageView에 올리기
+//        Picasso.get().load(imagePath).fit().into(profileImage);
         //-------------
         addrDetail = findViewById(R.id.tv_detail_listview);
 
