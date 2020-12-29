@@ -1,6 +1,7 @@
 package com.example.four.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,10 +11,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.four.Adapter.AddressAdapter;
 import com.example.four.Bean.AddressDto;
+import com.example.four.ItemHelper.ItemTouchHelperCallback;
+import com.example.four.ItemHelper.ListAdapter;
 import com.example.four.NetworkTask.NetworkTask;
 import com.example.four.R;
 
@@ -25,10 +29,23 @@ public class MainActivity extends Activity {
 
     //field
     String urlAddr = null;
+    //ip 변수 추가
+    String urlIp = null;
+    //-----------------
     ArrayList<AddressDto> members;
     AddressAdapter adapter = null;
     private RecyclerView recyclerView = null;
     private RecyclerView.LayoutManager layoutManager = null;
+
+    //여기서부터 하진추가
+    ///////////////////////////////////////////////
+    ListAdapter adapter2;
+    ItemTouchHelper helper;
+    ///////////////////////////////////////////////
+
+    //---------------검색 버튼
+    ImageButton ivSearchActivity;
+    //------------------------
 
     //-------------------------------------------------------
     //------------------onCreate start-----------------------
@@ -46,16 +63,40 @@ public class MainActivity extends Activity {
         recyclerView.setLayoutManager(layoutManager);
 
 
-        //여기! 본인 ! ip ! 수정 ! 하는 ! 곳!
-        urlAddr = "http://172.30.1.27:8080/test/mammamia.jsp";
+        //inwoo 추가
+        //헤이! 여기 아이피만 교체해주세요!
+        urlIp = "192.168.0.105";
+
 
 
         //Insert 버튼 실행
+
+
+        urlAddr = "http://"+urlIp+":8080/test/mammamia.jsp";
+
+        //검색 인텐트로 이동하기 위해 버튼 선언--------------------
+        ivSearchActivity = findViewById(R.id.btn_search_main);
+        ivSearchActivity.setOnClickListener(searchClickListener);
+        //--------------------------------------------------------
+
+
+        //여기서부터 하진추가
+        //////////////////////////////////////////////////////
+        //ItemTouchHelper 생성
+        helper = new ItemTouchHelper(new ItemTouchHelperCallback(adapter2));
+
+        //RecyclerView에 ItemTouchHelper 붙이기
+        helper.attachToRecyclerView(recyclerView);
+
         findViewById(R.id.btn_insert_listview).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //버튼 클릭시 InsertActivity로 이동
                 Intent intent = new Intent(MainActivity.this, InsertActivity.class);
+
+
+                //ip주소 보내기
+                intent.putExtra("urlIp", urlIp);
                 startActivity(intent);
             }
         });
@@ -76,9 +117,9 @@ public class MainActivity extends Activity {
         super.onResume();
 
 
-        connectGetData(); // data 갱신
+        connectGetData();
+        registerForContextMenu(recyclerView);
 
-        Log.v(TAG, "onResume"); //태그 선언
 
 
         //리사이클러뷰는 직접 onClick,LongClick 이 불가해서 adapter 에서 가져온다.
@@ -106,8 +147,19 @@ public class MainActivity extends Activity {
         });
     }
 
+
     //------------------onResume finish------------------------
     //---------------------------------------------------------
+
+    //돋보기 버튼 클릭 - 검색 인텐트로 이동
+    View.OnClickListener searchClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(getApplicationContext(),SearchActivity.class);
+            intent.putExtra("urlIp", urlIp);
+            startActivity(intent);
+        }
+    };
 
 
     //-----------------------------------------------------------------------
@@ -116,7 +168,7 @@ public class MainActivity extends Activity {
     private void connectGetData() {
         try {
 
-            NetworkTask networkTask = new NetworkTask(MainActivity.this, urlAddr, "select");
+            NetworkTask networkTask = new NetworkTask(MainActivity.this, urlAddr,"select");
             Object obj = networkTask.execute().get();
             members = (ArrayList<AddressDto>) obj;
 

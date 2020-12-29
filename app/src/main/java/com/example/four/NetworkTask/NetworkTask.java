@@ -43,6 +43,7 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
     }
 
 
+
     @Override
     protected void onPreExecute() {
         Log.v(TAG, "onPreExecute()");
@@ -77,14 +78,14 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setConnectTimeout(10000);
 
-            if (httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+            if(httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK){
                 inputStream = httpURLConnection.getInputStream();
                 inputStreamReader = new InputStreamReader(inputStream);
                 bufferedReader = new BufferedReader(inputStreamReader);
 
-                while (true) {
+                while (true){
                     String strline = bufferedReader.readLine();
-                    if (strline == null) break;
+                    if(strline == null) break;
                     stringBuffer.append(strline + "\n");
                 }
                 ///////////////////////////////////////////////////////////////////////////////////////
@@ -95,23 +96,23 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
                 //  - 입력, 수정, 삭제로 들어온 Task는 parserAction()으로 구분
                 //
                 ///////////////////////////////////////////////////////////////////////////////////////
-                if (where.equals("select")) {
+                if(where.equals("select")){
                     parserSelect(stringBuffer.toString());
-                } else {
+                }else{
                     result = parserAction(stringBuffer.toString());
                 }
                 ///////////////////////////////////////////////////////////////////////////////////////
 
             }
-        } catch (Exception e) {
+        }catch (Exception e){
             e.printStackTrace();
-        } finally {
+        }finally {
             try {
-                if (bufferedReader != null) bufferedReader.close();
-                if (inputStreamReader != null) inputStreamReader.close();
-                if (inputStream != null) inputStream.close();
+                if(bufferedReader != null) bufferedReader.close();
+                if(inputStreamReader != null) inputStreamReader.close();
+                if(inputStream != null) inputStream.close();
 
-            } catch (Exception e2) {
+            }catch (Exception e2){
                 e2.printStackTrace();
             }
         }
@@ -123,9 +124,9 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
         //  - 입력, 수정, 삭제로 들어온 Task는 result를 return
         //
         ///////////////////////////////////////////////////////////////////////////////////////
-        if (where.equals("select")) {
+        if(where.equals("select")){
             return Address;
-        } else {
+        }else{
             return result;
         }
         ///////////////////////////////////////////////////////////////////////////////////////
@@ -142,7 +143,7 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
 
     @Override
     protected void onCancelled() {
-        Log.v(TAG, "onCancelled()");
+        Log.v(TAG,"onCancelled()");
         super.onCancelled();
     }
 
@@ -153,18 +154,19 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
     //  - 검색후 json parsing
     //
     ///////////////////////////////////////////////////////////////////////////////////////
-    private void parserSelect(String s) {
-        Log.v(TAG, "parserSelect()");
+    private void parserSelect(String s){
+        Log.v(TAG,"parserSelect()");
 
         try {
 
             JSONObject jsonObject = new JSONObject(s);
             JSONArray jsonArray = new JSONArray(jsonObject.getString("addrlist"));
             Address.clear();
-            Log.v(TAG, "s" + s);
+            Log.v(TAG,"s"+s);
 
 
-            for (int i = 0; i < jsonArray.length(); i++) {
+
+            for(int i = 0; i < jsonArray.length(); i++){
                 JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
                 int addrNo = jsonObject1.getInt("addrNo");
                 String addrName = jsonObject1.getString("addrName");
@@ -172,16 +174,17 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
                 String addrAddr = jsonObject1.getString("addrAddr");
                 String addrDetail = jsonObject1.getString("addrDetail");
                 String addrTag = jsonObject1.getString("addrTag");
-//                String addrLike = jsonObject1.getString("addrLike");
+
 //                String addrImagePath = jsonObject1.getString("addrImagePath");
 
 
-                AddressDto address = new AddressDto(addrNo, addrName, addrTel, addrAddr, addrDetail, addrTag);
+
+                AddressDto address = new AddressDto(addrNo,addrName,addrTel,addrAddr,addrDetail,addrTag);
                 Address.add(address);
                 // Log.v(TAG, member.toString());
                 Log.v(TAG, "----------------------------------");
             }
-        } catch (Exception e) {
+        }catch (Exception e){
             e.printStackTrace();
         }
     }
@@ -194,8 +197,8 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
     //  - 입력, 수정, 삭제후 json parsing
     //
     ///////////////////////////////////////////////////////////////////////////////////////
-    private String parserAction(String s) {
-        Log.v(TAG, "Parser()");
+    private String parserAction(String s){
+        Log.v(TAG,"Parser()");
         String returnValue = null;
 
         try {
@@ -205,7 +208,7 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
             returnValue = jsonObject.getString("result");
             Log.v(TAG, returnValue);
 
-        } catch (Exception e) {
+        }catch (Exception e){
             e.printStackTrace();
         }
         return returnValue;
