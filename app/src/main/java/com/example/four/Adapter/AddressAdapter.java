@@ -78,14 +78,6 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
 
 
     }
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-    @Override
-    public int getItemCount() {
-        return mDataset.size();
-    }
 
 
     //인터페이스 선언
@@ -106,6 +98,16 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
     }
 
 
+    @Override
+    public int getItemCount() {
+        return mDataset.size();
+    }
+
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
 
     @Override
     public boolean onItemMove(int from_position, int to_position) {

@@ -22,7 +22,9 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
 
 
     public ItemTouchHelperCallback(ItemTouchHelperListener listener) {
+
         this.listener = listener;
+
     }
     //동작 정의
     @Override
