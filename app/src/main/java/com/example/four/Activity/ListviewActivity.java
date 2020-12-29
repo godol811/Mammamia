@@ -18,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.four.NetworkTask.NetworkTask;
 import com.example.four.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -26,6 +28,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.squareup.picasso.Picasso;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -113,8 +117,11 @@ public class ListviewActivity extends AppCompatActivity
         //addrimage 추가
         profileImage = findViewById(R.id.iv_profile_listview);
 
-        profileImage.setImageBitmap(BitmapFactory.decodeFile(imagePath));//가져온 경로를 imageView에 올리기
-//        Picasso.get().load(imagePath).fit().into(profileImage);
+        String urlAddr = "http://"+urlIp+":8080/pictures/";
+//        Picasso.get().load(urlAddr+imagePath).into(profileImage);
+        Glide.with(ListviewActivity.this).load(urlAddr+imagePath).override(300,300).apply(new RequestOptions().circleCrop()).into(profileImage);
+
+        출처: https://wimir-dev.tistory.com/63 [[위미르 개발팀] Android, iOS , Web 제작]
         //-------------
         addrDetail = findViewById(R.id.tv_detail_listview);
         upbtn = findViewById(R.id.btn_update_listview);
@@ -130,15 +137,10 @@ public class ListviewActivity extends AppCompatActivity
         upbtn.setOnClickListener(onClickListener);
 //        backbtn.setOnClickListener(onClickListener1);
         delebtn.setOnClickListener(onClickListener2);
-
-
-
         //inwoo추가-----------------------------------
         //지오코딩해주는 메소드
         geocoding();
         //-------------------------------------------------
-
-
     }
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
@@ -191,9 +193,6 @@ public class ListviewActivity extends AppCompatActivity
     //  맵이 사용할 준비가 되었을 때(NULL이 아닌 GoogleMap 객체를 파라미터로 제공해 줄 수 있을 때) 호출되어지는 메소드
     @Override
     public void onMapReady(GoogleMap googleMap) {
-
-
-
         mMap = googleMap;
         //다시 변환후 넣어줘야됨
 //        String name2 = (String) name1.getText();
@@ -224,8 +223,6 @@ public class ListviewActivity extends AppCompatActivity
             }
         });
     }
-
-
     //지오코딩 해주는 메소드
     private void geocoding() {
         // 주소 -> 좌표 (지오코딩)
@@ -236,26 +233,18 @@ public class ListviewActivity extends AppCompatActivity
         try {
             //getFromLocationName : 주소로 부터 가져온 위도와 경도 값
             //maxResults : 반환받고싶은 주소의 최대 개수
-            List<Address> addresses = geocoder.getFromLocationName(addr,1); //최대 3개까지 받는데, 0~3개까지 있으면 받는다.
+            List<Address> addresses = geocoder.getFromLocationName(addr,3); //최대 3개까지 받는데, 0~3개까지 있으면 받는다.
             //StringBuffer객체 생성
             StringBuffer buffer= new StringBuffer();
-
-
-
             for(android.location.Address t : addresses){
                 buffer.append(t.getLatitude()+", "+t.getLongitude()+"\n");
             }
-
             //다이얼로그로 좌표들 보여주기
             //주소록에 입력하는 주소값을 좌표로 저장해놓자! 핀으로 찍어서 보여줘야지
             AlertDialog.Builder builder= new AlertDialog.Builder(this);
-
-
             //좌표값 저장
             intentLat = addresses.get(0).getLatitude();
             intentLng = addresses.get(0).getLongitude();
-
-
             Log.v(TAG, "intentLat : " + String.valueOf(intentLat));
             Log.v(TAG, "intentLng : " + String.valueOf(intentLng));
 
@@ -272,8 +261,4 @@ public class ListviewActivity extends AppCompatActivity
             Toast.makeText(this, "검색 실패", Toast.LENGTH_SHORT).show();
         }
     }
-
-
-
-
 }//------------------------------
