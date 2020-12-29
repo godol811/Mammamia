@@ -184,16 +184,18 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
                         return false;
                     }
                 });
+                Log.v(TAG, "Left열었다");
+                Log.v(TAG, "리스너에 뭐가 찍히지"+listener);
                 setItemsClickable(recyclerView, true);
                 swipeBack = false;
                 if (listener != null && buttonInstance != null && buttonInstance.contains(event.getX(), event.getY())) {
-                    Log.v(TAG, "Left2");
+                    Log.v(TAG, "Left 들어간다");
                     if (buttonsShowedState == ButtonsState.LEFT_VISIBLE) {
                         listener.onLeftClick(viewHolder.getAdapterPosition(), viewHolder);
                     } else if (buttonsShowedState == ButtonsState.RIGHT_VISIBLE) {
                         listener.onRightClick(viewHolder.getAdapterPosition(), viewHolder);
                     }
-                }
+                }Log.v(TAG, "Left닫았다");
                 buttonsShowedState = ButtonsState.GONE;
                 currenrtItemViewHolder = null;
                 return false;

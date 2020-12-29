@@ -244,7 +244,7 @@ public class InsertActivity extends Activity {
                                     result += tag[i]+ " ";
                                 }
                             }
-                            text.setText(result);
+                            text.setText(result.trim());
                         }
                     })
                     .setNegativeButton("취소", null)

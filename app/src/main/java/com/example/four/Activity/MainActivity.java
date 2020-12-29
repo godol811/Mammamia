@@ -92,7 +92,7 @@ public class MainActivity extends Activity {
         //여기서부터 하진추가
         //////////////////////////////////////////////////////
         //ItemTouchHelper 생성
-        helper = new ItemTouchHelper(new ItemTouchHelperCallback(adapter2));
+        helper = new ItemTouchHelper(new ItemTouchHelperCallback(adapter));
 
         //RecyclerView에 ItemTouchHelper 붙이기
         helper.attachToRecyclerView(recyclerView);
