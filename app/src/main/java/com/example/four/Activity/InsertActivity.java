@@ -71,6 +71,12 @@ public class InsertActivity extends Activity {
         insertAddr = findViewById(R.id.et_addr_insert);
         //----------------------
 
+        //tag----------------------
+        tagSelectBtn = findViewById(R.id.btn_tagselect_insert);
+        tagSelectBtn.setOnClickListener(tagselectClick);
+        //==-----------------------
+
+
         insertDetail = findViewById(R.id.et_detail_insert);
         addrinsertBtn = findViewById(R.id.btn_ok_insert);
         insertBackBtn = findViewById(R.id.btn_back_insert);
