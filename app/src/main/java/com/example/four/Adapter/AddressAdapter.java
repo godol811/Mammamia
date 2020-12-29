@@ -33,7 +33,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
     int layout = 0;
     LayoutInflater inflater = null;
     private ArrayList<AddressDto> mDataset;
-    String urlAddr = null;
+
     int pos=0;
 
     String cal = null;
@@ -66,7 +66,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         holder.addrName.setText(mDataset.get(position).getAddrName()); //position = 인덱스값
         holder.addrAddr.setText(mDataset.get(position).getAddrAddr()); //position = 인덱스값
         holder.addrTel.setText(mDataset.get(position).getAddrTel()); //position = 인덱스값
-        holder.addrProfile.setImageBitmap(BitmapFactory.decodeFile(mDataset.get(position).getAddrImagePath()));//사진
+        holder.addrImagePath.setImageBitmap(BitmapFactory.decodeFile(mDataset.get(position).getAddrImagePath()));//사진
 
 
         
@@ -130,7 +130,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         public TextView addrName;
         public TextView addrTel;
         public TextView addrAddr;
-        public ImageView addrProfile;
+        public ImageView addrImagePath;
         public ImageView addrTagImg;
 
         //추가
@@ -145,8 +145,9 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
             addrTag = v.findViewById(R.id.tv_tag_listlayout);
             addrName = v.findViewById(R.id.tv_name_listlayout);
             addrTel = v.findViewById(R.id.tv_tel_listlayout);
-            addrProfile = v.findViewById(R.id.iv_profile_listlayout);
+            addrImagePath = v.findViewById(R.id.iv_profile_listlayout);
             addrTagImg = v.findViewById(R.id.iv_tag_listlayout);
+
 
 
             // 뷰홀더에서만 리스트 포지션값을 불러올 수 있음.

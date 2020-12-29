@@ -37,7 +37,7 @@ public class InsertActivity extends Activity {
     private Bitmap image_bitmap = null;
 
     //field
-    String urlAddr = null;
+
     EditText insertName, insertTag, insertTel, insertAddr, insertDetail;
     Button addrinsertBtn;
     Button insertBackBtn;
@@ -90,7 +90,7 @@ public class InsertActivity extends Activity {
 
         addrinsertBtn.setOnClickListener(onClickListener);
         insertBackBtn.setOnClickListener(onClickListener1);
-    }
+
 
 //---------------------------------------사진 불러오기 onclick-----------------------
         findViewById(R.id.iv_image_insert).setOnClickListener(new View.OnClickListener() {
@@ -105,9 +105,9 @@ public class InsertActivity extends Activity {
         });
 
 //---------------------------------------사진 불러오기 onclick-----------------------
+}
 
 
-    }
 
 
 
