@@ -31,7 +31,7 @@ public class MainActivity extends Activity {
 
     final static String TAG = "메인";
 
-    //field
+
     String urlAddr = null;
     //ip 변수 추가
     String urlIp = null;
@@ -39,6 +39,8 @@ public class MainActivity extends Activity {
     ArrayList<AddressDto> members;
     AddressAdapter adapter = null;
     private RecyclerView recyclerView = null;
+
+
     private RecyclerView.LayoutManager layoutManager = null;
 
     //여기서부터 하진추가
@@ -51,10 +53,6 @@ public class MainActivity extends Activity {
     ImageButton ivSearchActivity;
     //------------------------
 
-
-    //-------------------------------------------------------
-    //------------------onCreate start-----------------------
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,12 +62,13 @@ public class MainActivity extends Activity {
 
 
         recyclerView = findViewById(R.id.rl_address);
-        recyclerView.setHasFixedSize(true); //Adapter Item View의 내용이 변경되어도 RecyclerView의 크기는 고정
+
+
+        recyclerView.setHasFixedSize(true);
 
 
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-
 
 
         //inwoo 추가
@@ -103,6 +102,7 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this,InsertActivity.class);
 
+
                 //ip주소 보내기
                 intent.putExtra("urlIp", urlIp);
                 startActivity(intent);
@@ -110,37 +110,38 @@ public class MainActivity extends Activity {
         });
 
 
+
     }
 
-    //------------------onCreate finish-----------------------
-    //--------------------------------------------------------
 
 
-
-
-    //--------------------------------------------------------
-    //------------------onResume start------------------------
     @Override
     protected void onResume() {
         super.onResume();
 
 
-        connectGetData(); // data 갱신
+        connectGetData();
+        registerForContextMenu(recyclerView);
 
         Log.v(TAG, "onResume"); //태그 선언
 
 
-        //리사이클러뷰는 직접 onClick,LongClick 이 불가해서 adapter 에서 가져온다.
+        Log.v(TAG, "onResume");
         adapter.setOnItemClickListener(new AddressAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
 
-                //Item Click 시 ListViewActivity로 이동
+
+
                 Intent intent = new Intent(MainActivity.this, ListviewActivity.class);
 
-                //intent 해줄 값
-                intent.putExtra("urlAddr", urlAddr);
+
+
                 intent.putExtra("urlIp", urlIp);
+
+
+                intent.putExtra("urlAddr", urlAddr);
+
                 intent.putExtra("addrNo", members.get(position).getAddrNo());
                 intent.putExtra("addrName", members.get(position).getAddrName());
                 intent.putExtra("addrTag", members.get(position).getAddrTag());
@@ -157,12 +158,6 @@ public class MainActivity extends Activity {
         });
     }
 
-    //------------------onResume finish------------------------
-    //---------------------------------------------------------
-
-
-    //-----------------------------------------------------------------------
-    //------------------method (connectGetData) start------------------------
 
     //돋보기 버튼 클릭 - 검색 인텐트로 이동
     View.OnClickListener searchClickListener = new View.OnClickListener() {
@@ -175,13 +170,10 @@ public class MainActivity extends Activity {
     };
 
 
-    //-----------------------------------------------------------------------
-    //------------------method (connectGetData) start------------------------
-
     private void connectGetData() {
         try {
 
-            NetworkTask networkTask = new NetworkTask(MainActivity.this, urlAddr, "select");
+            NetworkTask networkTask = new NetworkTask(MainActivity.this, urlAddr,"select");
             Object obj = networkTask.execute().get();
             members = (ArrayList<AddressDto>) obj;
 
@@ -190,12 +182,14 @@ public class MainActivity extends Activity {
             recyclerView.setAdapter(adapter);
 
 
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    //-----------------method (connectGetData) finish----------------------
-    //---------------------------------------------------------------------
 
 
-}   //---------------끝---------------
+
+
+
+}//------------------------------

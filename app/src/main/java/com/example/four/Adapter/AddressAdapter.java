@@ -14,6 +14,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.example.four.Activity.ListviewActivity;
 import com.example.four.Bean.AddressDto;
 import com.example.four.R;
 import com.squareup.picasso.Picasso;
@@ -33,6 +37,14 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
     int layout = 0;
     LayoutInflater inflater = null;
     private ArrayList<AddressDto> mDataset;
+    String urlAddr = "http://172.30.1.27:8080/pictures/";
+    ///////////////////////////////////////////////////////////////////////////////////////
+    // Date : 2020.12.29
+    //
+    // Description:
+    // -urlAddr은 사진 불러올라고 어쩔 수 없이 넣는 값이므로 이해 부탁
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
 
     int pos=0;
 
@@ -66,7 +78,20 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         holder.addrName.setText(mDataset.get(position).getAddrName()); //position = 인덱스값
         holder.addrAddr.setText(mDataset.get(position).getAddrAddr()); //position = 인덱스값
         holder.addrTel.setText(mDataset.get(position).getAddrTel()); //position = 인덱스값
-        holder.addrImagePath.setImageBitmap(BitmapFactory.decodeFile(mDataset.get(position).getAddrImagePath()));//사진
+//        holder.addrProfile.setImageURI(Uri.parse(urlAddr+mDataset.get(position).getAddrImagePath()));
+
+        Glide.with(holder.addrProfile).load(urlAddr+mDataset.get(position).getAddrImagePath()).override(150,150).apply(new RequestOptions().circleCrop()).into(holder.addrProfile);
+
+        ///////////////////////////////////////////////////////////////////////////////////////
+        // Date : 2020.12.29
+        //
+        // Description:
+        // -urlAddr은 사진 불러올라고 어쩔 수 없이 넣는 값이므로 이해 부탁 Picasso 사용
+        //
+        ///////////////////////////////////////////////////////////////////////////////////////
+
+
+        Log.d(TAG,urlAddr+mDataset.get(position).getAddrImagePath());
 
 
         
@@ -130,7 +155,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         public TextView addrName;
         public TextView addrTel;
         public TextView addrAddr;
-        public ImageView addrImagePath;
+        public ImageView addrProfile;
         public ImageView addrTagImg;
 
         //추가
@@ -145,9 +170,8 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
             addrTag = v.findViewById(R.id.tv_tag_listlayout);
             addrName = v.findViewById(R.id.tv_name_listlayout);
             addrTel = v.findViewById(R.id.tv_tel_listlayout);
-            addrImagePath = v.findViewById(R.id.iv_profile_listlayout);
+            addrProfile = v.findViewById(R.id.iv_profile_listlayout);
             addrTagImg = v.findViewById(R.id.iv_tag_listlayout);
-
 
 
             // 뷰홀더에서만 리스트 포지션값을 불러올 수 있음.
