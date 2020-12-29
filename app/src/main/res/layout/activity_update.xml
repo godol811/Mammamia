@@ -54,7 +54,9 @@
             <EditText
                 android:id="@+id/et_tel_update"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="phone"
+                />
 
             <EditText
                 android:id="@+id/et_addr_update"

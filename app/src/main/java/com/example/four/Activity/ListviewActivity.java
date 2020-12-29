@@ -86,8 +86,6 @@ public class ListviewActivity extends AppCompatActivity
         //-------------------------------------------------------
         Intent intent = getIntent();
         urlIp = intent.getStringExtra("urlIp");
-
-        Log.d(TAG,urlIp);
         addrNo = intent.getIntExtra("addrNo",0);
         name = intent.getStringExtra("addrName");
         tel = intent.getStringExtra("addrTel");
@@ -142,6 +140,7 @@ public class ListviewActivity extends AppCompatActivity
         geocoding();
         //-------------------------------------------------
     }
+
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -169,8 +168,6 @@ public class ListviewActivity extends AppCompatActivity
     View.OnClickListener onClickListener2 = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
-
             urlAddr = "http://"+urlIp+":8080/test/mammamiaDelete.jsp?";
             urlAddr = urlAddr + "addrNo=" + addrNo;
             connectDeleteData();
