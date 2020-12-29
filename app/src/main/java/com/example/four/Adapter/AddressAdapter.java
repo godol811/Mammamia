@@ -80,7 +80,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         holder.addrTel.setText(mDataset.get(position).getAddrTel()); //position = 인덱스값
 //        holder.addrProfile.setImageURI(Uri.parse(urlAddr+mDataset.get(position).getAddrImagePath()));
 
-        Glide.with(holder.addrProfile).load(urlAddr+mDataset.get(position).getAddrImagePath()).override(150,150).apply(new RequestOptions().circleCrop()).into(holder.addrProfile);
+        Glide.with(holder.addrImagePath).load(urlAddr+mDataset.get(position).getAddrImagePath()).override(150,150).apply(new RequestOptions().circleCrop()).into(holder.addrImagePath);
 
         ///////////////////////////////////////////////////////////////////////////////////////
         // Date : 2020.12.29
@@ -155,7 +155,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         public TextView addrName;
         public TextView addrTel;
         public TextView addrAddr;
-        public ImageView addrProfile;
+        public ImageView addrImagePath;
         public ImageView addrTagImg;
 
         //추가
@@ -170,7 +170,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
             addrTag = v.findViewById(R.id.tv_tag_listlayout);
             addrName = v.findViewById(R.id.tv_name_listlayout);
             addrTel = v.findViewById(R.id.tv_tel_listlayout);
-            addrProfile = v.findViewById(R.id.iv_profile_listlayout);
+            addrImagePath = v.findViewById(R.id.iv_profile_listlayout);
             addrTagImg = v.findViewById(R.id.iv_tag_listlayout);
 
 

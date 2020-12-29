@@ -71,7 +71,9 @@
                 android:id="@+id/et_tel_insert"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="전화번호" />
+                android:hint="전화번호"
+                android:inputType="phone"
+                />
 
             <EditText
                 android:id="@+id/et_addr_insert"
