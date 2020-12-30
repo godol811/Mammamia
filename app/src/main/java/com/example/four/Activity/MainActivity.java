@@ -91,10 +91,10 @@ public class MainActivity extends Activity {
         ivSearchActivity.setOnClickListener(searchClickListener);
 
 
-        helper = new ItemTouchHelper(new ItemTouchHelperCallback(adapter)); //ItemTouchHelper 생성
-
-
-        helper.attachToRecyclerView(recyclerView);//RecyclerView에 ItemTouchHelper 붙이기
+//        helper = new ItemTouchHelper(new ItemTouchHelperCallback(adapter)); //ItemTouchHelper 생성
+//
+//
+//        helper.attachToRecyclerView(recyclerView);//RecyclerView에 ItemTouchHelper 붙이기
 
         findViewById(R.id.btn_insert_listview).setOnClickListener(new View.OnClickListener() {
 

@@ -142,16 +142,14 @@ public class MapDetailActivity extends FragmentActivity implements OnMapReadyCal
 
                 //거리를 잴 두 마커의 정보 입력 메소드
                 double distance = getDistance(currentmakerPosition,previousmakerPosition);
-                String[] strdistance = Double.toString(distance).split("\\.");
-                String text = "현재 주소록 마커에서 선택한 마커까지의 거리는"
-                        + strdistance + "m입니다";
 
-                Log.d(TAG, String.valueOf(getDistance(currentmakerPosition,previousmakerPosition)));
-                Toast.makeText(MapDetailActivity.this, text, Toast.LENGTH_SHORT).show();
+                String strDistance = String.valueOf(distance);
+                String strDistance1 = Double.toString(distance);
+                Log.d(TAG, "m : " + String.valueOf(getDistance(currentmakerPosition,previousmakerPosition)));
 
                 new AlertDialog.Builder(MapDetailActivity.this)
                         .setTitle("거리")
-                        .setMessage(text)
+                        .setMessage(strDistance)
                         .setNegativeButton("확인",null)
                         .show();
 
@@ -414,7 +412,7 @@ public class MapDetailActivity extends FragmentActivity implements OnMapReadyCal
         locationB.setLongitude(LatLng2.longitude);
         distance = locationA.distanceTo(locationB);
 
-        return distance;
+        return Math.floor(distance);
 
     }
 
