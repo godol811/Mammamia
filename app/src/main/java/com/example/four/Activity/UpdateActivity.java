@@ -97,7 +97,11 @@ public class UpdateActivity extends Activity {
         addr.setText(addr1);
         detail.setText(detail1);
 
-            Glide.with(UpdateActivity.this).load(urlAddr + imagePath).override(300, 300).placeholder(R.drawable.shape_circle).apply(new RequestOptions().circleCrop()).into(profileImage);
+            Glide.with(UpdateActivity.this).load(urlAddr + imagePath)
+                    .override(300, 300)
+                    .placeholder(R.drawable.shape_circle)
+                    .apply(new RequestOptions().circleCrop())
+                    .into(profileImage);
 
 
 //        profileImage.setImageBitmap(BitmapFactory.decodeFile(imagePath));//가져온 경로를 imageView에 올리기
@@ -133,12 +137,10 @@ public class UpdateActivity extends Activity {
                     String st_addr = addr.getText().toString();
                     String st_detail = detail.getText().toString();
 
-                    if (imagePath != null) {
+
 
                         doMultiPartRequest();//사진 넣는 okHttp3 메소드}}}
-                    }else{
-                        imagePath = null;
-                    }
+
 
 
                     urlAddr = urlAddr + "addrNo=" + num + "&addrName=" + st_name + "&addrTel=" + st_tel + "&addrAddr=" + st_addr + "&addrDetail=" + st_detail + "&addrTag=" + st_tag + "&addrImagePath=" + imageName;
@@ -196,8 +198,16 @@ public class UpdateActivity extends Activity {
 
                     //image_bitmap 으로 받아온 이미지의 사이즈를 임의적으로 조절함. width: 400 , height: 300
                     image_bitmap_copy = Bitmap.createScaledBitmap(image_bitmap, 400, 300, true);
-                    ImageView image = (ImageView) findViewById(R.id.iv_image_insert);  //이미지를 띄울 위젯 ID값
+                    ImageView image = (ImageView) findViewById(R.id.iv_profile_update);  //이미지를 띄울 위젯 ID값
                     image.setImageBitmap(image_bitmap_copy);
+
+                    Log.d(TAG,"file:/"+img_path);
+
+                    Glide.with(UpdateActivity.this).load("file:/"+imagePath)
+                            .override(300, 300)
+                            .placeholder(R.drawable.shape_circle)
+                            .apply(new RequestOptions().circleCrop())
+                            .into(profileImage);
 
 
                 } catch (Exception e) {

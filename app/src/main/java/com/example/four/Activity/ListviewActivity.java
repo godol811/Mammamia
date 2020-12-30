@@ -119,9 +119,9 @@ public class ListviewActivity extends AppCompatActivity
 
         String urlAddr = "http://"+urlIp+":8080/pictures/";
 //        Picasso.get().load(urlAddr+imagePath).into(profileImage);
-        Glide.with(ListviewActivity.this).load(urlAddr+imagePath).override(300,300).apply(new RequestOptions().circleCrop()).into(profileImage);
+        Glide.with(ListviewActivity.this).load(urlAddr+imagePath).override(300,300).placeholder(R.drawable.shape_circle).apply(new RequestOptions().circleCrop()).into(profileImage);
 
-        출처: https://wimir-dev.tistory.com/63 [[위미르 개발팀] Android, iOS , Web 제작]
+
         //-------------
         addrDetail = findViewById(R.id.tv_detail_listview);
         upbtn = findViewById(R.id.btn_update_listview);

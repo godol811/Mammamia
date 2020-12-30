@@ -38,7 +38,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
     LayoutInflater inflater = null;
     private ArrayList<AddressDto> mDataset;
 
-    String urlAddr = "http://222.106.89.206:8080/pictures/";//자기 ip로 바꾸기
+    String urlAddr = "http://192.168.35.147:8080/pictures/";//자기 ip로 바꾸기
     ///////////////////////////////////////////////////////////////////////////////////////
     // Date : 2020.12.29
     //
