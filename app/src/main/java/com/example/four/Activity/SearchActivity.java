@@ -35,7 +35,6 @@ public class SearchActivity extends Activity {
 
     final static String TAG = "서치액티비티";
 
-
     String urlAddr = null;
 
     String urlIp = null;
@@ -61,7 +60,7 @@ public class SearchActivity extends Activity {
         setContentView(R.layout.activity_search);
 
         //검색 editText, Button---------------------------------
-        etSearch= findViewById(R.id.et_search);
+        etSearch = findViewById(R.id.et_search);
         ibSearch = findViewById(R.id.btn_search_searchactivity);
         ibSearch.setOnClickListener(searchClickListener);
         //-----------------------------------------------------
@@ -79,14 +78,13 @@ public class SearchActivity extends Activity {
         recyclerView.setLayoutManager(layoutManager);
 
 
-
         //받아오는 ip값
         Intent intent = getIntent();
 
         urlIp = intent.getStringExtra("urlIp");
 
 
-        urlAddr = "http://"+urlIp+":8080/test/mammamiaSearch.jsp";
+        urlAddr = "http://" + urlIp + ":8080/test/mammamiaSearch.jsp";
 
 
 
@@ -118,6 +116,7 @@ public class SearchActivity extends Activity {
 
 
 
+
         Log.v(TAG, "onResume");
         adapter.setOnItemClickListener(new AddressAdapter.OnItemClickListener() {
             @Override
@@ -136,7 +135,7 @@ public class SearchActivity extends Activity {
                 intent.putExtra("addrTel", members.get(position).getAddrTel());
                 intent.putExtra("addrDetail", members.get(position).getAddrDetail());
                 intent.putExtra("addrAddr", members.get(position).getAddrAddr());
-                intent.putExtra("addrImagePath",members.get(position).getAddrImagePath());
+                intent.putExtra("addrImagePath", members.get(position).getAddrImagePath());
 
 
                 startActivity(intent);
@@ -145,6 +144,7 @@ public class SearchActivity extends Activity {
             }
         });
     }
+
 
     //돋보기 버튼 클릭
     View.OnClickListener searchClickListener = new View.OnClickListener() {
@@ -163,7 +163,7 @@ public class SearchActivity extends Activity {
     private void connectGetData() {
         try {
 
-            NetworkTask networkTask = new NetworkTask(SearchActivity.this, urlAddr,"select");
+            NetworkTask networkTask = new NetworkTask(SearchActivity.this, urlAddr, "select");
             Object obj = networkTask.execute().get();
             members = (ArrayList<AddressDto>) obj;
 

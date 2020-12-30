@@ -59,6 +59,8 @@ public class MainActivity extends Activity {
 
     ImageButton ivSearchActivity;//검색버튼
 
+    ImageButton Iblikelistbtn;//라이크리스트버튼
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,6 +92,8 @@ public class MainActivity extends Activity {
         ivSearchActivity = findViewById(R.id.btn_search_main);//검색 인텐트로 이동하기 위해 버튼 선언
         ivSearchActivity.setOnClickListener(searchClickListener);
 
+        Iblikelistbtn =findViewById((R.id.btn_likelist_main));
+        Iblikelistbtn.setOnClickListener(likelistClickListener);
 
         findViewById(R.id.btn_insert_listview).setOnClickListener(new View.OnClickListener() {
 
@@ -154,6 +158,16 @@ public class MainActivity extends Activity {
     };
 
 
+    //하진추가- 라이크 리스트 버튼--------
+    View.OnClickListener likelistClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(getApplicationContext(),LikelistActivity.class);
+            intent.putExtra("urlIp", urlIp);
+            startActivity(intent);
+        }
+    };
+    //----------------------
 
 
     private void connectGetData() {
@@ -168,6 +182,9 @@ public class MainActivity extends Activity {
             recyclerView.setAdapter(adapter);
 
 
+            helper = new ItemTouchHelper(new ItemTouchHelperCallback(adapter)); //ItemTouchHelper 생성
+            helper.attachToRecyclerView(recyclerView);//RecyclerView에 ItemTouchHelper 붙이기
+
 
 
 
@@ -177,7 +194,14 @@ public class MainActivity extends Activity {
     }
 
 
-
+    private void setUpRecyclerView() {
+        recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void onDraw(@NonNull Canvas c, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+                helper.onDraw(c, parent, state);
+            }
+        });
+    }
 
     //배경 터치 시 키보드 사라지게
     public boolean dispatchTouchEvent(MotionEvent ev) {
@@ -193,7 +217,6 @@ public class MainActivity extends Activity {
         }
         return super.dispatchTouchEvent(ev);
     }
-
 
 
 }//------------------------------

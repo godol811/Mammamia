@@ -67,9 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:inputType="phone"
-                android:maxLines="1"
-                android:maxLength="13"
-                />
+                android:maxLines="1" />
 
         </LinearLayout>
 
@@ -303,6 +301,8 @@
         android:id="@+id/btn_login_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/black"
         android:text="시작하기" />
 
 
