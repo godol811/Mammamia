@@ -50,6 +50,7 @@ public class MainActivity extends Activity {
     ArrayList<AddressDto> members;
     AddressAdapter adapter = null;
     private RecyclerView recyclerView = null;
+    ItemTouchHelper helper;
 
 
     private RecyclerView.LayoutManager layoutManager = null;
