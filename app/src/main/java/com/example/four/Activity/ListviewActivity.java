@@ -77,7 +77,7 @@ public class ListviewActivity extends AppCompatActivity
         Intent intent = getIntent();
         urlIp = intent.getStringExtra("urlIp");
 
-        Log.d(TAG, urlIp);
+
         addrNo = intent.getIntExtra("addrNo", 0);
         name = intent.getStringExtra("addrName");
         tel = intent.getStringExtra("addrTel");

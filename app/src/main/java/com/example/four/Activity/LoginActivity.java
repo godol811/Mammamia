@@ -239,6 +239,8 @@ public class LoginActivity extends Activity {
                 && cbAgree.isChecked();
 
     }
+
+
     //배경 터치 시 키보드 사라지게
     public boolean dispatchTouchEvent(MotionEvent ev) {
         View view = getCurrentFocus();
@@ -253,4 +255,4 @@ public class LoginActivity extends Activity {
         }
         return super.dispatchTouchEvent(ev);
     }
-}
+}//-------------------------------------
