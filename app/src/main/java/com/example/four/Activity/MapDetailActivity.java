@@ -148,11 +148,10 @@ public class MapDetailActivity extends FragmentActivity implements OnMapReadyCal
                 Log.d(TAG, "m : " + String.valueOf(getDistance(currentmakerPosition,previousmakerPosition)));
 
                 new AlertDialog.Builder(MapDetailActivity.this)
-                        .setTitle("거리")
-                        .setMessage(strDistance)
+                        .setTitle("마커사이의 거리")
+                        .setMessage("선택한 마커까지의 거리는 " + strDistance + "미터입니다")
                         .setNegativeButton("확인",null)
                         .show();
-
 
                 return false;
             }
@@ -313,7 +312,7 @@ public class MapDetailActivity extends FragmentActivity implements OnMapReadyCal
 
 
 
-            Log.d(TAG, "병원" + tagName);
+//            Log.d(TAG, "병원" + tagName);
             new NRPlaces.Builder()
                     .listener(MapDetailActivity.this)
                     .key("AIzaSyAEAJPO9fRiNPqBPFbvaiKasj7XCYJPl1U")//api키 입력
@@ -390,8 +389,8 @@ public class MapDetailActivity extends FragmentActivity implements OnMapReadyCal
 
 
         if (addresses == null || addresses.size() == 0) {
-            Toast.makeText(this, "주소 미발견", Toast.LENGTH_LONG).show();
-            return "주소 미발견";
+            Toast.makeText(this, "더 자세한 주소를 입력해주세요", Toast.LENGTH_LONG).show();
+            return "더 자세한 주소를 입력해주세요";
 
         } else {
             Address address = addresses.get(0);
@@ -412,7 +411,7 @@ public class MapDetailActivity extends FragmentActivity implements OnMapReadyCal
         locationB.setLongitude(LatLng2.longitude);
         distance = locationA.distanceTo(locationB);
 
-        return Math.floor(distance);
+        return Math.round(distance);
 
     }
 
