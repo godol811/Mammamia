@@ -103,9 +103,6 @@ public class SearchActivity extends Activity {
         connectGetData();
         registerForContextMenu(recyclerView);
 
-
-
-
         Log.v(TAG, "onResume");
         adapter.setOnItemClickListener(new AddressAdapter.OnItemClickListener() {
             @Override
