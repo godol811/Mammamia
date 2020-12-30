@@ -118,13 +118,12 @@
         <!-- Fragment는 앱에 지도를 표시하기 위해 사용되는 컴포넌트 관련 처리를 자동으로 해줌 -->
         <!-- 앱에서 사용하기 위해서는 레이아웃의 액티비티에 <fragment> 태그를 사용하여 추가 -->
 
-        <fragment
-            android:id="@+id/fg_map_listview"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            tools:context=".mapdetail"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
-            />
+    <fragment
+        android:id="@+id/fg_map_listview"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        tools:context=".mapdetail" />
 
 
 
