@@ -4,9 +4,11 @@ package com.example.four.Activity;
 import androidx.fragment.app.FragmentActivity;
 
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +18,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.four.R;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -24,6 +29,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.SphericalUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -45,7 +51,7 @@ public class MapDetailActivity extends FragmentActivity implements OnMapReadyCal
 
     private GoogleMap mMap;
     private Geocoder geocoder;
-    private Button button;
+    private Button button, buttonDistance;
     private EditText editText;
 
     String[] locationText;
@@ -60,6 +66,20 @@ public class MapDetailActivity extends FragmentActivity implements OnMapReadyCal
     //12월 29일 추가
     List<Marker> previous_marker = null;
     LatLng currentPosition;
+    //------------
+
+    //12월 30일 추가
+    LatLng currentmakerPosition = null;
+    LatLng previousmakerPosition = null;
+
+    Marker addedMarker = null;
+
+    int tracking = 0;
+    private Location location;
+    Location mCurrentLocatiion;
+    private Marker currentMarker = null;
+    private Marker markerposition = null;
+    //----------------
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,8 +88,7 @@ public class MapDetailActivity extends FragmentActivity implements OnMapReadyCal
 
         editText = findViewById(R.id.et_search_mapdetail);
         button = findViewById(R.id.btn_search_mapdetail);
-
-
+        buttonDistance = findViewById(R.id.btn_distance_mapdetail);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -95,6 +114,11 @@ public class MapDetailActivity extends FragmentActivity implements OnMapReadyCal
         previous_marker = new ArrayList<Marker>();
 
 
+        new AlertDialog.Builder(MapDetailActivity.this)
+                .setTitle("도움말")
+                .setMessage("주변정보를 불러옵니다.\n마커를 클릭하면 주소록에 저장된 주소에서 \n남은 거리를 표시합니다.")
+                .setNegativeButton("확인",null)
+                .show();
 
 
     }
@@ -136,13 +160,26 @@ public class MapDetailActivity extends FragmentActivity implements OnMapReadyCal
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener(){
 
             public boolean onMarkerClick(Marker marker) {
-                String text = "[마커 클릭 이벤트] latitude ="
-                        + marker.getPosition().latitude + ", longitude ="
-                        + marker.getPosition().longitude;
 
 
-//                Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG)
-//                        .show();
+                previousmakerPosition = marker.getPosition();
+
+                //거리를 잴 두 마커의 정보 입력 메소드
+                double distance = getDistance(currentmakerPosition,previousmakerPosition);
+                String[] strdistance = Double.toString(distance).split("\\.");
+                String text = "현재 주소록 마커에서 선택한 마커까지의 거리는"
+                        + strdistance + "m입니다";
+
+                Log.d(TAG, String.valueOf(getDistance(currentmakerPosition,previousmakerPosition)));
+                Toast.makeText(MapDetailActivity.this, text, Toast.LENGTH_SHORT).show();
+
+                new AlertDialog.Builder(MapDetailActivity.this)
+                        .setTitle("거리")
+                        .setMessage(text)
+                        .setNegativeButton("확인",null)
+                        .show();
+
+
                 return false;
             }
         });
@@ -170,6 +207,15 @@ public class MapDetailActivity extends FragmentActivity implements OnMapReadyCal
 
                 }
 
+            }
+        });
+
+        buttonDistance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                double distance = SphericalUtil.computeDistanceBetween(currentPosition, addedMarker.getPosition());
+                Toast.makeText(MapDetailActivity.this, addedMarker.getTitle() + "까지" + (int) distance + "m 남음", Toast.LENGTH_LONG).show();
             }
         });
         ////////////////////
@@ -203,7 +249,12 @@ public class MapDetailActivity extends FragmentActivity implements OnMapReadyCal
 
         // 맵이 준비 후 시작될떄 실행
         // 초기화면을 마커의 위도경도로 지정하고 카메라를 이동
+        previous_marker.clear();
+
         LatLng detail = new LatLng(intentLat, intentLng);
+        currentmakerPosition = detail;
+
+        Log.d(TAG, "currentmakerPosition :" + String.valueOf(currentmakerPosition));
 
         MarkerOptions mOptions = new MarkerOptions();
 
@@ -218,7 +269,11 @@ public class MapDetailActivity extends FragmentActivity implements OnMapReadyCal
 
         //시작할떄 줌하기
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(detail, 17));
+
+
     }
+
+
 
 
 
@@ -285,6 +340,7 @@ public class MapDetailActivity extends FragmentActivity implements OnMapReadyCal
                     markerOptions.position(latLng);
                     markerOptions.title(place.getName());
                     markerOptions.snippet(markerSnippet);
+                    //주변 위치 표시 마커 아이콘 변경
                     markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
                     Marker item = mMap.addMarker(markerOptions);
                     previous_marker.add(item);
@@ -409,6 +465,23 @@ public class MapDetailActivity extends FragmentActivity implements OnMapReadyCal
         }
 
     }
-
 //12월 29일 추가 끝----------------------------------------------
+
+    public double getDistance(LatLng LatLng1, LatLng LatLng2) {
+
+        double distance = 0;
+        Location locationA = new Location("A");
+        locationA.setLatitude(LatLng1.latitude);
+        locationA.setLongitude(LatLng1.longitude);
+        Location locationB = new Location("B");
+        locationB.setLatitude(LatLng2.latitude);
+        locationB.setLongitude(LatLng2.longitude);
+        distance = locationA.distanceTo(locationB);
+
+        return distance;
+
+    }
+
+
+//----------------------------------------
 }

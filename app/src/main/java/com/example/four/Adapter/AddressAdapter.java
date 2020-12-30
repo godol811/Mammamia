@@ -37,7 +37,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
     int layout = 0;
     LayoutInflater inflater = null;
     private ArrayList<AddressDto> mDataset;
-    String urlAddr = "http://172.30.1.27:8080/pictures/";
+    String urlAddr = "http://222.106.89.206:8080/pictures/";
     ///////////////////////////////////////////////////////////////////////////////////////
     // Date : 2020.12.29
     //
