@@ -23,26 +23,23 @@ public class CustomDialogLeft extends Dialog {
     String urlAddr = null;
 
 
-    final String TAG = "커스텀다이얼로그1";
+    final String TAG = "커스텀다이얼로그왼쪽";
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.customdialog_left);
-
-       // Intent intent = getIntent();
-
-        //macIP = intent.getStringExtra("macIP");
-        //입력하는 데이터를 위해 ? 추가
-        urlAddr = "http://" + macIP + ":8080/test/mammamialikeupdate.jsp?";
-
-    }
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//
+//
+//       // Intent intent = getIntent();
+//
+//        //macIP = intent.getStringExtra("macIP");
+//        //입력하는 데이터를 위해 ? 추가
+//        urlAddr = "http://" + macIP + ":8080/test/mammamialikeupdate.jsp?";
+//
+//    }
 
     public CustomDialogLeft(Context context, final int position, AddressDto addressDto) {
         super(context);
-
-
-
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -52,24 +49,16 @@ public class CustomDialogLeft extends Dialog {
         mod_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (listener != null) {
+
 
                     dismiss();
-                }
+
             }
         });
     }
 
 
-    private void connectDeleteData(){
-        try {
-           // NetworkTask insertworkTask = new NetworkTask(CustomDialog1.this,urlAddr,"delete");
-            //insertworkTask.execute().get();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
 
-    }
 
     public void setDialogListener(OnDialogListener listener) {
         this.listener = listener;

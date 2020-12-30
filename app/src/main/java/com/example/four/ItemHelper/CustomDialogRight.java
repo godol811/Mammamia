@@ -18,7 +18,7 @@ import com.example.four.R;
 public class CustomDialogRight extends Dialog {
     private OnDialogListener listener;
     private Context context;
-    private Button mod_bt2;
+    private Button mod_bt2,mod_bt2_cancle;
 
 
     String urlIp = null;
@@ -28,7 +28,7 @@ public class CustomDialogRight extends Dialog {
     String addr;
     Button delebtn;
 
-    final String TAG = "커스텀다이얼로그";
+    final String TAG = "커스텀다이얼로그오른쪽";
 
     public CustomDialogRight(Context context, final int position, AddressDto addressDto) {
         super(context);
@@ -45,14 +45,26 @@ public class CustomDialogRight extends Dialog {
                 urlAddr = "http://"+urlIp+":8080/test/mammamiaDelete.jsp?";
                 urlAddr = urlAddr + "addrNo=" + addrNo;
                 connectDeleteData();
-                Log.v("헤이~",urlAddr);
+
 
 //                Intent intent = new Intent(CustomDialog2.this, urlAddr,"delete");
 //                startActivity(intent);
 
             }
         });
+        mod_bt2_cancle = findViewById(R.id.mod_bt2_cancle);
+        mod_bt2_cancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dismiss();
+
+            }
+        });
     }
+
+
+
     private void connectDeleteData(){
         try {
            // NetworkTask deleteworkTask = new NetworkTask(CustomDialog2.this,urlAddr,"delete");

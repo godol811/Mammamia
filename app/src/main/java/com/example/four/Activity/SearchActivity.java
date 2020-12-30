@@ -35,9 +35,10 @@ public class SearchActivity extends Activity {
 
     final static String TAG = "서치액티비티";
 
-
     String urlAddr = null;
+
     String urlIp = null;
+    //-----------------
     ArrayList<AddressDto> members;
     AddressAdapter adapter = null;
     private RecyclerView recyclerView = null;
@@ -59,7 +60,7 @@ public class SearchActivity extends Activity {
         setContentView(R.layout.activity_search);
 
         //검색 editText, Button---------------------------------
-        etSearch= findViewById(R.id.et_search);
+        etSearch = findViewById(R.id.et_search);
         ibSearch = findViewById(R.id.btn_search_searchactivity);
         ibSearch.setOnClickListener(searchClickListener);
         //-----------------------------------------------------
@@ -75,7 +76,6 @@ public class SearchActivity extends Activity {
 
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-
 
 
         //받아오는 ip값
@@ -116,6 +116,7 @@ public class SearchActivity extends Activity {
 
 
 
+
         Log.v(TAG, "onResume");
         adapter.setOnItemClickListener(new AddressAdapter.OnItemClickListener() {
             @Override
@@ -139,6 +140,7 @@ public class SearchActivity extends Activity {
             }
         });
     }
+
 
     //돋보기 버튼 클릭
     View.OnClickListener searchClickListener = new View.OnClickListener() {

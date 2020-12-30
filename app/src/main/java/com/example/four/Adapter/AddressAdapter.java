@@ -34,7 +34,6 @@ import java.util.ArrayList;
 public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHolder>
         //하진추가
         implements ItemTouchHelperListener, OnDialogListener {
-    ////////////////////////
     final static String TAG = "어드레스어뎁터";
 
 
@@ -173,8 +172,8 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
 
         WindowManager.LayoutParams wm = dialog.getWindow().getAttributes();//다이얼로그 사이즈 세팅
         wm.copyFrom(dialog.getWindow().getAttributes());
-        wm.width = (int) (width * 0.7);
-        wm.height = height / 2;
+        wm.width = (int) (width * 0.8);
+        wm.height = height / 4;
 
         dialog.setDialogListener(this);//다이얼로그 Listener 세팅
 
@@ -194,8 +193,8 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
 
         WindowManager.LayoutParams wm = dialog.getWindow().getAttributes();//다이얼로그 사이즈 세팅
         wm.copyFrom(dialog.getWindow().getAttributes());
-        wm.width = (int) (width * 0.7);
-        wm.height = height / 2;
+        wm.width = (int) (width * 0.8);
+        wm.height = height / 5;
         dialog.setDialogListener(this); //다이얼로그 Listener 세팅
         dialog.show(); //다이얼로그 띄우기
     }

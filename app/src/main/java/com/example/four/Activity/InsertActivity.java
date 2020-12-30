@@ -18,8 +18,6 @@ import android.provider.MediaStore;
 import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.telephony.PhoneNumberUtils;
 import android.text.Editable;
-import android.text.InputFilter;
-import android.text.Spanned;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -44,7 +42,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.regex.Pattern;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -129,6 +126,10 @@ public class InsertActivity extends Activity {
         });
 
 
+
+
+
+
         insertAddr.setOnClickListener(new View.OnClickListener() {//주소검색 API
             @Override
             public void onClick(View v) {
@@ -136,6 +137,8 @@ public class InsertActivity extends Activity {
                 startActivityForResult(i, SEARCH_ADDRESS_ACTIVITY);
             }
         });
+
+
 
 
         insertTel.addTextChangedListener(new TextWatcher() {//자동으로 "-" 생성해서 전화번호에 붙여주기
@@ -267,12 +270,21 @@ public class InsertActivity extends Activity {
                         }
                     })
 
+
                     .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
 
                             String[] tag = getResources().getStringArray(R.array.tag);
                             TextView text = findViewById(R.id.et_tagname_insert);
+
+//                            String result = "";
+//                            for (int i=0; i<tagSelect.length; i++){
+//                                if (tagSelect[i]){
+//                                    result += tag[i]+ " ";
+//                                }
+//                            }
+
                             text.setText(tag[selectedIndex[0]]);
                         }
                     })

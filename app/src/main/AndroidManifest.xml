@@ -17,13 +17,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Four">
 
-
         <!--    에러 방지 코드    -->
         <uses-library android:name="org.apache.http.legacy"
             android:required="false"/>
         <!--        -->
 
-        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
+
 
 
         <!-- Google ApiKey -->

@@ -293,8 +293,14 @@ public class UpdateActivity extends Activity {
 
             imageName = today + "_" + imageName;
 
+            if(img_path.trim().length()==0){//사진 둥록을 해서 들어오는 값이 없으면 기존의 데이터를 그냥 다시 씌우기
+                urlAddr = urlAddr + "addrNo=" + num + "&addrName=" + st_name + "&addrTel=" + st_tel + "&addrAddr=" + st_addr + "&addrDetail=" + st_detail + "&addrTag=" + st_tag+ "&addrImagePath=" + imagePath;
+            }else{//사진 등록되면 걍 넣기
+                urlAddr = urlAddr + "addrNo=" + num + "&addrName=" + st_name + "&addrTel=" + st_tel + "&addrAddr=" + st_addr + "&addrDetail=" + st_detail + "&addrTag=" + st_tag + "&addrImagePath=" + imageName;
+            }
 
-            urlAddr = urlAddr + "addrNo=" + num + "&addrName=" + st_name + "&addrTel=" + st_tel + "&addrAddr=" + st_addr + "&addrDetail=" + st_detail + "&addrTag=" + st_tag + "&addrImagePath=" + imageName;
+
+
             connectUpdateData();
             Log.d(TAG, urlAddr);
 
