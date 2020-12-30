@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_color"
+    android:background="@color/white"
     tools:context=".Activity.ListviewActivity">
 
 
@@ -13,7 +13,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="주소록" />
+        android:text="주소록"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:padding="7dp"
+        android:background="@color/main_color"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,6 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/shape_circle"
+                android:padding="15dp"
 
                 />
 
@@ -51,48 +57,58 @@
             >
 
             <TextView
+                android:textColor="@color/black"
                 android:id="@+id/tv_tagname_listview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+
                 android:gravity="center"
+                android:layout_margin="10dp"
                 />
 
             <TextView
+                android:textColor="@color/black"
                 android:id="@+id/tv_name_listview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:layout_marginTop="10dp"
+
+                android:layout_margin="10dp"
                 android:gravity="center"
                 />
 
             <TextView
+                android:textColor="@color/black"
                 android:id="@+id/tv_tel_listview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+
                 android:gravity="center"
+                android:layout_margin="10dp"
                 />
 
 
             <!--     addrAddr tv 추가       -->
 
             <TextView
+                android:textColor="@color/black"
                 android:id="@+id/tv_addr_listview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+
                 android:gravity="center"
+                android:layout_margin="10dp"
                 />
 
             <!--            -->
             <TextView
+                android:textColor="@color/black"
                 android:id="@+id/tv_detail_listview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+
                 android:gravity="center"
+                android:layout_margin="10dp"
                 />
 
         </LinearLayout>
@@ -122,19 +138,25 @@
         >
 
         <Button
+            android:padding="5dp"
             android:id="@+id/btn_update_listview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="편집"
+            android:backgroundTint="@color/main_color"
 
             />
 
 
         <Button
+            android:padding="5dp"
             android:id="@+id/btn_delete_listview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="삭제" />
+            android:text="삭제"
+            android:backgroundTint="@color/main_color"
+
+            />
 
     </LinearLayout>
 

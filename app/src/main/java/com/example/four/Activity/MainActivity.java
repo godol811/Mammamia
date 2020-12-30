@@ -81,11 +81,7 @@ public class MainActivity extends Activity {
         urlIp = "172.30.1.27";//종찬 아이피
 
 
-
-
-
-
-        urlAddr = "http://"+urlIp+":8080/test/mammamia.jsp";
+        urlAddr = "http://" + urlIp + ":8080/test/mammamia.jsp";
 
         //검색 인텐트로 이동하기 위해 버튼 선언--------------------
         ivSearchActivity = findViewById(R.id.btn_search_main);
@@ -106,7 +102,7 @@ public class MainActivity extends Activity {
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,InsertActivity.class);
+                Intent intent = new Intent(MainActivity.this, InsertActivity.class);
 
 
                 //ip주소 보내기
@@ -116,9 +112,7 @@ public class MainActivity extends Activity {
         });
 
 
-
     }
-
 
 
     @Override
@@ -138,9 +132,7 @@ public class MainActivity extends Activity {
             public void onItemClick(View v, int position) {
 
 
-
                 Intent intent = new Intent(MainActivity.this, ListviewActivity.class);
-
 
 
                 intent.putExtra("urlIp", urlIp);
@@ -154,7 +146,7 @@ public class MainActivity extends Activity {
                 intent.putExtra("addrTel", members.get(position).getAddrTel());
                 intent.putExtra("addrDetail", members.get(position).getAddrDetail());
                 intent.putExtra("addrAddr", members.get(position).getAddrAddr());
-                intent.putExtra("addrImagePath",members.get(position).getAddrImagePath());
+                intent.putExtra("addrImagePath", members.get(position).getAddrImagePath());
 
 
                 startActivity(intent);
@@ -169,7 +161,7 @@ public class MainActivity extends Activity {
     View.OnClickListener searchClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(getApplicationContext(),SearchActivity.class);
+            Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
             intent.putExtra("urlIp", urlIp);
             startActivity(intent);
         }
@@ -179,14 +171,13 @@ public class MainActivity extends Activity {
     private void connectGetData() {
         try {
 
-            NetworkTask networkTask = new NetworkTask(MainActivity.this, urlAddr,"select");
+            NetworkTask networkTask = new NetworkTask(MainActivity.this, urlAddr, "select");
             Object obj = networkTask.execute().get();
             members = (ArrayList<AddressDto>) obj;
 
 
             adapter = new AddressAdapter(MainActivity.this, R.layout.listlayout, members);
             recyclerView.setAdapter(adapter);
-
 
 
         } catch (Exception e) {
@@ -208,7 +199,6 @@ public class MainActivity extends Activity {
         }
         return super.dispatchTouchEvent(ev);
     }
-
 
 
 }//------------------------------

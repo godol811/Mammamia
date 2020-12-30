@@ -18,7 +18,7 @@ public class SplashActivity extends Activity {
 
     //field
     Animation animation, animation2;
-    TextView view;
+    ImageView view;
     ImageView star1, star2;
 
 
