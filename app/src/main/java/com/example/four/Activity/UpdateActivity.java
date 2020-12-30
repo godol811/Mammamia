@@ -263,7 +263,7 @@ public class UpdateActivity extends Activity {
 
             Calendar calendar = Calendar.getInstance();
             java.util.Date date = calendar.getTime();
-            String today = (new SimpleDateFormat("yyyyMMddHHmm").format(date));
+            String today = (new SimpleDateFormat("yyyyMMddHHmmss").format(date));
 
             imageName = today + "_" + imageName;
 
@@ -297,8 +297,6 @@ public class UpdateActivity extends Activity {
         }
 
     }
-
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {//주석
@@ -372,7 +370,7 @@ public class UpdateActivity extends Activity {
 
         Calendar calendar = Calendar.getInstance();
         java.util.Date date = calendar.getTime();
-        String today = (new SimpleDateFormat("yyyyMMddHHmm").format(date));
+        String today = (new SimpleDateFormat("yyyyMMddHHmmss").format(date));
 
 
         RequestBody body = new MultipartBody.Builder()

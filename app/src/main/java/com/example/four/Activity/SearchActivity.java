@@ -101,6 +101,7 @@ public class SearchActivity extends Activity {
                 Intent intent = new Intent(SearchActivity.this, ListviewActivity.class);
 
 
+                intent.putExtra("urlIp", urlIp);
                 intent.putExtra("urlAddr", urlAddr);
                 intent.putExtra("addrNo", members.get(position).getAddrNo());
                 intent.putExtra("addrName", members.get(position).getAddrName());
