@@ -92,7 +92,7 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
             RectF rightButton = new RectF(itemView.getRight() - buttonWidthWithOutPadding, itemView.getTop() + 10, itemView.getRight() - 10, itemView.getBottom() - 10);
             p.setColor(0xFFF88583);
             c.drawRoundRect(rightButton, corners, corners, p);
-            drawText("삭제", c, rightButton, p);
+            drawText("전화", c, rightButton, p);
             buttonInstance = rightButton;
         }
     }
