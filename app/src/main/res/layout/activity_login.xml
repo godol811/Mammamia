@@ -67,7 +67,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:inputType="phone"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:maxLength="13"
+                />
 
         </LinearLayout>
 

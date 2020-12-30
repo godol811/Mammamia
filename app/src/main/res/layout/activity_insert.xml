@@ -77,7 +77,8 @@
                 android:layout_width="245dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:hint="이름" />
+                android:hint="이름"
+                android:maxLines="1" />
 
             <EditText
                 android:id="@+id/et_tel_insert"
@@ -87,7 +88,6 @@
                 android:hint="전화번호"
                 android:inputType="phone"
                 android:maxLength="13" />
-
 
 
             <!--EditText에서 TextView로 변경-->
@@ -102,13 +102,13 @@
             <!---->
 
 
-
             <EditText
                 android:id="@+id/et_detail_insert"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:hint="상세정보" />
+                android:hint="상세정보"
+                android:maxLines="1" />
 
 
         </LinearLayout>

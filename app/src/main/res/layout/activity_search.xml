@@ -24,7 +24,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="50dp"
-                android:hint="Search" />
+                android:hint="Search"
+                android:maxLines="1"
+                />
 
             <ImageButton
                 android:id="@+id/btn_search_searchactivity"
