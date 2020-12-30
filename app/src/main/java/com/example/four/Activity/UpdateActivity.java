@@ -128,7 +128,7 @@ public class UpdateActivity extends Activity {
 
         Glide.with(UpdateActivity.this).load("http://" + urlIp + ":8080/pictures/" + imagePath)
                 .override(300, 300)
-                .placeholder(R.drawable.shape_circle)
+                .placeholder(R.drawable.noimg)
                 .apply(new RequestOptions().circleCrop())
                 .into(profileImage);
         Log.d(TAG, "http://" + urlIp + ":8080/pictures/" + imagePath);
@@ -359,7 +359,7 @@ public class UpdateActivity extends Activity {
 
                     Glide.with(UpdateActivity.this).load(img_path)
                             .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
-                            .placeholder(R.drawable.shape_circle)
+                            .placeholder(R.drawable.noimg)
                             .apply(new RequestOptions().circleCrop())
                             .into(profileImage);
 

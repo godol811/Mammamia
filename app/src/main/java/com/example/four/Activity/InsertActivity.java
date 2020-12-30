@@ -18,6 +18,8 @@ import android.provider.MediaStore;
 import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.telephony.PhoneNumberUtils;
 import android.text.Editable;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -42,6 +44,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.regex.Pattern;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -113,6 +116,14 @@ public class InsertActivity extends Activity {
         addrinsertBtn.setOnClickListener(onClickListener);
         insertBackBtn.setOnClickListener(onClickListener1);
         tagSelectBtn.setOnClickListener(tagselectClick);
+
+
+
+
+
+        
+
+
 
         findViewById(R.id.iv_image_insert).setOnClickListener(new View.OnClickListener() {//사진 불러오기 onclick
             @Override
@@ -334,7 +345,7 @@ public class InsertActivity extends Activity {
                     ImageView image = (ImageView) findViewById(R.id.iv_image_insert);  //이미지를 띄울 위젯 ID값
                     Glide.with(InsertActivity.this).load(img_path)//사진 띄우기 Glide 사용
                             .override(300, 300)
-                            .placeholder(R.drawable.shape_circle)
+                            .placeholder(R.drawable.noimg)
                             .apply(new RequestOptions().circleCrop())
                             .into(image);
 

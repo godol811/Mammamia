@@ -104,7 +104,7 @@ public class ListviewActivity extends AppCompatActivity
         Glide.with(ListviewActivity.this).
                 load(urlAddr + imagePath).
                 override(300, 300).
-                placeholder(R.drawable.shape_circle).
+                placeholder(R.drawable.noimg).
                 apply(new RequestOptions().circleCrop()).into(profileImage);
 
 

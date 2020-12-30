@@ -83,7 +83,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         Glide.with(holder.addrProfile)
                 .load(urlAddr + mDataset
                         .get(position).getAddrImagePath())
-                .placeholder(R.drawable.shape_circle)
+                .placeholder(R.drawable.noimg)
                 .override(120, 120)
                 .apply(new RequestOptions().circleCrop()).into(holder.addrProfile);//사진
 

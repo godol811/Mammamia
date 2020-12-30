@@ -215,10 +215,10 @@ public class LoginActivity extends Activity {
                         .show();
                 return "";
             }
-        }
-        });//특수문자 제한
+        }, new InputFilter.LengthFilter(5)});//특수문자 제한
 
-    }
+}
+
 
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);

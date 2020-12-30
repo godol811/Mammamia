@@ -45,26 +45,53 @@
         android:layout_margin="25dp"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/et_tagname_update"
-            android:layout_width="150dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:enabled="false" />
+            android:orientation="horizontal"
+            android:gravity="right"
+            >
+
+            <EditText
+
+                android:id="@+id/et_tagname_update"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:hint="태그"
+                android:padding="10dp"
+                android:singleLine="true"
+                />
+
+            <Button
+                android:id="@+id/btn_tagselect_update"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="선택" />
+
+        </LinearLayout>
+
 
         <EditText
             android:id="@+id/et_name_update"
             android:layout_width="204dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:maxLength="5"
+            android:singleLine="true"
+            />
 
         <EditText
             android:id="@+id/et_tel_update"
             android:layout_width="204dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:inputType="phone" />
+            android:inputType="phone"
+            android:maxLength="13"
+            android:singleLine="true"
+            />
 
         <EditText
             android:id="@+id/et_addr_update"
@@ -76,7 +103,8 @@
             android:id="@+id/et_detail_update"
             android:layout_width="231dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            />
 
 
     </LinearLayout>
