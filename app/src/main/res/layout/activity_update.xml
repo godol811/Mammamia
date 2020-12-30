@@ -74,6 +74,7 @@
 
 
         <EditText
+            android:maxLines="1"
             android:id="@+id/et_name_update"
             android:layout_width="204dp"
             android:layout_height="wrap_content"
@@ -84,6 +85,7 @@
             />
 
         <EditText
+            android:maxLines="1"
             android:id="@+id/et_tel_update"
             android:layout_width="204dp"
             android:layout_height="wrap_content"
@@ -93,13 +95,15 @@
             android:singleLine="true"
             />
 
-        <EditText
+        <TextView
+            android:maxLines="1"
             android:id="@+id/et_addr_update"
-            android:layout_width="337dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center" />
 
         <EditText
+            android:maxLines="1"
             android:id="@+id/et_detail_update"
             android:layout_width="231dp"
             android:layout_height="wrap_content"

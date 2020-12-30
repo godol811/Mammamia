@@ -61,8 +61,8 @@ public class UpdateActivity extends Activity {
     final static String TAG = "업데이트액티비티";
     String tag1, name1, tel1, detail1, addr1;
     int num;
-    EditText tag, name, tel, detail, addr;
-
+    EditText tag, name, tel, detail;
+    TextView addr;
     ImageView profileImage;
 
     String urlAddr = null;
