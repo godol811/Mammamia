@@ -250,8 +250,6 @@ public class UpdateActivity extends Activity {
 
     }
 
-
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {//주석
 
