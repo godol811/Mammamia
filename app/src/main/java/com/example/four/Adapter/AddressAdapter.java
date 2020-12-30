@@ -42,10 +42,10 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
     LayoutInflater inflater = null;
     private ArrayList<AddressDto> mDataset;
 ///////////////////////////////////////-자기 아이피 챙기기-//////////////////////////////////////////////
-//    String urlAddr = "http://192.168.35.147:8080/pictures/";//자기 ip로 바꾸기 종찬                    //
+    String urlAddr = "http://192.168.35.147:8080/pictures/";//자기 ip로 바꾸기 종찬                    //
 //    String urlAddr = "http://172.30.1.27:8080/pictures/";//자기 ip로 바꾸기 애정                     //
     //    String urlAddr = "http://222.106.89.206:8080/pictures/";//자기 ip로 바꾸기 이누                  //
-    String urlAddr = "http://192.168.0.105:8080/pictures/";//자기 ip로 바꾸기 보람                   //
+//    String urlAddr = "http://192.168.0.105:8080/pictures/";//자기 ip로 바꾸기 보람                   //
 //    String urlAddr = "http://192.168.2.2.147:8080/pictures/";//자기 ip로 바꾸기 하진                  //
 ///////////////////////////////////////-자기 아이피 챙기기-//////////////////////////////////////////////
 
@@ -83,7 +83,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         Glide.with(holder.addrProfile)
                 .load(urlAddr + mDataset
                         .get(position).getAddrImagePath())
-                .placeholder(R.drawable.shape_circle)
+                .placeholder(R.drawable.noimg)
                 .override(120, 120)
                 .apply(new RequestOptions().circleCrop()).into(holder.addrProfile);//사진
 
@@ -184,6 +184,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
     //오른쪽 버튼 누르면 아이템 삭제
     @Override
     public void onRightClick(int position, RecyclerView.ViewHolder viewHolder) {
+
 
         CustomDialogRight dialog = new CustomDialogRight(mContext, position, mDataset.get(position)); //수정 버튼 클릭시 다이얼로그 생성
 
