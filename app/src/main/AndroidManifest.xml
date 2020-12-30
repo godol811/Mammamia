@@ -33,12 +33,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Activity.MapDetailActivity"/>
         <activity android:name=".Activity.LikelistActivity" />
         <activity android:name=".Activity.LoginActivity" />
         <activity android:name=".Activity.SearchActivity" />
         <activity android:name=".Activity.InsertActivity" />
         <activity android:name=".Activity.UpdateActivity" />
-        <activity android:name=".Activity.ListviewActivity"/>
+        <activity android:name=".Activity.ListviewActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity android:name=".Activity.AddressWebViewActivity"/>
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity android:name=".Activity.MainActivity" />
