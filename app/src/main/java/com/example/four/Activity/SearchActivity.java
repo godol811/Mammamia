@@ -77,10 +77,12 @@ public class SearchActivity extends Activity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
+        etSearch = findViewById(R.id.et_search);
 
-        //받아오는 ip값
-        Intent intent = getIntent();
+        ibSearch = findViewById(R.id.btn_search_searchactivity);
+        ibSearch.setOnClickListener(searchClickListener);
 
+        Intent intent = getIntent();   //IP 받아오자
         urlIp = intent.getStringExtra("urlIp");
 
 
@@ -153,22 +155,47 @@ public class SearchActivity extends Activity {
             adapter = new AddressAdapter(SearchActivity.this, R.layout.listlayout, members);
             recyclerView.setAdapter(adapter);
 
+
             helper = new ItemTouchHelper(new ItemTouchHelperCallback(adapter)); //ItemTouchHelper 생성
+
+
             helper.attachToRecyclerView(recyclerView);//RecyclerView에 ItemTouchHelper 붙이기
+
+
+            adaperClick();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    private void adaperClick() {
+        try {
+            registerForContextMenu(recyclerView);
 
-    private void setUpRecyclerView() {
-        recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
-            @Override
-            public void onDraw(@NonNull Canvas c, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
-                helper.onDraw(c, parent, state);
-            }
-        });
+            adapter.setOnItemClickListener(new AddressAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(View v, int position) {
+
+                    Intent intent = new Intent(SearchActivity.this, ListviewActivity.class);//리스트 클릭시 리스트뷰 넘어가기
+                    intent.putExtra("urlAddr", urlAddr);
+                    intent.putExtra("urlIp", urlIp);
+                    intent.putExtra("addrNo", members.get(position).getAddrNo());
+                    intent.putExtra("addrName", members.get(position).getAddrName());
+                    intent.putExtra("addrTag", members.get(position).getAddrTag());
+                    intent.putExtra("addrTel", members.get(position).getAddrTel());
+                    intent.putExtra("addrDetail", members.get(position).getAddrDetail());
+                    intent.putExtra("addrAddr", members.get(position).getAddrAddr());
+                    intent.putExtra("addrImagePath", members.get(position).getAddrImagePath());
+
+
+                    startActivity(intent);
+                }
+            });
+        } catch (
+                Exception e) {
+            e.printStackTrace();
+        }
     }
 
     //배경 터치 시 키보드 사라지게
