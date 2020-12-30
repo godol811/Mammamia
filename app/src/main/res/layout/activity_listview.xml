@@ -114,6 +114,12 @@
         </LinearLayout>
     </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            >
 
         <!-- Fragment는 앱에 지도를 표시하기 위해 사용되는 컴포넌트 관련 처리를 자동으로 해줌 -->
         <!-- 앱에서 사용하기 위해서는 레이아웃의 액티비티에 <fragment> 태그를 사용하여 추가 -->
@@ -125,6 +131,7 @@
         android:layout_height="150dp"
         tools:context=".mapdetail" />
 
+        </LinearLayout>
 
 
     <LinearLayout

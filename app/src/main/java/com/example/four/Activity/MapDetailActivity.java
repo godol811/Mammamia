@@ -4,9 +4,11 @@ package com.example.four.Activity;
 import androidx.fragment.app.FragmentActivity;
 
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +18,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.four.R;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -24,6 +29,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.SphericalUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -45,7 +51,7 @@ public class MapDetailActivity extends FragmentActivity implements OnMapReadyCal
 
     private GoogleMap mMap;
     private Geocoder geocoder;
-    private Button button;
+    private Button button, buttonDistance;
     private EditText editText;
 
     String[] locationText;
@@ -60,6 +66,20 @@ public class MapDetailActivity extends FragmentActivity implements OnMapReadyCal
     //12월 29일 추가
     List<Marker> previous_marker = null;
     LatLng currentPosition;
+    //------------
+
+    //12월 30일 추가
+    LatLng currentmakerPosition = null;
+    LatLng previousmakerPosition = null;
+
+    Marker addedMarker = null;
+
+    int tracking = 0;
+    private Location location;
+    Location mCurrentLocatiion;
+    private Marker currentMarker = null;
+    private Marker markerposition = null;
+    //----------------
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +88,6 @@ public class MapDetailActivity extends FragmentActivity implements OnMapReadyCal
 
         editText = findViewById(R.id.et_search_mapdetail);
         button = findViewById(R.id.btn_search_mapdetail);
-
 
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -95,6 +114,11 @@ public class MapDetailActivity extends FragmentActivity implements OnMapReadyCal
         previous_marker = new ArrayList<Marker>();
 
 
+        new AlertDialog.Builder(MapDetailActivity.this)
+                .setTitle("도움말")
+                .setMessage("주변정보를 불러옵니다.\n마커를 클릭하면 주소록에 저장된 주소에서 \n남은 거리를 표시합니다.")
+                .setNegativeButton("확인",null)
+                .show();
 
 
     }
@@ -108,41 +132,30 @@ public class MapDetailActivity extends FragmentActivity implements OnMapReadyCal
         mMap = googleMap;
         geocoder = new Geocoder(this);
 
-//        Toast.makeText(MapDetailActivity.this, "latLng", Toast.LENGTH_SHORT).show();
-
-//        // 맵 터치 이벤트 구현 //
-//        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener(){
-//            @Override
-//            public void onMapClick(LatLng point) {
-//                MarkerOptions mOptions = new MarkerOptions();
-//
-//                // 마커 타이틀
-//                mOptions.title("마커 좌표");
-//
-//                Double latitude = point.latitude; // 위도
-//                Double longitude = point.longitude; // 경도
-//
-//                // 마커의 스니펫(간단한 텍스트) 설정
-//                mOptions.snippet(latitude.toString() + ", " + longitude.toString());
-//                // LatLng: 위도 경도 쌍을 나타냄
-//                mOptions.position(new LatLng(latitude, longitude));
-//                // 마커(핀) 추가
-//                googleMap.addMarker(mOptions);
-//            }
-//        });
-//        ////////////////////
-
 
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener(){
 
             public boolean onMarkerClick(Marker marker) {
-                String text = "[마커 클릭 이벤트] latitude ="
-                        + marker.getPosition().latitude + ", longitude ="
-                        + marker.getPosition().longitude;
 
 
-//                Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG)
-//                        .show();
+                previousmakerPosition = marker.getPosition();
+
+                //거리를 잴 두 마커의 정보 입력 메소드
+                double distance = getDistance(currentmakerPosition,previousmakerPosition);
+                String[] strdistance = Double.toString(distance).split("\\.");
+                String text = "현재 주소록 마커에서 선택한 마커까지의 거리는"
+                        + strdistance + "m입니다";
+
+                Log.d(TAG, String.valueOf(getDistance(currentmakerPosition,previousmakerPosition)));
+                Toast.makeText(MapDetailActivity.this, text, Toast.LENGTH_SHORT).show();
+
+                new AlertDialog.Builder(MapDetailActivity.this)
+                        .setTitle("거리")
+                        .setMessage(text)
+                        .setNegativeButton("확인",null)
+                        .show();
+
+
                 return false;
             }
         });
@@ -172,38 +185,18 @@ public class MapDetailActivity extends FragmentActivity implements OnMapReadyCal
 
             }
         });
-        ////////////////////
-
-//            @Override
-//            public void onClick(View v) {
-//                // 검색창에서 텍스트를 가져온다
-//
-//                String str = editText.getText().toString();
-//
-//
-//                //지오코딩
-//                Geocoder geocoder = new Geocoder(getBaseContext());
-//                List<Address> addresses = null;
-//
-//                try {
-//                    //지오코딩한 결과 10개정도
-//                    addresses = geocoder.getFromLocationName(str, 10);
-//                    if (addresses != null && !addresses.equals(" ")) {
-//                        search(addresses);
-//                    }
-//                } catch(Exception e) {
-//
-//                }
-//
-//            }
-//        });
-
 
         ////////////////////
+
 
         // 맵이 준비 후 시작될떄 실행
         // 초기화면을 마커의 위도경도로 지정하고 카메라를 이동
+        previous_marker.clear();
+
         LatLng detail = new LatLng(intentLat, intentLng);
+        currentmakerPosition = detail;
+
+        Log.d(TAG, "currentmakerPosition :" + String.valueOf(currentmakerPosition));
 
         MarkerOptions mOptions = new MarkerOptions();
 
@@ -213,12 +206,13 @@ public class MapDetailActivity extends FragmentActivity implements OnMapReadyCal
 
         mMap.addMarker(mOptions);
 
-//        AlertDialog.Builder builder= new AlertDialog.Builder(this);
-//        builder.setMessage(buffer.toString()).setPositiveButton("OK",null).create().show();
-
         //시작할떄 줌하기
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(detail, 17));
+
+
     }
+
+
 
 
 
@@ -236,18 +230,15 @@ public class MapDetailActivity extends FragmentActivity implements OnMapReadyCal
 
         editText.getText();
 
-//        검색안되던거 애 지움
-//        locationText.setVisibility(View.VISIBLE);
-//        locationText.setText(address.getLongitude() + "\n" + addressText.split(","));
 
         MarkerOptions marker = new MarkerOptions();
         Log.v(TAG,"search1");
         marker.position(latLng);
         Log.v(TAG,"search2");
-//      애도 변경
+
         marker.title(String.valueOf(editText.getText()));
         Log.v(TAG,"search3");
-//        mMap.clear();
+
         mMap.addMarker(marker);
         Log.v(TAG,"search4");
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
@@ -285,6 +276,7 @@ public class MapDetailActivity extends FragmentActivity implements OnMapReadyCal
                     markerOptions.position(latLng);
                     markerOptions.title(place.getName());
                     markerOptions.snippet(markerSnippet);
+                    //주변 위치 표시 마커 아이콘 변경
                     markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
                     Marker item = mMap.addMarker(markerOptions);
                     previous_marker.add(item);
@@ -333,7 +325,7 @@ public class MapDetailActivity extends FragmentActivity implements OnMapReadyCal
                     .execute();
 
 
-
+// 지우지 말기----------------------------------
 //        if (tagName == "키즈카페") {
 //            Log.d(TAG, "키 : " + tagName);
 //            new NRPlaces.Builder()
@@ -409,6 +401,23 @@ public class MapDetailActivity extends FragmentActivity implements OnMapReadyCal
         }
 
     }
-
 //12월 29일 추가 끝----------------------------------------------
+
+    public double getDistance(LatLng LatLng1, LatLng LatLng2) {
+
+        double distance = 0;
+        Location locationA = new Location("A");
+        locationA.setLatitude(LatLng1.latitude);
+        locationA.setLongitude(LatLng1.longitude);
+        Location locationB = new Location("B");
+        locationB.setLatitude(LatLng2.latitude);
+        locationB.setLongitude(LatLng2.longitude);
+        distance = locationA.distanceTo(locationB);
+
+        return distance;
+
+    }
+
+
+//----------------------------------------
 }

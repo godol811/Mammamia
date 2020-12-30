@@ -54,6 +54,7 @@
                 android:orientation="horizontal">
 
                 <EditText
+
                     android:id="@+id/et_tagname_insert"
                     android:layout_width="20dp"
                     android:layout_height="wrap_content"
@@ -88,9 +89,7 @@
                 android:inputType="phone"
                 android:maxLength="13" />
 
-
-            <!--EditText에서 TextView로 변경-->
-            <TextView
+            <EditText
                 android:id="@+id/et_addr_insert"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

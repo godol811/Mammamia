@@ -1,3 +1,8 @@
+//Copyrightⓒ2008 by HOTPANTSCEO. All pictures cannot be copied without permission.
+//
+//(모든 저작권은 XX에게 있습니다. 이곳의 모든 사진들은 허가없이 복사할수 없습니다.)
+
+
 package com.example.four.Activity;
 
 import androidx.annotation.NonNull;
@@ -74,9 +79,9 @@ public class MainActivity extends Activity {
 /////////////////-자기 아이피 챙기기-////////////////////////
 //        urlIp = "192.168.0.105";//하진                //
 //        urlIp = "172.30.1.27";//혜정                  //
-//        urlIp = "222.106.89.206";//이누               //
+        urlIp = "222.106.89.206";//이누               //
 //      urlIp = "192.168.0.105";//보람                  //
-        urlIp = "192.168.35.147";//종찬 아이피            //
+//        urlIp = "192.168.35.147";//종찬 아이피            //
 /////////////////////////////////////////////////////////
 
 
