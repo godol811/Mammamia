@@ -42,22 +42,28 @@ public class SearchActivity extends Activity {
     ArrayList<AddressDto> members;
     AddressAdapter adapter = null;
     private RecyclerView recyclerView = null;
-    ItemTouchHelper helper;
 
 
     private RecyclerView.LayoutManager layoutManager = null;
 
+
+    ItemTouchHelper helper;
 
     //검색을 위한 선언
     EditText etSearch;
     ImageButton ibSearch;
     String stSearch;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+        //검색 editText, Button---------------------------------
+        etSearch = findViewById(R.id.et_search);
+        ibSearch = findViewById(R.id.btn_search_searchactivity);
+        ibSearch.setOnClickListener(searchClickListener);
+        //-----------------------------------------------------
 
         ActivityCompat.requestPermissions(SearchActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MODE_PRIVATE); //사용자에게 사진 사용 권한 받기 (가장중요함)
 
@@ -81,14 +87,22 @@ public class SearchActivity extends Activity {
         urlAddr = "http://"+urlIp+":8080/test/mammamiaSearch.jsp";
 
 
+        urlAddr = "http://"+urlIp+":8080/test/mammamiaSearch.jsp";
+
+
+
+
 
 
     }
 
 
+
     @Override
     protected void onResume() {
         super.onResume();
+
+
 
     }
 
@@ -107,12 +121,10 @@ public class SearchActivity extends Activity {
     };
 
 
-
-
     private void connectGetData() {
         try {
 
-            NetworkTask networkTask = new NetworkTask(SearchActivity.this, urlAddr, "select");
+            NetworkTask networkTask = new NetworkTask(SearchActivity.this, urlAddr,"select");
             Object obj = networkTask.execute().get();
             members = (ArrayList<AddressDto>) obj;
 
@@ -122,6 +134,8 @@ public class SearchActivity extends Activity {
 
 
             helper = new ItemTouchHelper(new ItemTouchHelperCallback(adapter)); //ItemTouchHelper 생성
+
+
             helper.attachToRecyclerView(recyclerView);//RecyclerView에 ItemTouchHelper 붙이기
 
 
@@ -160,6 +174,7 @@ public class SearchActivity extends Activity {
             e.printStackTrace();
         }
     }
+
     //배경 터치 시 키보드 사라지게
     public boolean dispatchTouchEvent(MotionEvent ev) {
         View view = getCurrentFocus();

@@ -1,6 +1,8 @@
 package com.example.four.Adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -20,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.four.Activity.ListviewActivity;
+import com.example.four.Activity.UpdateActivity;
 import com.example.four.Bean.AddressDto;
 
 import com.example.four.ItemHelper.CustomDialogLeft;
@@ -42,11 +45,11 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
     LayoutInflater inflater = null;
     private ArrayList<AddressDto> mDataset;
 ///////////////////////////////////////-자기 아이피 챙기기-//////////////////////////////////////////////
-//    String urlAddr = "http://192.168.35.147:8080/pictures/";//자기 ip로 바꾸기 종찬                    //
+//    String urlAddr = "http://192.168.35.147:8080/pictures/";//자기 ip로 바꾸기 종찬                  //
 //    String urlAddr = "http://172.30.1.27:8080/pictures/";//자기 ip로 바꾸기 애정                     //
-    //    String urlAddr = "http://222.106.89.206:8080/pictures/";//자기 ip로 바꾸기 이누                  //
-    String urlAddr = "http://192.168.0.105:8080/pictures/";//자기 ip로 바꾸기 보람                   //
-//    String urlAddr = "http://192.168.2.2.147:8080/pictures/";//자기 ip로 바꾸기 하진                  //
+   String urlAddr = "http://192.168.0.13:8080/pictures/";//자기 ip로 바꾸기 이누                     //
+//   String urlAddr = "http://192.168.0.105:8080/pictures/";//자기 ip로 바꾸기 보람                    //
+//    String urlAddr = "http://192.168.35.147:8080/pictures/";//자기 ip로 바꾸기 하진                  //
 ///////////////////////////////////////-자기 아이피 챙기기-//////////////////////////////////////////////
 
     int pos = 0;
@@ -83,7 +86,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         Glide.with(holder.addrProfile)
                 .load(urlAddr + mDataset
                         .get(position).getAddrImagePath())
-                .placeholder(R.drawable.shape_circle)
+                .placeholder(R.drawable.noimg)
                 .override(120, 120)
                 .apply(new RequestOptions().circleCrop()).into(holder.addrProfile);//사진
 
@@ -162,41 +165,55 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
     //왼쪽 버튼 누르면 수정할 다이얼로그 띄우기
     @Override
     public void onLeftClick(int position, RecyclerView.ViewHolder viewHolder) {
-        Log.v(TAG, "onLeftClick");
+//        Intent intent1 = new Intent(mContext, UpdateActivity.class );
+//        switch ((int) viewHolder.getItemId()){
+//
+//            case 0:
+//                intent1.putExtra("addrLike",mDataset.get(pos).getAddrLike());
+//                mContext.startActivity(intent1);
+//                break;
+//            case 1:
+//                intent1.putExtra("addrLike",mDataset.get(pos).getAddrLike());
+//                mContext.startActivity(intent1);
+//                break;
 
-        CustomDialogLeft dialog = new CustomDialogLeft(mContext, position, mDataset.get(position));//수정 버튼 클릭시 다이얼로그 생성
-
-        DisplayMetrics dm = mContext.getApplicationContext().getResources().getDisplayMetrics();// 화면 사이즈 구하기
-        int width = dm.widthPixels;
-        int height = dm.heightPixels;
-
-        WindowManager.LayoutParams wm = dialog.getWindow().getAttributes();//다이얼로그 사이즈 세팅
-        wm.copyFrom(dialog.getWindow().getAttributes());
-        wm.width = (int) (width * 0.8);
-        wm.height = height / 4;
-
-        dialog.setDialogListener(this);//다이얼로그 Listener 세팅
-
-        dialog.show();//다이얼로그 띄우기
+        }
 
 
-    }
+
+ //   }
     //오른쪽 버튼 누르면 아이템 삭제
     @Override
     public void onRightClick(int position, RecyclerView.ViewHolder viewHolder) {
 
-        CustomDialogRight dialog = new CustomDialogRight(mContext, position, mDataset.get(position)); //수정 버튼 클릭시 다이얼로그 생성
+        new AlertDialog.Builder(mContext) // 저장 후 입력 완료 되었다는 Alert 창, 확인 클릭 시 리스트 창으로 이동
+                .setTitle("")
+                .setMessage("전화 하시겠습니까?")
+                .setCancelable(false)//아무데나 눌렀을때 안꺼지게 하는거 (버튼을 통해서만 닫게)
+                .setPositiveButton("아니요", null)
+                .setNegativeButton("네", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+cal));
+                        mContext.startActivity(intent);
 
-        DisplayMetrics dm = mContext.getApplicationContext().getResources().getDisplayMetrics();//화면 사이즈 구하기
-        int width = dm.widthPixels;
-        int height = dm.heightPixels;
+                    }
+                })
+                .show();
 
-        WindowManager.LayoutParams wm = dialog.getWindow().getAttributes();//다이얼로그 사이즈 세팅
-        wm.copyFrom(dialog.getWindow().getAttributes());
-        wm.width = (int) (width * 0.8);
-        wm.height = height / 5;
-        dialog.setDialogListener(this); //다이얼로그 Listener 세팅
-        dialog.show(); //다이얼로그 띄우기
+
+//        CustomDialogRight dialog = new CustomDialogRight(mContext, position, mDataset.get(position)); //수정 버튼 클릭시 다이얼로그 생성
+//
+//        DisplayMetrics dm = mContext.getApplicationContext().getResources().getDisplayMetrics();//화면 사이즈 구하기
+//        int width = dm.widthPixels;
+//        int height = dm.heightPixels;
+//
+//        WindowManager.LayoutParams wm = dialog.getWindow().getAttributes();//다이얼로그 사이즈 세팅
+//        wm.copyFrom(dialog.getWindow().getAttributes());
+//        wm.width = (int) (width * 0.8);
+//        wm.height = height / 5;
+//        dialog.setDialogListener(this); //다이얼로그 Listener 세팅
+//        dialog.show(); //다이얼로그 띄우기
     }
 
     @Override
@@ -214,11 +231,8 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         public TextView addrAddr;
         public ImageView addrProfile;
         public ImageView addrTagImg;
-
         //추가
         public TextView addrLike;
-
-
 
         MyViewHolder(View v) {
 

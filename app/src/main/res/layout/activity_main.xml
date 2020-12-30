@@ -38,12 +38,12 @@
             android:scaleType="fitXY"
             android:background="#00ffffff"
             android:layout_marginRight="30dp"
-
             />
     </LinearLayout>
 
 
     <LinearLayout
+        android:layout_marginRight="20dp"
         android:layout_width="match_parent"
         android:layout_height="0px"
         android:layout_weight="9"
