@@ -216,7 +216,7 @@ public class InsertActivity extends Activity {
 
             Calendar calendar = Calendar.getInstance();//파일 식별을 위한 날짜 추기
             java.util.Date date = calendar.getTime();
-            String today = (new SimpleDateFormat("yyyyMMddHHmm").format(date));
+            String today = (new SimpleDateFormat("yyyyMMddHHmmss").format(date));
             imageName = today+"_"+imageName;//파일 이름 앞에 입력일(현재시간)_파읾명
 
             //JSP에 넣을 urlAddr
@@ -357,7 +357,7 @@ public class InsertActivity extends Activity {
         String url = "http://" + urlIp + ":8080/test/multipartRequest.jsp";
         Calendar calendar = Calendar.getInstance();
         java.util.Date date = calendar.getTime();
-        String today = (new SimpleDateFormat("yyyyMMddHHmm").format(date));//파일에도 날짜를 넣기위한 메소드
+        String today = (new SimpleDateFormat("yyyyMMddHHmmss").format(date));//파일에도 날짜를 넣기위한 메소드
 
         RequestBody body = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
