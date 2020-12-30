@@ -18,33 +18,36 @@ import com.example.four.R;
 
 import java.util.ArrayList;
 
-public class LikelistActivity extends  Activity {
+public class LikelistActivity extends Activity {
 
-    final static String TAG = "라이크액티비티";
+    final static String TAG = "서치액티비티";
+
 
     String urlAddr = null;
     String urlIp = null;
     ArrayList<AddressDto> members;
-
     AddressAdapter adapter = null;
     private RecyclerView recyclerView = null;
+
     private RecyclerView.LayoutManager layoutManager = null;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_likelist);
 
 
 
-        recyclerView = findViewById(R.id.rv_likelist);
+        recyclerView = findViewById(R.id.rl_address);
 
 
-        recyclerView.setHasFixedSize(true);
+        //recyclerView.setHasFixedSize(true);
 
 
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
+
+
 
         //받아오는 ip값
         Intent intent = getIntent();
@@ -52,9 +55,15 @@ public class LikelistActivity extends  Activity {
         urlIp = intent.getStringExtra("urlIp");
 
 
-        urlAddr = "http://"+urlIp+":8080/test/mammamialikelist.jsp";
+        urlAddr = "http://"+urlIp+":8080/test/mammamiaLikelist.jsp";
+
+
+
+
 
     }
+
+
 
     @Override
     protected void onResume() {
@@ -63,7 +72,10 @@ public class LikelistActivity extends  Activity {
 
         connectGetData();
         registerForContextMenu(recyclerView);
-        Log.v(TAG,"온리줌");
+
+
+
+        Log.v(TAG, "onResume");
         adapter.setOnItemClickListener(new AddressAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
@@ -80,7 +92,6 @@ public class LikelistActivity extends  Activity {
                 intent.putExtra("addrTel", members.get(position).getAddrTel());
                 intent.putExtra("addrDetail", members.get(position).getAddrDetail());
                 intent.putExtra("addrAddr", members.get(position).getAddrAddr());
-                intent.putExtra("addrImagePath",members.get(position).getAddrImagePath());
 
 
                 startActivity(intent);
@@ -92,16 +103,16 @@ public class LikelistActivity extends  Activity {
 
 
 
-    private void connectGetData() {
 
+    private void connectGetData() {
         try {
 
-            NetworkTask networkTask = new NetworkTask(LikelistActivity.this, urlAddr,"Likelist");
+            NetworkTask networkTask = new NetworkTask(LikelistActivity.this, urlAddr,"select");
             Object obj = networkTask.execute().get();
             members = (ArrayList<AddressDto>) obj;
 
 
-            adapter = new AddressAdapter(LikelistActivity.this, R.layout.activity_likelist, members);
+            adapter = new AddressAdapter(LikelistActivity.this, R.layout.listlayout, members);
             recyclerView.setAdapter(adapter);
 
 
