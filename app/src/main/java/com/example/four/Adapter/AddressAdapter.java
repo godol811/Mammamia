@@ -39,6 +39,10 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
     private ArrayList<AddressDto> mDataset;
 
     String urlAddr = "http://192.168.35.147:8080/pictures/";//자기 ip로 바꾸기
+//    String urlAddr = "http://172.30.1.27:8080/pictures/";//자기 ip로 바꾸기 애정
+//    String urlAddr = "http://222.106.89.206:8080/pictures/";//자기 ip로 바꾸기 이누
+//    String urlAddr = "http://192.168.0.105:8080/pictures/";//자기 ip로 바꾸기 보람
+//    String urlAddr = "http://192.168.35.147:8080/pictures/";//자기 ip로 바꾸기 하진
     ///////////////////////////////////////////////////////////////////////////////////////
     // Date : 2020.12.29
     //
@@ -84,7 +88,12 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         Log.d(TAG,mDataset.get(position).getAddrImagePath());
 
 
-            Glide.with(holder.addrProfile).load(urlAddr+mDataset.get(position).getAddrImagePath()).placeholder(R.drawable.shape_circle).override(120,120).apply(new RequestOptions().circleCrop()).into(holder.addrProfile);
+            Glide.with(holder.addrProfile)
+                    .load(urlAddr+mDataset
+                            .get(position).getAddrImagePath())
+                    .placeholder(R.drawable.shape_circle)
+                    .override(120,120)
+                    .apply(new RequestOptions().circleCrop()).into(holder.addrProfile);
 
         ///////////////////////////////////////////////////////////////////////////////////////
         // Date : 2020.12.29

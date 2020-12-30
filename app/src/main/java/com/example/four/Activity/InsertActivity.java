@@ -1,8 +1,6 @@
 package com.example.four.Activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -12,9 +10,8 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.provider.MediaStore;
-import android.telephony.PhoneNumberFormattingTextWatcher;
-import android.telephony.PhoneNumberUtils;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -25,15 +22,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.core.app.ActivityCompat;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.four.NetworkTask.NetworkTask;
 import com.example.four.R;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Locale;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -62,7 +64,7 @@ public class InsertActivity extends Activity {
 
 
     //Tag 추가-------------------------------------
-    boolean[] tagSelect = {false,false,false,false};
+    boolean[] tagSelect = {false, false, false, false};
     //---------------------------------------------
     private final int REQ_CODE_SELECT_IMAGE = 100;
 
@@ -72,6 +74,13 @@ public class InsertActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_insert);
+
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                .permitDiskReads()
+                .permitDiskWrites()
+                .permitNetwork().build());
+
+        ActivityCompat.requestPermissions(InsertActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MODE_PRIVATE); //사용자에게 사진 사용 권한 받기 (가장중요함
 
 
         //받아오는 ip값
@@ -166,7 +175,7 @@ public class InsertActivity extends Activity {
                 // 타자를 입력 중이면
                 if (beforeLenght < afterLenght) {
                     if (afterLenght == 4 && s.toString().indexOf("-") < 0) {
-                      //subSequence로 지정된 문자열을 반환해서 "-"폰을 붙여주고 substring
+                        //subSequence로 지정된 문자열을 반환해서 "-"폰을 붙여주고 substring
                         insertTel.setText(s.toString().subSequence(0, 3) + "-" + s.toString().substring(3, s.length()));
                         Log.v(TAG, String.valueOf(s.toString().substring(3, s.length())));
                     } else if (afterLenght == 9) {
@@ -190,10 +199,15 @@ public class InsertActivity extends Activity {
 ////자동으로 "-" 생성해서 전화번호에 붙여주기-------------------------------------------------------
 
 
-
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    doMultiPartRequest();//사진 넣는 okHttp3 메소드}}}
+                }
+            }).start();
 
             String addrTag = insertTag.getText().toString();
             String addrName = insertName.getText().toString();
@@ -204,6 +218,19 @@ public class InsertActivity extends Activity {
             String addrDetail = insertDetail.getText().toString();
 
             //addrAddr추가
+
+
+            Calendar calendar = Calendar.getInstance();
+            java.util.Date date = calendar.getTime();
+            String today = (new SimpleDateFormat("yyyyMMddHHmm").format(date));
+
+            imageName = today+"_"+imageName;
+
+
+
+
+
+
             //imgaepath 추가 - 종찬
             urlAddr = urlAddr + "addrTag=" + addrTag + "&addrName=" + addrName + "&addrTel=" + addrTel + "&addrAddr=" + addrAddr + "&addrDetail=" + addrDetail + "&addrImagePath=" + imageName;
             connectInsertData();
@@ -239,9 +266,9 @@ public class InsertActivity extends Activity {
                             TextView text = findViewById(R.id.et_tagname_insert);
 
                             String result = "";
-                            for (int i=0; i<tagSelect.length; i++){
-                                if (tagSelect[i]){
-                                    result += tag[i]+ " ";
+                            for (int i = 0; i < tagSelect.length; i++) {
+                                if (tagSelect[i]) {
+                                    result += tag[i] + " ";
                                 }
                             }
                             text.setText(result);
@@ -254,10 +281,9 @@ public class InsertActivity extends Activity {
     };
 
 
-
     private void connectInsertData() {
         try {
-            NetworkTask insertworkTask = new NetworkTask(InsertActivity.this, urlAddr,"insert");
+            NetworkTask insertworkTask = new NetworkTask(InsertActivity.this, urlAddr, "insert");
             insertworkTask.execute().get();
         } catch (Exception e) {
             e.printStackTrace();
@@ -308,9 +334,16 @@ public class InsertActivity extends Activity {
                     int reHeight = (int) (getWindowManager().getDefaultDisplay().getHeight());
 
                     //image_bitmap 으로 받아온 이미지의 사이즈를 임의적으로 조절함. width: 400 , height: 300
-                    image_bitmap_copy = Bitmap.createScaledBitmap(image_bitmap, 400, 300, true);
+//                    image_bitmap_copy = Bitmap.createScaledBitmap(image_bitmap, 400, 300, true);
                     ImageView image = (ImageView) findViewById(R.id.iv_image_insert);  //이미지를 띄울 위젯 ID값
-                    image.setImageBitmap(image_bitmap_copy);
+//                    image.setImageBitmap(image_bitmap_copy);
+
+
+                    Glide.with(InsertActivity.this).load(img_path)
+                            .override(300, 300)
+                            .placeholder(R.drawable.shape_circle)
+                            .apply(new RequestOptions().circleCrop())
+                            .into(image);
 
 
                 } catch (Exception e) {
@@ -344,7 +377,9 @@ public class InsertActivity extends Activity {
     //파일 변환
     private void doMultiPartRequest() {
 
+
         File f = new File(img_path);
+
 
         DoActualRequest(f);
     }
@@ -352,11 +387,16 @@ public class InsertActivity extends Activity {
     //서버 보내기
     private void DoActualRequest(File file) {
         OkHttpClient client = new OkHttpClient();
-        String url = "http://"+urlIp+":8080/test/multipartRequest.jsp";
+        String url = "http://" + urlIp + ":8080/test/multipartRequest.jsp";
+
+        Calendar calendar = Calendar.getInstance();
+        java.util.Date date = calendar.getTime();
+        String today = (new SimpleDateFormat("yyyyMMddHHmm").format(date));
+
 
         RequestBody body = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
-                .addFormDataPart("image", file.getName(),
+                .addFormDataPart("image", today+"_"+file.getName(),
                         RequestBody.create(MediaType.parse("image/jpeg"), file))
 
                 .build();
@@ -374,13 +414,6 @@ public class InsertActivity extends Activity {
             e.printStackTrace();
         }
     }
-
-
-
-
-
-
-
 
 
     //----------------------이미지 관련 메소드----------------------------------------------
