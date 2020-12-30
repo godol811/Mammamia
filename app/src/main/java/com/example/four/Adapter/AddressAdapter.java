@@ -2,7 +2,6 @@ package com.example.four.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,17 +9,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.four.Bean.AddressDto;
-import com.example.four.ItemHelper.CustomDialog;
+import com.example.four.ItemHelper.CustomDialog1;
+import com.example.four.ItemHelper.CustomDialog2;
 import com.example.four.ItemHelper.ItemTouchHelperListener;
 import com.example.four.ItemHelper.OnDialogListener;
 import com.example.four.R;
-import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHolder>
         //하진추가
@@ -132,7 +130,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
     public void onLeftClick(int position, RecyclerView.ViewHolder viewHolder) {
         Log.v(TAG, "onLeftClick");
         //수정 버튼 클릭시 다이얼로그 생성
-        CustomDialog dialog = new CustomDialog(mContext, position, mDataset.get(position));
+        CustomDialog1 dialog = new CustomDialog1(mContext, position, mDataset.get(position));
         // 화면 사이즈 구하기
         DisplayMetrics dm = mContext.getApplicationContext().getResources().getDisplayMetrics();
         int width = dm.widthPixels;
@@ -140,8 +138,8 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         //다이얼로그 사이즈 세팅
         WindowManager.LayoutParams wm = dialog.getWindow().getAttributes();
         wm.copyFrom(dialog.getWindow().getAttributes());
-        wm.width = (int) (width * 0.7);
-        wm.height = height/2;
+        wm.width = (int) (width * 0.8);
+        wm.height = height/4;
         //다이얼로그 Listener 세팅
         dialog.setDialogListener(this);
         //다이얼로그 띄우기
@@ -153,7 +151,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
     @Override
     public void onRightClick(int position, RecyclerView.ViewHolder viewHolder) {
         //수정 버튼 클릭시 다이얼로그 생성
-        CustomDialog dialog = new CustomDialog(mContext, position, mDataset.get(position));
+        CustomDialog2 dialog = new CustomDialog2(mContext, position, mDataset.get(position));
         //화면 사이즈 구하기
         DisplayMetrics dm = mContext.getApplicationContext().getResources().getDisplayMetrics();
         int width = dm.widthPixels;
@@ -162,7 +160,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         WindowManager.LayoutParams wm = dialog.getWindow().getAttributes();
         wm.copyFrom(dialog.getWindow().getAttributes());
         wm.width = (int) (width * 0.7);
-        wm.height = height / 2;
+        wm.height = height / 5;
         //다이얼로그 Listener 세팅
         dialog.setDialogListener(this);
         //다이얼로그 띄우기

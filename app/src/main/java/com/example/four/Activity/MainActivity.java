@@ -50,8 +50,10 @@ public class MainActivity extends Activity {
 
     //여기서부터 하진추가
     ///////////////////////////////////////////////
-
     ItemTouchHelper helper;
+
+    //좋아요 인텐트로 이동하기 위해 버튼 선언--------------------
+    ImageButton btnlikelist;
     ///////////////////////////////////////////////
 
     //---------------검색 버튼
@@ -78,7 +80,7 @@ public class MainActivity extends Activity {
 
         //inwoo 추가
         //헤이! 여기 아이피만 교체해주세요!
-        urlIp = "192.168.0.105";
+        urlIp = "192.168.1.5";
 
 
         urlAddr = "http://"+urlIp+":8080/test/mammamia.jsp";
@@ -89,7 +91,10 @@ public class MainActivity extends Activity {
         //--------------------------------------------------------
 
 
-
+        //좋아요리스트로 이동----------
+        btnlikelist = findViewById(R.id.btn_likelist_main);
+        btnlikelist.setOnClickListener(likelistClickListener);
+        //---------------------------------------------------------
 
         findViewById(R.id.btn_insert_listview).setOnClickListener(new View.OnClickListener() {
 
@@ -164,6 +169,18 @@ public class MainActivity extends Activity {
             startActivity(intent);
         }
     };
+
+
+    //하진추가- 라이크 리스트 버튼--------
+    View.OnClickListener likelistClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(getApplicationContext(),LikelistActivity.class);
+            intent.putExtra("urlIp", urlIp);
+            startActivity(intent);
+        }
+    };
+    //----------------------
 
 
     private void connectGetData() {
