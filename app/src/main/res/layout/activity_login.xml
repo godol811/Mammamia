@@ -13,7 +13,7 @@
         android:layout_height="0px"
         android:layout_gravity="center"
         android:layout_marginTop="25dp"
-        android:layout_weight="1"
+        android:layout_weight="0.5"
         android:src="@drawable/mainlogo" />
 
     <LinearLayout
@@ -73,7 +73,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:layout_marginTop="15dp"
             android:orientation="horizontal">
 
@@ -81,6 +81,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="80dp"
+                android:layout_marginTop="20dp"
                 android:text="주소"
                 android:textColor="#fff"
                 android:textSize="20dp"
@@ -90,7 +91,9 @@
                 android:id="@+id/et_addr_login"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+
                 android:hint="  주소를 찾기 위해 눌러주세요"
                 android:maxLines="2" />
 
@@ -98,7 +101,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:layout_marginTop="15dp"
             android:orientation="horizontal">
 
@@ -114,41 +117,38 @@
             <EditText
                 android:id="@+id/et_addrDetail_login"
                 android:layout_width="200dp"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginLeft="15dp"
                 android:inputType="text"
                 android:maxLines="1" />
 
         </LinearLayout>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0px"
-        android:layout_gravity="center"
-        android:layout_marginTop="15dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
-
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="0px"
             android:layout_gravity="center"
-            android:background="@drawable/shape_main">
+            android:layout_marginTop="15dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-            <EditText
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="15dp"
-                android:scrollbars="vertical"
-                android:textSize="12dp"
-                android:editable="false"
-                android:text="제 1 장 총칙
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:background="@drawable/shape_main">
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="15dp"
+                    android:editable="false"
+                    android:scrollbars="vertical"
+                    android:text="제 1 장 총칙
 제 1 조 (목 적)
-이 약관은 '제일전기' (이하 '회사'라 합니다.)가 제공하는 서비스의 이용조건 및 절차, 기타 필요한 사항을 규정함을 목적으로 합니다.
+이 약관은 (이하 '회사'라 합니다.)가 제공하는 서비스의 이용조건 및 절차, 기타 필요한 사항을 규정함을 목적으로 합니다.
 제 2 조 (약관의 효력 및 변경) 1. 이 약관의 내용은 서비스 화면에 게시하거나 기타의 방법으로 회원에게 공지함으로써 효력이 발생합니다.
 2. 회사는 합리적인 사유가 발생될 경우에는 이 약관을 변경할 수 있으며, 약관이 변경되는 경우에는 최소한 7일전에 1항과 같은 방법으로 공시합니다.
 3. 본 사이트 안에 새로운 서비스가 개설될 경우 별도의 명시된 설명이 없는 한 이 약관에 따라 제공됩니다.
@@ -272,25 +272,30 @@
 9. 어떠한 경우를 불문하고 회사는 배송지연으로 인한 손해에 대해서 책임지지 않습니다.
 10. 회사에서 배송 및 구매대행 신청서 작성시 주의사항 안내에 따르지 않은 회원에 손실에 대해서는 책임지지 않습니다.
 부칙
-이 약관은 2018년 07월 01일부터 시행합니다." />
+이 약관은 2018년 07월 01일부터 시행합니다."
+                    android:textSize="12dp" />
+            </LinearLayout>
+
+
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:layout_weight="1">
+
+            <CheckBox
+                android:id="@+id/cb_agree_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="이용약관에 동의합니다.(필수)" />
+
+
+        </LinearLayout>
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0px"
-        android:layout_weight="1">
-
-        <CheckBox
-            android:id="@+id/cb_agree_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="이용약관에 동의합니다.(필수)" />
-
-
-    </LinearLayout>
 
     <Button
         android:id="@+id/btn_login_login"

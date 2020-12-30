@@ -86,6 +86,8 @@ public class ListviewActivity extends AppCompatActivity
         addr = intent.getStringExtra("addrAddr");
         imagePath = intent.getStringExtra("addrImagePath");
 
+        Log.d(TAG,imagePath);
+
 
         addrName = findViewById(R.id.tv_name_listview);
         addrTag = findViewById(R.id.tv_tagname_listview);
