@@ -122,15 +122,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         holder.onBind(mDataset.get(position));
     }
 
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
 
-    @Override
-    public int getItemCount() {
-        return mDataset.size();
-    }
 
 
 
