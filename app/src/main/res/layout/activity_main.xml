@@ -1,55 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Activity.ListviewActivity">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0px"
-        android:layout_weight="0.7"
-        android:orientation="horizontal"
-        android:gravity="right"
         android:layout_gravity="right"
         android:layout_marginTop="15dp"
-        >
+        android:layout_weight="0.7"
+        android:gravity="right"
+        android:orientation="horizontal">
 
         <ImageButton
             android:id="@+id/btn_search_main"
-            android:layout_gravity="right"
             android:layout_width="33dp"
             android:layout_height="33dp"
-            android:src="@drawable/search"
-            android:scaleType="fitXY"
-            android:background="#00ffffff"
+            android:layout_gravity="right"
             android:layout_marginRight="30dp"
+            android:background="#00ffffff"
+            android:scaleType="fitXY"
+            android:src="@drawable/search"
 
             />
+
         <ImageButton
             android:id="@+id/btn_likelist_main"
-            android:layout_gravity="right"
             android:layout_width="33dp"
             android:layout_height="33dp"
-            android:src="@drawable/likestar"
-            android:scaleType="fitXY"
-            android:background="#00ffffff"
+            android:layout_gravity="right"
             android:layout_marginRight="30dp"
-            />
+            android:background="#00ffffff"
+            android:scaleType="fitXY"
+            android:src="@drawable/likestar" />
     </LinearLayout>
 
 
     <LinearLayout
-        android:layout_marginRight="20dp"
         android:layout_width="match_parent"
         android:layout_height="0px"
-        android:layout_weight="9"
-        android:orientation="vertical"
         android:layout_marginRight="20dp"
-        >
+        android:layout_weight="9"
+        android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rl_address"
@@ -65,11 +62,10 @@
         android:layout_height="60dp"
         android:layout_gravity="right"
         android:layout_margin="8dp"
+        android:background="@drawable/button_round"
         android:backgroundTint="#FF9B94"
         android:text="+"
         android:textColor="#FFFFFF"
-        android:textSize="30sp"
-        android:background="@drawable/button_round"
-        />
+        android:textSize="30sp" />
 
 </LinearLayout>
