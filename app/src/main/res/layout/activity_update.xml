@@ -96,10 +96,10 @@
             android:maxLength="13"
             />
 
-        <EditText
+        <TextView
             android:maxLines="1"
             android:id="@+id/et_addr_update"
-            android:layout_width="337dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:hint="주소를 찾기 위해 눌러주세요"
