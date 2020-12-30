@@ -154,6 +154,18 @@ public class MainActivity extends Activity {
     };
 
 
+    //하진추가- 라이크 리스트 버튼--------
+    View.OnClickListener likelistClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(getApplicationContext(),LikelistActivity.class);
+            intent.putExtra("urlIp", urlIp);
+            startActivity(intent);
+        }
+    };
+    //----------------------
+
+
     private void connectGetData() {
         try {
 
@@ -170,6 +182,8 @@ public class MainActivity extends Activity {
 
 
             helper.attachToRecyclerView(recyclerView);//RecyclerView에 ItemTouchHelper 붙이기
+            //RecyclerView에 ItemTouchHelper 붙이기
+            helper.attachToRecyclerView(recyclerView);
 
 
         } catch (Exception e) {

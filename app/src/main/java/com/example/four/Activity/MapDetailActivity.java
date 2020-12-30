@@ -29,7 +29,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.maps.android.SphericalUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -88,6 +87,7 @@ public class MapDetailActivity extends FragmentActivity implements OnMapReadyCal
 
         editText = findViewById(R.id.et_search_mapdetail);
         button = findViewById(R.id.btn_search_mapdetail);
+
 
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
