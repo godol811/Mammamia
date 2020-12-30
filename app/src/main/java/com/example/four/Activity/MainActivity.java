@@ -55,7 +55,7 @@ public class MainActivity extends Activity {
     private RecyclerView.LayoutManager layoutManager = null;
 
 
-    ItemTouchHelper helper;
+
 
     ImageButton ivSearchActivity;//검색버튼
 
@@ -154,16 +154,6 @@ public class MainActivity extends Activity {
     };
 
 
-    //하진추가- 라이크 리스트 버튼--------
-    View.OnClickListener likelistClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent(getApplicationContext(),LikelistActivity.class);
-            intent.putExtra("urlIp", urlIp);
-            startActivity(intent);
-        }
-    };
-    //----------------------
 
 
     private void connectGetData() {
@@ -178,12 +168,7 @@ public class MainActivity extends Activity {
             recyclerView.setAdapter(adapter);
 
 
-            helper = new ItemTouchHelper(new ItemTouchHelperCallback(adapter));  //ItemTouchHelper 생성
 
-
-            helper.attachToRecyclerView(recyclerView);//RecyclerView에 ItemTouchHelper 붙이기
-            //RecyclerView에 ItemTouchHelper 붙이기
-            helper.attachToRecyclerView(recyclerView);
 
 
         } catch (Exception e) {
@@ -192,14 +177,7 @@ public class MainActivity extends Activity {
     }
 
 
-    private void setUpRecyclerView() {
-        recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
-            @Override
-            public void onDraw(@NonNull Canvas c, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
-                helper.onDraw(c, parent, state);
-            }
-        });
-    }
+
 
     //배경 터치 시 키보드 사라지게
     public boolean dispatchTouchEvent(MotionEvent ev) {
