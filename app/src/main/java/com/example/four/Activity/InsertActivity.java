@@ -239,7 +239,7 @@ public class InsertActivity extends Activity {
             new AlertDialog.Builder(InsertActivity.this)
                     .setTitle("태그를 선택하세요")
                     .setIcon(R.mipmap.ic_icon)
-                    .setSingleChoiceItems(R.array.tag, 1, new DialogInterface.OnClickListener() {
+                    .setSingleChoiceItems(R.array.tag, 0, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                          selectedIndex[0] = which;
