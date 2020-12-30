@@ -23,16 +23,17 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.four.Activity.ListviewActivity;
 import com.example.four.Bean.AddressDto;
 import com.example.four.ItemHelper.CustomDialog;
+import com.example.four.ItemHelper.CustomDialogRight;
 import com.example.four.ItemHelper.ItemTouchHelperListener;
 import com.example.four.ItemHelper.OnDialogListener;
 import com.example.four.R;
+
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHolder>
-
-
+        //하진추가
         implements ItemTouchHelperListener, OnDialogListener {
     final static String TAG = "어드레스어뎁터";
 
@@ -44,9 +45,9 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
 ///////////////////////////////////////-자기 아이피 챙기기-//////////////////////////////////////////////
 //    String urlAddr = "http://192.168.35.147:8080/pictures/";//자기 ip로 바꾸기 종찬                    //
 //    String urlAddr = "http://172.30.1.27:8080/pictures/";//자기 ip로 바꾸기 애정                     //
-    String urlAddr = "http://222.106.89.206:8080/pictures/";//자기 ip로 바꾸기 이누                  //
+//    String urlAddr = "http://222.106.89.206:8080/pictures/";//자기 ip로 바꾸기 이누                  //
 //    String urlAddr = "http://192.168.0.105:8080/pictures/";//자기 ip로 바꾸기 보람                   //
-//    String urlAddr = "http://192.168.35.147:8080/pictures/";//자기 ip로 바꾸기 하진                  //
+    String urlAddr = "http://192.168.2.2.147:8080/pictures/";//자기 ip로 바꾸기 하진                  //
 ///////////////////////////////////////-자기 아이피 챙기기-//////////////////////////////////////////////
 
     int pos = 0;
@@ -165,41 +166,42 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
     @Override
     public void onLeftClick(int position, RecyclerView.ViewHolder viewHolder) {
         Log.v(TAG, "onLeftClick");
-
-        CustomDialog dialog = new CustomDialog(mContext, position, mDataset.get(position));//수정 버튼 클릭시 다이얼로그 생성
-
-        DisplayMetrics dm = mContext.getApplicationContext().getResources().getDisplayMetrics();// 화면 사이즈 구하기
+        //수정 버튼 클릭시 다이얼로그 생성
+        CustomDialog dialog = new CustomDialog(mContext, position, mDataset.get(position));
+        // 화면 사이즈 구하기
+        DisplayMetrics dm = mContext.getApplicationContext().getResources().getDisplayMetrics();
         int width = dm.widthPixels;
         int height = dm.heightPixels;
-
-        WindowManager.LayoutParams wm = dialog.getWindow().getAttributes();//다이얼로그 사이즈 세팅
+        //다이얼로그 사이즈 세팅
+        WindowManager.LayoutParams wm = dialog.getWindow().getAttributes();
         wm.copyFrom(dialog.getWindow().getAttributes());
         wm.width = (int) (width * 0.7);
-        wm.height = height / 2;
-
-        dialog.setDialogListener(this);//다이얼로그 Listener 세팅
-
-        dialog.show();//다이얼로그 띄우기
+        wm.height = height/2;
+        //다이얼로그 Listener 세팅
+        dialog.setDialogListener(this);
+        //다이얼로그 띄우기
+        dialog.show();
 
 
     }
-
     //오른쪽 버튼 누르면 아이템 삭제
     @Override
     public void onRightClick(int position, RecyclerView.ViewHolder viewHolder) {
-
-        CustomDialog dialog = new CustomDialog(mContext, position, mDataset.get(position)); //수정 버튼 클릭시 다이얼로그 생성
-
-        DisplayMetrics dm = mContext.getApplicationContext().getResources().getDisplayMetrics();//화면 사이즈 구하기
+        //수정 버튼 클릭시 다이얼로그 생성
+        CustomDialog dialog = new CustomDialog(mContext, position, mDataset.get(position));
+        //화면 사이즈 구하기
+        DisplayMetrics dm = mContext.getApplicationContext().getResources().getDisplayMetrics();
         int width = dm.widthPixels;
         int height = dm.heightPixels;
-
-        WindowManager.LayoutParams wm = dialog.getWindow().getAttributes();//다이얼로그 사이즈 세팅
+        //다이얼로그 사이즈 세팅
+        WindowManager.LayoutParams wm = dialog.getWindow().getAttributes();
         wm.copyFrom(dialog.getWindow().getAttributes());
         wm.width = (int) (width * 0.7);
         wm.height = height / 2;
-        dialog.setDialogListener(this); //다이얼로그 Listener 세팅
-        dialog.show(); //다이얼로그 띄우기
+        //다이얼로그 Listener 세팅
+        dialog.setDialogListener(this);
+        //다이얼로그 띄우기
+        dialog.show();
     }
 
     @Override
@@ -210,56 +212,49 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
 
     class MyViewHolder extends RecyclerView.ViewHolder {
         final static String TAG1 = "MyViewHolder";
-        // each data item is just a string in this case
-        public TextView addrTag;
-        public TextView addrName;
-        public TextView addrTel;
-        public TextView addrAddr;
-        public ImageView addrProfile;
-        public ImageView addrTagImg;
+    // each data item is just a string in this case
+    public TextView addrTag;
+    public TextView addrName;
+    public TextView addrTel;
+    public TextView addrAddr;
+    public ImageView addrProfile;
+    public ImageView addrTagImg;
+    //추가
+    public TextView addrLike;
+    MyViewHolder(View v) {
 
-        //추가
-        public TextView addrLike;
-
-
-
-        MyViewHolder(View v) {
-
-            super(v);
-            addrAddr = v.findViewById(R.id.tv_address_listlayout);
-            addrTag = v.findViewById(R.id.tv_tag_listlayout);
-            addrName = v.findViewById(R.id.tv_name_listlayout);
-            addrTel = v.findViewById(R.id.tv_tel_listlayout);
-            addrProfile = v.findViewById(R.id.iv_profile_listlayout);
-            addrTagImg = v.findViewById(R.id.iv_tag_listlayout);
-            Log.v(TAG1, "MyViewHolder");
-            // 뷰홀더에서만 리스트 포지션값을 불러올 수 있음.
-
-            //-----------------Click Event---------------------
-            v.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int position = getAdapterPosition();//어뎁터 포지션값
-                    // 뷰홀더에서 사라지면 NO_POSITION 을 리턴
-                    if (position != RecyclerView.NO_POSITION) {
-                        if (mListener != null) {
-                            mListener.onItemClick(view, position);
-                        }
+        super(v);
+        addrAddr = v.findViewById(R.id.tv_address_listlayout);
+        addrTag = v.findViewById(R.id.tv_tag_listlayout);
+        addrName = v.findViewById(R.id.tv_name_listlayout);
+        addrTel = v.findViewById(R.id.tv_tel_listlayout);
+        addrProfile = v.findViewById(R.id.iv_profile_listlayout);
+        addrTagImg = v.findViewById(R.id.iv_tag_listlayout);
+        Log.v(TAG1, "MyViewHolder");
+        // 뷰홀더에서만 리스트 포지션값을 불러올 수 있음.
+        //-----------------Click Event---------------------
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int position = getAdapterPosition();//어뎁터 포지션값
+                // 뷰홀더에서 사라지면 NO_POSITION 을 리턴
+                if (position != RecyclerView.NO_POSITION) {
+                    if (mListener != null) {
+                        mListener.onItemClick(view, position);
                     }
                 }
-            });
-            //-----------------Click Event---------------------
-
-
-        }
-
-        public void onBind(AddressDto addressDto) {
-            addrTag.setText(addressDto.getAddrTag());
-            addrName.setText(addressDto.getAddrName());
-            addrTel.setText(addressDto.getAddrTel());
-            addrAddr.setText(addressDto.getAddrAddr());
-        }
+            }
+        });
 
 
     }
+    public void onBind(AddressDto addressDto) {
+        addrTag.setText(addressDto.getAddrTag());
+        addrName.setText(addressDto.getAddrName());
+        addrTel.setText(addressDto.getAddrTel());
+        addrAddr.setText(addressDto.getAddrAddr());
+    }
+
+
+}
 }//------------------------------
