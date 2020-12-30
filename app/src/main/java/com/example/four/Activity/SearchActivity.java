@@ -84,10 +84,12 @@ public class SearchActivity extends Activity {
         urlIp = intent.getStringExtra("urlIp");
 
 
-        urlAddr = "http://" + urlIp + ":8080/test/mammamiaSearch.jsp";
+        urlAddr = "http://"+urlIp+":8080/test/mammamiaSearch.jsp";
+
 
 
     }
+
 
 
     @Override
@@ -115,7 +117,7 @@ public class SearchActivity extends Activity {
                 intent.putExtra("addrTel", members.get(position).getAddrTel());
                 intent.putExtra("addrDetail", members.get(position).getAddrDetail());
                 intent.putExtra("addrAddr", members.get(position).getAddrAddr());
-                intent.putExtra("addrImagePath",members.get(position).getAddrImagePath());
+                intent.putExtra("addrImagePath", members.get(position).getAddrImagePath());
 
 
                 startActivity(intent);
@@ -143,7 +145,7 @@ public class SearchActivity extends Activity {
     private void connectGetData() {
         try {
 
-            NetworkTask networkTask = new NetworkTask(SearchActivity.this, urlAddr,"select");
+            NetworkTask networkTask = new NetworkTask(SearchActivity.this, urlAddr, "select");
             Object obj = networkTask.execute().get();
             members = (ArrayList<AddressDto>) obj;
 
