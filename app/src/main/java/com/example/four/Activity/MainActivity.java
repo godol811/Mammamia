@@ -79,7 +79,15 @@ public class MainActivity extends Activity {
 
         //inwoo 추가
         //헤이! 여기 아이피만 교체해주세요!
-        urlIp = "192.168.0.105";
+//        urlIp = "192.168.0.105";//하진
+//        urlIp = "172.30.1.27";//혜정
+//        urlIp = "222.106.89.206";//이누
+//        urlIp = "192.168.0.105";//보람
+        urlIp = "192.168.35.147";//종찬 아이피
+
+
+
+
 
 
         urlAddr = "http://"+urlIp+":8080/test/mammamia.jsp";
@@ -90,6 +98,13 @@ public class MainActivity extends Activity {
         //--------------------------------------------------------
 
 
+        //여기서부터 하진추가
+        //////////////////////////////////////////////////////
+        //ItemTouchHelper 생성
+        helper = new ItemTouchHelper(new ItemTouchHelperCallback(adapter));
+
+        //RecyclerView에 ItemTouchHelper 붙이기
+        helper.attachToRecyclerView(recyclerView);
 
         findViewById(R.id.btn_insert_listview).setOnClickListener(new View.OnClickListener() {
 
@@ -159,7 +174,7 @@ public class MainActivity extends Activity {
     View.OnClickListener searchClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+            Intent intent = new Intent(getApplicationContext(),SearchActivity.class);
             intent.putExtra("urlIp", urlIp);
             startActivity(intent);
         }
@@ -169,7 +184,7 @@ public class MainActivity extends Activity {
     private void connectGetData() {
         try {
 
-            NetworkTask networkTask = new NetworkTask(MainActivity.this, urlAddr, "select");
+            NetworkTask networkTask = new NetworkTask(MainActivity.this, urlAddr,"select");
             Object obj = networkTask.execute().get();
             members = (ArrayList<AddressDto>) obj;
 

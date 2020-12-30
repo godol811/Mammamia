@@ -1,7 +1,9 @@
 package com.example.four.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +12,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -22,11 +25,14 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
 import com.example.four.NetworkTask.NetworkTask;
 import com.example.four.R;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -37,8 +43,8 @@ import okhttp3.Response;
 
 public class UpdateActivity extends Activity {
 
-    String imagePath  = null;
-    String imageName  = null;
+    String imagePath = null;
+    String imageName = null;
     private String img_path = new String();
     private Bitmap image_bitmap_copy = null;
     private Bitmap image_bitmap = null;
@@ -64,6 +70,9 @@ public class UpdateActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        ActivityCompat.requestPermissions(UpdateActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MODE_PRIVATE); //사용자에게 사진 사용 권한 받기 (가장중요함)
 
 
         Intent intent = getIntent();
@@ -100,7 +109,13 @@ public class UpdateActivity extends Activity {
         addr.setText(addr1);
         detail.setText(detail1);
 
-            Glide.with(UpdateActivity.this).load(urlAddr + imagePath).override(300, 300).placeholder(R.drawable.shape_circle).apply(new RequestOptions().circleCrop()).into(profileImage);
+
+        Glide.with(UpdateActivity.this).load("http://" + urlIp + ":8080/pictures/" + imagePath)
+                .override(300, 300)
+                .placeholder(R.drawable.shape_circle)
+                .apply(new RequestOptions().circleCrop())
+                .into(profileImage);
+        Log.d(TAG, "http://" + urlIp + ":8080/pictures/" + imagePath);
 
 
 //        profileImage.setImageBitmap(BitmapFactory.decodeFile(imagePath));//가져온 경로를 imageView에 올리기
@@ -110,10 +125,10 @@ public class UpdateActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-                    Intent intent = new Intent(Intent.ACTION_PICK);
-                    intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
-                    intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
+                intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
 
             }
         });
@@ -128,30 +143,36 @@ public class UpdateActivity extends Activity {
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.btn_ok_update:
-                    String st_tag = tag.getText().toString();
-                    String st_name = name.getText().toString();
-                    String st_tel = tel.getText().toString();
-                    String st_addr = addr.getText().toString();
-                    String st_detail = detail.getText().toString();
 
-                    if (imagePath != null) {
-
-                        doMultiPartRequest();//사진 넣는 okHttp3 메소드}}}
-                    }else{
-                        imagePath = null;
-                    }
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    doMultiPartRequest();//사진 넣는 okHttp3 메소드}}}
+                }
+            }).start();
 
 
-                    urlAddr = urlAddr + "addrNo=" + num + "&addrName=" + st_name + "&addrTel=" + st_tel + "&addrAddr=" + st_addr + "&addrDetail=" + st_detail + "&addrTag=" + st_tag + "&addrImagePath=" + imageName;
-                    connectUpdateData();
-                    Log.d(TAG, urlAddr);
+            String st_tag = tag.getText().toString();
+            String st_name = name.getText().toString();
+            String st_tel = tel.getText().toString();
+            String st_addr = addr.getText().toString();
+            String st_detail = detail.getText().toString();
 
-                    Intent intent = new Intent(UpdateActivity.this, MainActivity.class);
-                    Toast.makeText(UpdateActivity.this, "수정이완료돼싸", Toast.LENGTH_SHORT).show();
-                    startActivity(intent);
-            }
+            Calendar calendar = Calendar.getInstance();
+            java.util.Date date = calendar.getTime();
+            String today = (new SimpleDateFormat("yyyyMMddHHmm").format(date));
+
+            imageName = today + "_" + imageName;
+
+
+            urlAddr = urlAddr + "addrNo=" + num + "&addrName=" + st_name + "&addrTel=" + st_tel + "&addrAddr=" + st_addr + "&addrDetail=" + st_detail + "&addrTag=" + st_tag + "&addrImagePath=" + imageName;
+            connectUpdateData();
+            Log.d(TAG, urlAddr);
+
+            Intent intent = new Intent(UpdateActivity.this, MainActivity.class);
+            Toast.makeText(UpdateActivity.this, "수정이완료돼싸", Toast.LENGTH_SHORT).show();
+            startActivity(intent);
+
 
         }
     };
@@ -199,8 +220,14 @@ public class UpdateActivity extends Activity {
 
                     //image_bitmap 으로 받아온 이미지의 사이즈를 임의적으로 조절함. width: 400 , height: 300
                     image_bitmap_copy = Bitmap.createScaledBitmap(image_bitmap, 400, 300, true);
-                    ImageView image = (ImageView) findViewById(R.id.iv_image_insert);  //이미지를 띄울 위젯 ID값
+                    ImageView image = (ImageView) findViewById(R.id.iv_profile_update);  //이미지를 띄울 위젯 ID값
                     image.setImageBitmap(image_bitmap_copy);
+
+                    Glide.with(UpdateActivity.this).load(img_path)
+                            .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+                            .placeholder(R.drawable.shape_circle)
+                            .apply(new RequestOptions().circleCrop())
+                            .into(profileImage);
 
 
                 } catch (Exception e) {
@@ -244,9 +271,14 @@ public class UpdateActivity extends Activity {
         OkHttpClient client = new OkHttpClient();
         String url = "http://" + urlIp + ":8080/test/multipartRequest.jsp";
 
+        Calendar calendar = Calendar.getInstance();
+        java.util.Date date = calendar.getTime();
+        String today = (new SimpleDateFormat("yyyyMMddHHmm").format(date));
+
+
         RequestBody body = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
-                .addFormDataPart("image", file.getName(),
+                .addFormDataPart("image", today + "_" + file.getName(),
                         RequestBody.create(MediaType.parse("image/jpeg"), file))
 
                 .build();
@@ -271,9 +303,6 @@ public class UpdateActivity extends Activity {
     //고종찬 = 바지사장
     //
     //---------------------------------------------------------------------------------
-
-
-
 
 
     //배경 터치 시 키보드 사라지게

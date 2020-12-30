@@ -1,4 +1,5 @@
 package com.example.four.Adapter;
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
@@ -15,24 +16,45 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.example.four.Activity.ListviewActivity;
 import com.example.four.Bean.AddressDto;
 import com.example.four.ItemHelper.CustomDialog;
 import com.example.four.ItemHelper.ItemTouchHelperListener;
 import com.example.four.ItemHelper.OnDialogListener;
 import com.example.four.R;
 import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHolder>
         //하진추가
         implements ItemTouchHelperListener, OnDialogListener {
     ////////////////////////
     final static String TAG = "어드레스어뎁터";
+
+
     Context mContext = null;
     int layout = 0;
     LayoutInflater inflater = null;
     private ArrayList<AddressDto> mDataset;
-    String urlAddr = null;
-    int pos = 0;
+
+    String urlAddr = "http://192.168.35.147:8080/pictures/";//자기 ip로 바꾸기
+//    String urlAddr = "http://172.30.1.27:8080/pictures/";//자기 ip로 바꾸기 애정
+//    String urlAddr = "http://222.106.89.206:8080/pictures/";//자기 ip로 바꾸기 이누
+//    String urlAddr = "http://192.168.0.105:8080/pictures/";//자기 ip로 바꾸기 보람
+//    String urlAddr = "http://192.168.35.147:8080/pictures/";//자기 ip로 바꾸기 하진
+    ///////////////////////////////////////////////////////////////////////////////////////
+    // Date : 2020.12.29
+    //
+    // Description:
+    // -urlAddr은 사진 불러올라고 어쩔 수 없이 넣는 값이므로 이해 부탁
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+
+    int pos=0;
+
     String cal = null;
     public AddressAdapter(Context mContext, int layout, ArrayList<AddressDto> data) {
         this.mContext = mContext;
@@ -40,28 +62,53 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         this.mDataset = data;
         this.inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
+
+
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        //LayoutInflater를 이용해서 원하는 레이아웃을 띄워줌
-//        LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
-//                .inflate(R.layout.listlayout, parent, false);
-//        MyViewHolder vh = new MyViewHolder(v);
-//        return vh;
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.listlayout, parent, false);
-        return new MyViewHolder(view);
+        LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.listlayout, parent, false);
 
+        MyViewHolder vh = new MyViewHolder(v);
+
+
+        return vh;
     }
+
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Log.d(TAG, mDataset.get(position).getAddrImagePath());
-        //ItemViewHolder가 생성되고 넣어야할 코드들을 넣어준다.
+
+
         holder.addrTag.setText(mDataset.get(position).getAddrTag()); //position = 인덱스값
         holder.addrName.setText(mDataset.get(position).getAddrName()); //position = 인덱스값
         holder.addrAddr.setText(mDataset.get(position).getAddrAddr()); //position = 인덱스값
         holder.addrTel.setText(mDataset.get(position).getAddrTel()); //position = 인덱스값
-        holder.addrProfile.setImageBitmap(BitmapFactory.decodeFile(mDataset.get(position).getAddrImagePath()));//사진
+//        holder.addrProfile.setImageURI(Uri.parse(urlAddr+mDataset.get(position).getAddrImagePath()));
+
+        Log.d(TAG, mDataset.get(position).getAddrImagePath());
+
+
+        Glide.with(holder.addrProfile)
+                .load(urlAddr + mDataset
+                        .get(position).getAddrImagePath())
+                .placeholder(R.drawable.shape_circle)
+                .override(120, 120)
+                .apply(new RequestOptions().circleCrop()).into(holder.addrProfile);
+
+        ///////////////////////////////////////////////////////////////////////////////////////
+        // Date : 2020.12.29
+        //
+        // Description:
+        // -urlAddr은 사진 불러올라고 어쩔 수 없이 넣는 값이므로 이해 부탁 Picasso 사용
+        //
+        ///////////////////////////////////////////////////////////////////////////////////////
+
+
+        Log.d(TAG, urlAddr + mDataset.get(position).getAddrImagePath());
+
+
         if (mDataset.get(position).getAddrTag().equals("병원")) {
             holder.addrTagImg.setImageResource(R.drawable.tag_hospital);
         } else if (mDataset.get(position).getAddrTag().equals("유치원")) {
@@ -70,29 +117,41 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
             holder.addrTagImg.setImageResource(R.drawable.tag_cafe);
         } else if (mDataset.get(position).getAddrTag().equals("기타")) {
             holder.addrTagImg.setImageResource(R.drawable.tag_user);
-        } else {
-            holder.addrTagImg.setImageResource(R.drawable.tag_user);
         }
 
         holder.onBind(mDataset.get(position));
-
-
     }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public int getItemCount() {
+        return mDataset.size();
+    }
+
 
 
     //인터페이스 선언
     public interface OnItemClickListener {
         void onItemClick(View v, int position);
     }
+
     private OnItemClickListener mListener = null;
+
     //메인에서 사용할 클릭메서드 선언
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.mListener = listener;
     }
+
     public interface OnItemLongClickListener {
         void onItemLongClick(View v, int position);
     }
+
     private OnItemLongClickListener mLongListener = null;
+
     public void setOnItemLongClickListener(OnItemLongClickListener longListener) {
         this.mLongListener = longListener;
     }
