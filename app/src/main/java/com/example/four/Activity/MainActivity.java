@@ -129,8 +129,8 @@ public class MainActivity extends Activity {
             public void onItemClick(View v, int position) {
 
                 Intent intent = new Intent(MainActivity.this, ListviewActivity.class);//리스트 클릭시 리스트뷰 넘어가기
-                intent.putExtra("urlIp", urlIp);//ip주소 보내기 ---종찬추가 12/30
                 intent.putExtra("urlAddr", urlAddr);
+                intent.putExtra("urlIp",urlIp);
                 intent.putExtra("addrNo", members.get(position).getAddrNo());
                 intent.putExtra("addrName", members.get(position).getAddrName());
                 intent.putExtra("addrTag", members.get(position).getAddrTag());
@@ -158,8 +158,8 @@ public class MainActivity extends Activity {
     };
 
 
-
-    View.OnClickListener likelistClickListener = new View.OnClickListener() {//라이크리스트 클릭- 좋아요 목록으로 이동
+    //하진추가- 라이크 리스트 버튼--------
+    View.OnClickListener likelistClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(getApplicationContext(),LikelistActivity.class);
@@ -183,8 +183,6 @@ public class MainActivity extends Activity {
 
 
             helper = new ItemTouchHelper(new ItemTouchHelperCallback(adapter)); //ItemTouchHelper 생성
-
-
             helper.attachToRecyclerView(recyclerView);//RecyclerView에 ItemTouchHelper 붙이기
 
 
