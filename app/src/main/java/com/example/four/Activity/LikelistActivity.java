@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -29,15 +30,14 @@ public class LikelistActivity extends  Activity {
     private RecyclerView.LayoutManager layoutManager = null;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_likelist);
+
+
 
         recyclerView = findViewById(R.id.rv_likelist);
-
-
         recyclerView.setHasFixedSize(true);
-
-
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
@@ -47,9 +47,45 @@ public class LikelistActivity extends  Activity {
         urlIp = intent.getStringExtra("urlIp");
 
 
-        urlAddr = "http://"+urlIp+":8080/test/mammamialikelist.jsp? addrLike= 1";
+        urlAddr = "http://"+urlIp+":8080/test/mammamialikelist.jsp?";
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+
+        connectGetData();
+        registerForContextMenu(recyclerView);
+
+        adapter.setOnItemClickListener(new AddressAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+
+
+
+                Intent intent = new Intent(LikelistActivity.this, ListviewActivity.class);
+
+
+                intent.putExtra("urlAddr", urlAddr);
+                intent.putExtra("addrNo", members.get(position).getAddrNo());
+                intent.putExtra("addrName", members.get(position).getAddrName());
+                intent.putExtra("addrTag", members.get(position).getAddrTag());
+                intent.putExtra("addrTel", members.get(position).getAddrTel());
+                intent.putExtra("addrDetail", members.get(position).getAddrDetail());
+                intent.putExtra("addrAddr", members.get(position).getAddrAddr());
+                intent.putExtra("addrImagePath",members.get(position).getAddrImagePath());
+
+
+                startActivity(intent);
+
+
+            }
+        });
+    }
+
+
 
     private void connectGetData() {
 
