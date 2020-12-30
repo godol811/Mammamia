@@ -65,13 +65,10 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.listlayout, parent, false);
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        View view = inflater.inflate(R.layout.listlayout, parent, false);
+        return new MyViewHolder(view);
 
-        MyViewHolder vh = new MyViewHolder(v);
-
-
-        return vh;
     }
 
     @Override
@@ -212,16 +209,17 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
 
     class MyViewHolder extends RecyclerView.ViewHolder {
         final static String TAG1 = "MyViewHolder";
-    // each data item is just a string in this case
-    public TextView addrTag;
-    public TextView addrName;
-    public TextView addrTel;
-    public TextView addrAddr;
-    public ImageView addrProfile;
-    public ImageView addrTagImg;
-    //추가
-    public TextView addrLike;
-    MyViewHolder(View v) {
+        // each data item is just a string in this case
+        public TextView addrTag;
+        public TextView addrName;
+        public TextView addrTel;
+        public TextView addrAddr;
+        public ImageView addrProfile;
+        public ImageView addrTagImg;
+        //추가
+        public TextView addrLike;
+
+        MyViewHolder(View v) {
 
         super(v);
         addrAddr = v.findViewById(R.id.tv_address_listlayout);
@@ -256,5 +254,5 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
     }
 
 
-}
+    }
 }//------------------------------
