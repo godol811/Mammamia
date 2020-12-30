@@ -126,7 +126,7 @@ public class MainActivity extends Activity {
 
                 Intent intent = new Intent(MainActivity.this, ListviewActivity.class);//리스트 클릭시 리스트뷰 넘어가기
                 intent.putExtra("urlAddr", urlAddr);
-
+                intent.putExtra("urlIp",urlIp);
                 intent.putExtra("addrNo", members.get(position).getAddrNo());
                 intent.putExtra("addrName", members.get(position).getAddrName());
                 intent.putExtra("addrTag", members.get(position).getAddrTag());
