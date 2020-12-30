@@ -77,7 +77,7 @@ public class MainActivity extends Activity {
         recyclerView.setLayoutManager(layoutManager);
 
 /////////////////-자기 아이피 챙기기-////////////////////////
-//       urlIp = "192.168.2.2";//하진                //
+//        urlIp = "192.168.0.105";//하진                //
 //        urlIp = "172.30.1.27";//혜정                  //
 //        urlIp = "222.106.89.206";//이누               //
       urlIp = "192.168.0.105";//보람                  //
@@ -180,12 +180,12 @@ public class MainActivity extends Activity {
             recyclerView.setAdapter(adapter);
 
 
-            helper = new ItemTouchHelper(new ItemTouchHelperCallback(adapter)); //ItemTouchHelper 생성
+            helper = new ItemTouchHelper(new ItemTouchHelperCallback(adapter));  //ItemTouchHelper 생성
 
 
             helper.attachToRecyclerView(recyclerView);//RecyclerView에 ItemTouchHelper 붙이기
-            //RecyclerView에 ItemTouchHelper 붙이기
-            helper.attachToRecyclerView(recyclerView);
+
+
 
 
         } catch (Exception e) {
@@ -217,6 +217,7 @@ public class MainActivity extends Activity {
         }
         return super.dispatchTouchEvent(ev);
     }
+
 
 
 }//------------------------------
