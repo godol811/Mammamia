@@ -18,6 +18,8 @@ import android.provider.MediaStore;
 import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.telephony.PhoneNumberUtils;
 import android.text.Editable;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -42,6 +44,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.regex.Pattern;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -113,6 +116,14 @@ public class InsertActivity extends Activity {
         addrinsertBtn.setOnClickListener(onClickListener);
         insertBackBtn.setOnClickListener(onClickListener1);
         tagSelectBtn.setOnClickListener(tagselectClick);
+
+
+
+
+
+        
+
+
 
         findViewById(R.id.iv_image_insert).setOnClickListener(new View.OnClickListener() {//사진 불러오기 onclick
             @Override
@@ -193,6 +204,30 @@ public class InsertActivity extends Activity {
             }
 
         });//자동으로 전화번호 누르기 끝
+
+
+
+
+        insertName.setFilters(new InputFilter[]{new InputFilter() {//특수문자 제한
+            @Override
+            public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+
+                //한글 영어로 문자 제한
+                Pattern ps = Pattern.compile("^[a-zA-Z-가-힣ㄱ-ㅎㅏ-ㅣ\\u318D\\u119E\\u11A2\\u2022\\u2025a\\u00B7\\uFE55]+$");
+                //source.equals("")백스페이스 허용 처리
+                if (source.equals("") || ps.matcher(source).matches()) {
+                    return source;
+                }
+                new androidx.appcompat.app.AlertDialog.Builder(InsertActivity.this)
+                        .setTitle("알림")
+                        .setMessage("한글, 영문만 입력 가능합니다.")
+                        .setNegativeButton("확인",null)
+                        .setCancelable(false)
+                        .show();
+                return "";
+            }
+            //글자수 제한
+        }, new InputFilter.LengthFilter(5)});//특수문자 제한
 
     }
 
@@ -310,7 +345,7 @@ public class InsertActivity extends Activity {
                     ImageView image = (ImageView) findViewById(R.id.iv_image_insert);  //이미지를 띄울 위젯 ID값
                     Glide.with(InsertActivity.this).load(img_path)//사진 띄우기 Glide 사용
                             .override(300, 300)
-                            .placeholder(R.drawable.shape_circle)
+                            .placeholder(R.drawable.noimg)
                             .apply(new RequestOptions().circleCrop())
                             .into(image);
 

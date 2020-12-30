@@ -38,7 +38,11 @@ public class LikelistActivity extends  Activity {
 
 
         recyclerView = findViewById(R.id.rv_likelist);
+
+
         recyclerView.setHasFixedSize(true);
+
+
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 

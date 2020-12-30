@@ -5,7 +5,9 @@ import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -15,6 +17,8 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.text.Editable;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -23,6 +27,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -35,6 +40,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.regex.Pattern;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -55,8 +61,8 @@ public class UpdateActivity extends Activity {
     final static String TAG = "업데이트액티비티";
     String tag1, name1, tel1, detail1, addr1;
     int num;
-    EditText tag, name, tel, detail, addr;
-
+    EditText tag, name, tel, detail;
+    TextView addr;
     ImageView profileImage;
 
     String urlAddr = null;
@@ -64,7 +70,11 @@ public class UpdateActivity extends Activity {
 
     Button okbtn;
     Button backbtn;
+    Button tagSelectBtn;
 
+    private static final int SEARCH_ADDRESS_ACTIVITY = 10000;//12월 30일 주소 api 변수 추가
+
+    final int[] selectedIndex = {0}; //tag 추가
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +116,8 @@ public class UpdateActivity extends Activity {
         okbtn = findViewById(R.id.btn_ok_update);
         backbtn = findViewById(R.id.btn_back_update);
 
+        //tag btn 추가
+        tagSelectBtn = findViewById(R.id.btn_tagselect_update);
 
         tag.setText(tag1);
         name.setText(name1);
@@ -116,7 +128,7 @@ public class UpdateActivity extends Activity {
 
         Glide.with(UpdateActivity.this).load("http://" + urlIp + ":8080/pictures/" + imagePath)
                 .override(300, 300)
-                .placeholder(R.drawable.shape_circle)
+                .placeholder(R.drawable.noimg)
                 .apply(new RequestOptions().circleCrop())
                 .into(profileImage);
         Log.d(TAG, "http://" + urlIp + ":8080/pictures/" + imagePath);
@@ -139,6 +151,8 @@ public class UpdateActivity extends Activity {
         okbtn.setOnClickListener(onClickListener);
         backbtn.setOnClickListener(onClickListener1);
 
+        //update tag 버튼 추가
+        tagSelectBtn.setOnClickListener(tagselectClick);
         //12월 29일 인우 추가
         //자동으로 "-" 생성해서 전화번호에 붙여주기------------------------
         tel.addTextChangedListener(new TextWatcher() {
@@ -193,8 +207,68 @@ public class UpdateActivity extends Activity {
             }
 
         });
+
+        //주소검색 API----------------------
+        addr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(UpdateActivity.this, AddressWebViewActivity.class);
+                startActivityForResult(i, SEARCH_ADDRESS_ACTIVITY);
+            }
+        });
+
+
+        name.setFilters(new InputFilter[]{new InputFilter() {//특수문자 제한
+            @Override
+            public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+
+                //한글 영어로 문자 제한
+                Pattern ps = Pattern.compile("^[a-zA-Z-가-힣ㄱ-ㅎㅏ-ㅣ\\u318D\\u119E\\u11A2\\u2022\\u2025a\\u00B7\\uFE55]+$");
+                //source.equals("")백스페이스 허용 처리
+                if (source.equals("") || ps.matcher(source).matches()) {
+                    return source;
+                }
+                new androidx.appcompat.app.AlertDialog.Builder(UpdateActivity.this)
+                        .setTitle("알림")
+                        .setMessage("한글, 영문만 입력 가능합니다.")
+                        .setNegativeButton("확인",null)
+                        .setCancelable(false)
+                        .show();
+                return "";
+            }
+            //글자수 제한
+        }, new InputFilter.LengthFilter(5)});//특수문자 제한
+
     }
 
+
+    View.OnClickListener tagselectClick = new View.OnClickListener() {//태그 선택했을경우
+        @Override
+        public void onClick(View v) {
+            new AlertDialog.Builder(UpdateActivity.this)
+                    .setTitle("태그를 선택하세요")
+                    .setIcon(R.mipmap.ic_icon)
+                    .setSingleChoiceItems(R.array.tag, 0, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            selectedIndex[0] = which;
+                        }
+                    })
+                    .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            String[] tag = getResources().getStringArray(R.array.tag);
+                            TextView text = findViewById(R.id.et_tagname_update);
+                            text.setText(tag[selectedIndex[0]]);
+                        }
+                    })
+                    .setNegativeButton("취소", null)
+                    .show();
+        }
+    };//태그 선택 끝
+
+
+    //주소검색 API----------------------------
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -259,6 +333,19 @@ public class UpdateActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {//주석
 
+            super.onActivityResult(requestCode, resultCode, data);//주소 검색 api 추가
+            switch (requestCode) {
+                case SEARCH_ADDRESS_ACTIVITY:
+                    if (resultCode == RESULT_OK) {
+                        String data1 = data.getExtras().getString("data");
+                        if (data1 != null) {
+                            addr.setText(data1);
+                        }
+                    }
+                    break;
+            }//주소 검색 api 추가
+
+
         Toast.makeText(getBaseContext(), "resultCode : " + data, Toast.LENGTH_SHORT).show();
 
         if (requestCode == REQ_CODE_SELECT_IMAGE) {
@@ -272,7 +359,7 @@ public class UpdateActivity extends Activity {
 
                     Glide.with(UpdateActivity.this).load(img_path)
                             .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
-                            .placeholder(R.drawable.shape_circle)
+                            .placeholder(R.drawable.noimg)
                             .apply(new RequestOptions().circleCrop())
                             .into(profileImage);
 

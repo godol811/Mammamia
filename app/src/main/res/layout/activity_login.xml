@@ -35,7 +35,9 @@
                 android:text="이름"
                 android:textColor="#fff"
                 android:textSize="20dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:maxLength="5"
+                />
 
             <EditText
                 android:id="@+id/et_name_login"
@@ -43,7 +45,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:maxLines="1"
-                android:singleLine="true"/>
+                android:maxLength="5"
+                android:singleLine="true"
+                />
 
         </LinearLayout>
 
@@ -69,7 +73,9 @@
                 android:layout_marginLeft="15dp"
                 android:inputType="phone"
                 android:maxLines="1"
-                android:singleLine="true"/>
+                android:maxLength="13"
+                android:singleLine="true"
+                />
 
         </LinearLayout>
 
@@ -97,8 +103,7 @@
                 android:layout_marginTop="20dp"
 
                 android:hint="  주소를 찾기 위해 눌러주세요"
-                android:maxLines="2"
-                android:singleLine="true"/>
+                android:maxLines="2" />
 
         </LinearLayout>
 
@@ -124,7 +129,8 @@
                 android:layout_marginLeft="15dp"
                 android:inputType="text"
                 android:maxLines="1"
-                android:singleLine="true"/>
+                android:singleLine="true"
+                />
 
         </LinearLayout>
 
