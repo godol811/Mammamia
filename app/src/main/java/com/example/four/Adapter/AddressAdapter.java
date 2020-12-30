@@ -123,12 +123,14 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
     }
     @Override
     public void onItemSwipe(int position) {
+        Log.v(TAG, "onItemSwipe");
         mDataset.remove(position);
         notifyItemRemoved(position);
     }
     //왼쪽 버튼 누르면 수정할 다이얼로그 띄우기
     @Override
     public void onLeftClick(int position, RecyclerView.ViewHolder viewHolder) {
+        Log.v(TAG, "onLeftClick");
         //수정 버튼 클릭시 다이얼로그 생성
         CustomDialog dialog = new CustomDialog(mContext, position, mDataset.get(position));
         // 화면 사이즈 구하기
@@ -173,7 +175,8 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         notifyItemChanged(position);
     }
 
-public class MyViewHolder extends RecyclerView.ViewHolder {
+    class MyViewHolder extends RecyclerView.ViewHolder {
+        final static String TAG1 = "MyViewHolder";
     // each data item is just a string in this case
     public TextView addrTag;
     public TextView addrName;
@@ -184,6 +187,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
     //추가
     public TextView addrLike;
     MyViewHolder(View v) {
+
         super(v);
         addrAddr = v.findViewById(R.id.tv_address_listlayout);
         addrTag = v.findViewById(R.id.tv_tag_listlayout);
@@ -191,6 +195,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
         addrTel = v.findViewById(R.id.tv_tel_listlayout);
         addrProfile = v.findViewById(R.id.iv_profile_listlayout);
         addrTagImg = v.findViewById(R.id.iv_tag_listlayout);
+        Log.v(TAG1, "MyViewHolder");
         // 뷰홀더에서만 리스트 포지션값을 불러올 수 있음.
         //-----------------Click Event---------------------
         //-----------------Click Event---------------------

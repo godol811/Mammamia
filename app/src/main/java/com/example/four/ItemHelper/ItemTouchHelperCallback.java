@@ -118,6 +118,7 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
 
     //터치 이벤트가 뷰에 전달 될 때 호출 될 콜백에 대한 인터페이스 정의
     private void setTouchListener(final Canvas c, final RecyclerView recyclerView, final RecyclerView.ViewHolder viewHolder, final float dX, final float dY, final int actionState, final boolean isCurrentlyActive) {
+        Log.v(TAG, "setTouchListener");
         recyclerView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -135,6 +136,7 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
         });
     }
     private void setTouchDownListener(final Canvas c, final RecyclerView recyclerView, final RecyclerView.ViewHolder viewHolder, final float dX, final float dY, final int actionState, final boolean isCurrentlyActive) {
+        Log.v(TAG, "setTouchDownListener");
         recyclerView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -145,59 +147,35 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
             }
         });
     }
-    //    private void setTouchUpListener(final Canvas c, final RecyclerView recyclerView, final RecyclerView.ViewHolder viewHolder, final float dX, final float dY, final int actionState, final boolean isCurrentlyActive) {
-//        recyclerView.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                ItemTouchHelperCallback.super.onChildDraw(c, recyclerView, viewHolder, 0F, dY, actionState, isCurrentlyActive);
-//                recyclerView.setOnTouchListener(new View.OnTouchListener() {
-//                    @Override
-//                    public boolean onTouch(View v, MotionEvent event) {
-//                        return false;
-//                    }
-//                });
-//                setItemsClickable(recyclerView, true);
-//                swipeBack = false;
-//                Log.v(TAG, "Left2");
-//                if (listener != null && buttonInstance != null && buttonInstance.contains(event.getX(), event.getY())) {
-//                    Log.v(TAG, "Left1");
-//                    if (listener ==null && buttonsShowedState == ButtonsState.LEFT_VISIBLE) {
-//                        listener.onLeftClick(viewHolder.getAdapterPosition(), viewHolder);
-//                        Log.v(TAG, "Left4");
-//                    } else if (buttonsShowedState == ButtonsState.RIGHT_VISIBLE) {
-//                        listener.onRightClick(viewHolder.getAdapterPosition(), viewHolder);
-//                    }
-//                }
-//                Log.v(TAG, "left3");
-//                buttonsShowedState = ButtonsState.GONE;
-//                currenrtItemViewHolder = null;
-//                return false;
-//            }
-//        });
-//    }
+
     private void setTouchUpListener(final Canvas c, final RecyclerView recyclerView, final RecyclerView.ViewHolder viewHolder, final float dX, final float dY, final int actionState, final boolean isCurrentlyActive) {
+        Log.v(TAG, "setTouchUpListener");
         recyclerView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 ItemTouchHelperCallback.super.onChildDraw(c, recyclerView, viewHolder, 0F, dY, actionState, isCurrentlyActive);
-                recyclerView.setOnTouchListener(new View.OnTouchListener() {
+                recyclerView.setOnTouchListener(new View.OnTouchListener()
+                {
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
                         return false;
                     }
                 });
-                Log.v(TAG, "Left열었다");
-                Log.v(TAG, "리스너에 뭐가 찍히지"+listener);
+                Log.v(TAG, "setTouchUpListener 2");
                 setItemsClickable(recyclerView, true);
                 swipeBack = false;
+                Log.v(TAG, "setTouchUpListener 3");
                 if (listener != null && buttonInstance != null && buttonInstance.contains(event.getX(), event.getY())) {
                     Log.v(TAG, "Left 들어간다");
                     if (buttonsShowedState == ButtonsState.LEFT_VISIBLE) {
                         listener.onLeftClick(viewHolder.getAdapterPosition(), viewHolder);
+                        Log.v(TAG, "Left 들어와서"+listener);
+
                     } else if (buttonsShowedState == ButtonsState.RIGHT_VISIBLE) {
                         listener.onRightClick(viewHolder.getAdapterPosition(), viewHolder);
                     }
-                }Log.v(TAG, "Left닫았다");
+                }
+                Log.v(TAG, "setTouchUpListener 4"+buttonsShowedState);
                 buttonsShowedState = ButtonsState.GONE;
                 currenrtItemViewHolder = null;
                 return false;

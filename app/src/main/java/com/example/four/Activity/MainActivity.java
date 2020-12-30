@@ -50,7 +50,7 @@ public class MainActivity extends Activity {
 
     //여기서부터 하진추가
     ///////////////////////////////////////////////
-    //ListAdapter adapter2;
+
     ItemTouchHelper helper;
     ///////////////////////////////////////////////
 
@@ -89,13 +89,7 @@ public class MainActivity extends Activity {
         //--------------------------------------------------------
 
 
-        //여기서부터 하진추가
-        //////////////////////////////////////////////////////
-        //ItemTouchHelper 생성
-        helper = new ItemTouchHelper(new ItemTouchHelperCallback(adapter));
 
-        //RecyclerView에 ItemTouchHelper 붙이기
-        helper.attachToRecyclerView(recyclerView);
 
         findViewById(R.id.btn_insert_listview).setOnClickListener(new View.OnClickListener() {
 
@@ -111,7 +105,7 @@ public class MainActivity extends Activity {
             }
         });
 
-
+       
 
     }
 
@@ -183,6 +177,13 @@ public class MainActivity extends Activity {
             adapter = new AddressAdapter(MainActivity.this, R.layout.listlayout, members);
             recyclerView.setAdapter(adapter);
 
+            //여기서부터 하진추가
+            //////////////////////////////////////////////////////
+            //ItemTouchHelper 생성
+            helper = new ItemTouchHelper(new ItemTouchHelperCallback(adapter));
+
+            //RecyclerView에 ItemTouchHelper 붙이기
+            helper.attachToRecyclerView(recyclerView);
 
 
         } catch (Exception e) {

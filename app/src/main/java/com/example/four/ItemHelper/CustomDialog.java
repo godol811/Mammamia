@@ -29,7 +29,7 @@ public class CustomDialog extends Dialog {
     public CustomDialog(Context context, final int position, AddressDto addressDto) {
         super(context);
 
-        Log.v(TAG,"커스텀"+position );
+
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         setContentView(R.layout.customdialog);
