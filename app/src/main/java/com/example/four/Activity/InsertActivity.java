@@ -53,7 +53,8 @@ public class InsertActivity extends Activity {
     private Bitmap image_bitmap_copy = null;
     private Bitmap image_bitmap = null;
 
-    EditText insertName, insertTag, insertTel, insertAddr, insertDetail;
+    EditText insertName, insertTag, insertTel, insertDetail;
+    TextView insertAddr;
     Button addrinsertBtn;
     Button insertBackBtn;
     Button tagSelectBtn;

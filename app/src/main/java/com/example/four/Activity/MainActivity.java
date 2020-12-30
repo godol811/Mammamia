@@ -27,6 +27,7 @@ import android.widget.Toast;
 import com.example.four.Adapter.AddressAdapter;
 import com.example.four.Bean.AddressDto;
 import com.example.four.ItemHelper.ItemTouchHelperCallback;
+import com.example.four.ItemHelper.ListAdapter;
 import com.example.four.NetworkTask.NetworkTask;
 import com.example.four.R;
 
@@ -90,13 +91,12 @@ public class MainActivity extends Activity {
 
 
 
-
         findViewById(R.id.btn_insert_listview).setOnClickListener(new View.OnClickListener() {
 
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,InsertActivity.class);
+                Intent intent = new Intent(MainActivity.this, InsertActivity.class);
 
 
                 //ip주소 보내기
@@ -105,7 +105,7 @@ public class MainActivity extends Activity {
             }
         });
 
-       
+
 
     }
 
@@ -144,7 +144,7 @@ public class MainActivity extends Activity {
                 intent.putExtra("addrTel", members.get(position).getAddrTel());
                 intent.putExtra("addrDetail", members.get(position).getAddrDetail());
                 intent.putExtra("addrAddr", members.get(position).getAddrAddr());
-                intent.putExtra("addrImagePath",members.get(position).getAddrImagePath());
+                intent.putExtra("addrImagePath", members.get(position).getAddrImagePath());
 
 
                 startActivity(intent);
@@ -159,7 +159,7 @@ public class MainActivity extends Activity {
     View.OnClickListener searchClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(getApplicationContext(),SearchActivity.class);
+            Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
             intent.putExtra("urlIp", urlIp);
             startActivity(intent);
         }
@@ -169,7 +169,7 @@ public class MainActivity extends Activity {
     private void connectGetData() {
         try {
 
-            NetworkTask networkTask = new NetworkTask(MainActivity.this, urlAddr,"select");
+            NetworkTask networkTask = new NetworkTask(MainActivity.this, urlAddr, "select");
             Object obj = networkTask.execute().get();
             members = (ArrayList<AddressDto>) obj;
 
