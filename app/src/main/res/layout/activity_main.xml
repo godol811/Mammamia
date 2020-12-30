@@ -47,7 +47,9 @@
         android:layout_width="match_parent"
         android:layout_height="0px"
         android:layout_weight="9"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginRight="20dp"
+        >
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rl_address"
