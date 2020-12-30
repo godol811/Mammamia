@@ -1,5 +1,6 @@
 package com.example.four.Activity;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
@@ -9,6 +10,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -23,6 +26,8 @@ import android.widget.Toast;
 
 import com.example.four.R;
 import com.example.four.SqliteDB.MemberInfo;
+
+import java.util.regex.Pattern;
 
 public class LoginActivity extends Activity {
 
@@ -188,6 +193,31 @@ public class LoginActivity extends Activity {
             }
 
         });//자동으로 전화번호 누르기 끝
+
+
+
+
+        etUserName.setFilters(new InputFilter[]{new InputFilter() {//특수문자 제한
+            @Override
+            public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+
+                //한글 영어로 문자 제한
+                Pattern ps = Pattern.compile("^[a-zA-Z-가-힣ㄱ-ㅎㅏ-ㅣ\\u318D\\u119E\\u11A2\\u2022\\u2025a\\u00B7\\uFE55]+$");
+//                source.equals("")백스페이스 허용 처리
+                if (source.equals("") || ps.matcher(source).matches()) {
+                    return source;
+                }
+                new AlertDialog.Builder(LoginActivity.this)
+                        .setTitle("알림")
+                        .setMessage("한글, 영문만 입력 가능합니다.")
+                        .setNegativeButton("확인",null)
+                        .setCancelable(false)
+                        .show();
+                return "";
+            }
+        }
+        });//특수문자 제한
+
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {

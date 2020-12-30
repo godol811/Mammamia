@@ -47,7 +47,7 @@ public class LikelistActivity extends  Activity {
         urlIp = intent.getStringExtra("urlIp");
 
 
-        urlAddr = "http://"+urlIp+":8080/test/mammamialikelist.jsp? addrLike= 1";
+        urlAddr = "http://"+urlIp+":8080/test/mammamialikelist.jsp?addrLike= 1";
 
     }
 

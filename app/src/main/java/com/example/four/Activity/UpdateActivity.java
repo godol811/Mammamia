@@ -17,6 +17,8 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.text.Editable;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -38,6 +40,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.regex.Pattern;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -213,6 +216,29 @@ public class UpdateActivity extends Activity {
                 startActivityForResult(i, SEARCH_ADDRESS_ACTIVITY);
             }
         });
+
+
+        name.setFilters(new InputFilter[]{new InputFilter() {//특수문자 제한
+            @Override
+            public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+
+                //한글 영어로 문자 제한
+                Pattern ps = Pattern.compile("^[a-zA-Z-가-힣ㄱ-ㅎㅏ-ㅣ\\u318D\\u119E\\u11A2\\u2022\\u2025a\\u00B7\\uFE55]+$");
+                //source.equals("")백스페이스 허용 처리
+                if (source.equals("") || ps.matcher(source).matches()) {
+                    return source;
+                }
+                new androidx.appcompat.app.AlertDialog.Builder(UpdateActivity.this)
+                        .setTitle("알림")
+                        .setMessage("한글, 영문만 입력 가능합니다.")
+                        .setNegativeButton("확인",null)
+                        .setCancelable(false)
+                        .show();
+                return "";
+            }
+            //글자수 제한
+        }, new InputFilter.LengthFilter(5)});//특수문자 제한
+
     }
 
 
