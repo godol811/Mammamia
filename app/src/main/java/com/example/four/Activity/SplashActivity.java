@@ -56,7 +56,7 @@ public class SplashActivity extends Activity {
                 animation2.setRepeatMode(Animation.REVERSE); //반복
                 animation2.setRepeatCount(10); //반복 횟수
                 animation2.setFillAfter(true); // animation끝난 후 위치 그대로 유지
-                star1.startAnimation( animation2);
+                star1.startAnimation(animation2);
                 star2.startAnimation(animation2);
 
             }
@@ -76,7 +76,7 @@ public class SplashActivity extends Activity {
             public void run() {
 
 
-                Intent mainIntent = new Intent(SplashActivity.this, LoginActivity.class); //Splash 끝나고 이동경로
+                Intent mainIntent = new Intent(SplashActivity.this, MainActivity.class); //Splash 끝나고 이동경로
                 SplashActivity.this.startActivity(mainIntent);
                 SplashActivity.this.finish();
             }
