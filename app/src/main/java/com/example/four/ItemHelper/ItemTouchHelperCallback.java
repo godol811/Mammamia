@@ -1,5 +1,4 @@
 package com.example.four.ItemHelper;
-
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -7,30 +6,26 @@ import android.graphics.RectF;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
-
 enum ButtonsState {GONE, LEFT_VISIBLE, RIGHT_VISIBLE}
 
 public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
-
-    final static String TAG = "여기보세요_ItemTouchHelper";
-
+    final static String TAG = "아이템터치헬퍼콜백_";
     private ItemTouchHelperListener listener;
-
     private boolean swipeBack = false;
     private ButtonsState buttonsShowedState = ButtonsState.GONE;
     private static final float buttonWidth = 300;
     private RectF buttonInstance = null;
     private RecyclerView.ViewHolder currenrtItemViewHolder = null;
 
+
     public ItemTouchHelperCallback(ItemTouchHelperListener listener) {
+
         this.listener = listener;
+
     }
-
-
     //동작 정의
     @Override
     public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
@@ -38,23 +33,19 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
         int swipe_flags = ItemTouchHelper.START | ItemTouchHelper.END;
         return makeMovementFlags(drag_flags, swipe_flags);
     }
-
     @Override
     public boolean isLongPressDragEnabled() {
         return true;
     }
-
     @Override
     public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
         Log.v(TAG, "onMove");
         return listener.onItemMove(viewHolder.getAdapterPosition(), target.getAdapterPosition());
     }
-
     @Override
     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
         listener.onItemSwipe(viewHolder.getAdapterPosition());
     }
-
     //아이템을 터치하거나 스와이프하거나 뷰에 변화가 생길경우 불러오는 함수
     @Override
     public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
@@ -73,17 +64,19 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
             }
         }
         currenrtItemViewHolder = viewHolder;
-
+        //버튼을 그려주는 함수
         drawButtons(c, currenrtItemViewHolder);
     }
 
 
-    //버튼을 그려주는 함수
     private void drawButtons(Canvas c, RecyclerView.ViewHolder viewHolder) {
+
         float buttonWidthWithOutPadding = buttonWidth - 10;
         float corners = 5;
+
         View itemView = viewHolder.itemView;
         Paint p = new Paint();
+
         buttonInstance = null;
 
         //오른쪽으로 스와이프 했을때 (왼쪽에 버튼이 보여지게 될 경우)
@@ -93,9 +86,7 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
             c.drawRoundRect(leftButton, corners, corners, p);
             drawText("즐겨찾기", c, leftButton, p);
             buttonInstance = leftButton;
-
-
-        //왼쪽으로 스와이프 했을때 (오른쪽에 버튼이 보여지게 될 경우)
+            //왼쪽으로 스와이프 했을때 (오른쪽에 버튼이 보여지게 될 경우)
         } else if
         (buttonsShowedState == ButtonsState.RIGHT_VISIBLE) {
             RectF rightButton = new RectF(itemView.getRight() - buttonWidthWithOutPadding, itemView.getTop() + 10, itemView.getRight() - 10, itemView.getBottom() - 10);
@@ -103,13 +94,8 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
             c.drawRoundRect(rightButton, corners, corners, p);
             drawText("삭제", c, rightButton, p);
             buttonInstance = rightButton;
-
-
-
-
         }
     }
-
     //버튼의 텍스트 그려주기
     private void drawText(String text, Canvas c, RectF button, Paint p) {
         float textSize = 50;
@@ -120,7 +106,6 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
         float textWidth = p.measureText(text);
         c.drawText(text, button.centerX() - (textWidth / 2), button.centerY() + (textSize / 2), p);
     }
-
     //사면 방향 플래그의 주어진 세트로 변환
     @Override
     public int convertToAbsoluteDirection(int flags, int layoutDirection) {
@@ -133,6 +118,7 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
 
     //터치 이벤트가 뷰에 전달 될 때 호출 될 콜백에 대한 인터페이스 정의
     private void setTouchListener(final Canvas c, final RecyclerView recyclerView, final RecyclerView.ViewHolder viewHolder, final float dX, final float dY, final int actionState, final boolean isCurrentlyActive) {
+        Log.v(TAG, "setTouchListener");
         recyclerView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -149,8 +135,8 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
             }
         });
     }
-
     private void setTouchDownListener(final Canvas c, final RecyclerView recyclerView, final RecyclerView.ViewHolder viewHolder, final float dX, final float dY, final int actionState, final boolean isCurrentlyActive) {
+        Log.v(TAG, "setTouchDownListener");
         recyclerView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -163,36 +149,42 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
     }
 
     private void setTouchUpListener(final Canvas c, final RecyclerView recyclerView, final RecyclerView.ViewHolder viewHolder, final float dX, final float dY, final int actionState, final boolean isCurrentlyActive) {
+        Log.v(TAG, "setTouchUpListener");
         recyclerView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 ItemTouchHelperCallback.super.onChildDraw(c, recyclerView, viewHolder, 0F, dY, actionState, isCurrentlyActive);
-                recyclerView.setOnTouchListener(new View.OnTouchListener() {
+                recyclerView.setOnTouchListener(new View.OnTouchListener()
+                {
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
                         return false;
                     }
                 });
+                Log.v(TAG, "setTouchUpListener 2");
                 setItemsClickable(recyclerView, true);
                 swipeBack = false;
+                Log.v(TAG, "setTouchUpListener 3");
                 if (listener != null && buttonInstance != null && buttonInstance.contains(event.getX(), event.getY())) {
+                    Log.v(TAG, "Left 들어간다");
                     if (buttonsShowedState == ButtonsState.LEFT_VISIBLE) {
                         listener.onLeftClick(viewHolder.getAdapterPosition(), viewHolder);
+                        Log.v(TAG, "Left 들어와서"+listener);
+
                     } else if (buttonsShowedState == ButtonsState.RIGHT_VISIBLE) {
                         listener.onRightClick(viewHolder.getAdapterPosition(), viewHolder);
                     }
                 }
+                Log.v(TAG, "setTouchUpListener 4"+buttonsShowedState);
                 buttonsShowedState = ButtonsState.GONE;
                 currenrtItemViewHolder = null;
                 return false;
             }
         });
     }
-
     private void setItemsClickable(RecyclerView recyclerView, boolean isClickable) {
         for (int i = 0; i < recyclerView.getChildCount(); i++) {
             recyclerView.getChildAt(i).setClickable(isClickable);
         }
     }
 }
-

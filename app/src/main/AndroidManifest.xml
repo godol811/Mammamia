@@ -17,6 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Four">
 
+        <uses-library android:name="org.apache.http.legacy"
+            android:required="false"/>
+
         <!-- Google ApiKey -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -30,15 +33,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".Activity.MapDetailActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
-        <activity android:name=".Activity.AddressWebViewActivity" />
+        <activity android:name=".Activity.LikelistActivity" />
         <activity android:name=".Activity.LoginActivity" />
         <activity android:name=".Activity.SearchActivity" />
         <activity android:name=".Activity.InsertActivity" />
         <activity android:name=".Activity.UpdateActivity" />
-        <activity android:name=".Activity.ListviewActivity"
+        <activity android:name=".Activity.ListviewActivity"/>
+        <activity android:name=".Activity.AddressWebViewActivity"/>
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity android:name=".Activity.MainActivity" />
     </application>
