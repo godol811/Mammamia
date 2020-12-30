@@ -16,18 +16,16 @@ import com.example.four.R;
 
 public class SplashActivity extends Activity {
 
-    //field
+
     Animation animation, animation2;
     ImageView view;
     ImageView star1, star2;
 
 
-    //Splash 유지 시간
-    private final int SPLASH_DISPLAY_LENGTH = 3500;
+
+    private final int SPLASH_DISPLAY_LENGTH = 3500;    //Splash 유지 시간
 
 
-    //-------------------------------------------------------
-    //------------------onCreate start-----------------------
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -39,8 +37,8 @@ public class SplashActivity extends Activity {
         star1 = findViewById(R.id.star1_splash);
         star2 = findViewById(R.id.star2_splash);
 
-        //animation 시작 위치 및 사용될 layout
-        animation = AnimationUtils.loadAnimation(SplashActivity.this, R.anim.translate);
+
+        animation = AnimationUtils.loadAnimation(SplashActivity.this, R.anim.translate); //animation 시작 위치 및 사용될 layout
         animation.setFillAfter(true);
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -49,7 +47,6 @@ public class SplashActivity extends Activity {
             }
 
 
-            //------------------------------------------------------------
             @Override
             public void onAnimationEnd(Animation animation) { //첫 animation 이 끝나고 시작 될 animation
 
@@ -64,7 +61,6 @@ public class SplashActivity extends Activity {
 
             }
 
-            //------------------------------------------------------------
             @Override
             public void onAnimationRepeat(Animation animation) {
 
@@ -79,8 +75,8 @@ public class SplashActivity extends Activity {
             @Override
             public void run() {
 
-                //Splash 끝나고 이동경로
-                Intent mainIntent = new Intent(SplashActivity.this, LoginActivity.class);
+
+                Intent mainIntent = new Intent(SplashActivity.this, LoginActivity.class); //Splash 끝나고 이동경로
                 SplashActivity.this.startActivity(mainIntent);
                 SplashActivity.this.finish();
             }
@@ -88,16 +84,13 @@ public class SplashActivity extends Activity {
 
 
     }
-    //------------------------------------------------------------
 
 
-    //------------------onCreate finish-----------------------
-    //--------------------------------------------------------
 
 
     @Override
-    public void onBackPressed() {
-        //초반 플래시 화면에서 넘어갈때 뒤로가기 버튼 못누르게 함
+    public void onBackPressed() { //초반 플래시 화면에서 넘어갈때 뒤로가기 버튼 못누르게 함
+
     }
 
 }//------------------------------------------------

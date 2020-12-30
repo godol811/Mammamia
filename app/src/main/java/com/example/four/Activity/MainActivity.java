@@ -1,3 +1,8 @@
+//Copyrightⓒ2008 by HOTPANTSCEO. All pictures cannot be copied without permission.
+//
+//(모든 저작권은 XX에게 있습니다. 이곳의 모든 사진들은 허가없이 복사할수 없습니다.)
+
+
 package com.example.four.Activity;
 
 import androidx.annotation.NonNull;

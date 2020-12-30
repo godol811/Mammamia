@@ -50,9 +50,7 @@ public class UpdateActivity extends Activity {
     private Bitmap image_bitmap = null;
     private final int REQ_CODE_SELECT_IMAGE = 100;
 
-    String tagName, addrName, addrTel, addrDetail;
     final static String TAG = "업데이트액티비티";
-    //addr1 추가
     String tag1, name1, tel1, detail1, addr1;
     int num;
     EditText tag, name, tel, detail, addr;
@@ -118,10 +116,8 @@ public class UpdateActivity extends Activity {
         Log.d(TAG, "http://" + urlIp + ":8080/pictures/" + imagePath);
 
 
-//        profileImage.setImageBitmap(BitmapFactory.decodeFile(imagePath));//가져온 경로를 imageView에 올리기
 
-        //--------------------이미지 올리기---------------------------
-        profileImage.setOnClickListener(new View.OnClickListener() {
+        profileImage.setOnClickListener(new View.OnClickListener() {//이미지 올리기
             @Override
             public void onClick(View v) {
 
@@ -196,13 +192,9 @@ public class UpdateActivity extends Activity {
     }
 
 
-    //----------------------이미지 관련 메소드----------------------------------------------
-    //
-    //고종찬 = 바지사장
-    //
-    //---------------------------------------------------------------------------------
+
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {//주석
 
         Toast.makeText(getBaseContext(), "resultCode : " + data, Toast.LENGTH_SHORT).show();
 
@@ -215,9 +207,6 @@ public class UpdateActivity extends Activity {
                     image_bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
 
                     //사용자 단말기의 width , height 값 반환
-                    int reWidth = (int) (getWindowManager().getDefaultDisplay().getWidth());
-                    int reHeight = (int) (getWindowManager().getDefaultDisplay().getHeight());
-
                     //image_bitmap 으로 받아온 이미지의 사이즈를 임의적으로 조절함. width: 400 , height: 300
                     image_bitmap_copy = Bitmap.createScaledBitmap(image_bitmap, 400, 300, true);
                     ImageView image = (ImageView) findViewById(R.id.iv_profile_update);  //이미지를 띄울 위젯 ID값
@@ -238,36 +227,32 @@ public class UpdateActivity extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
     }//end of onActivityResult()
 
-    public String getImagePathToUri(Uri data) {
-        //사용자가 선택한 이미지의 정보를 받아옴
+    public String getImagePathToUri(Uri data) {//사용자가 선택한 이미지의 정보를 받아옴
+
         String[] proj = {MediaStore.Images.Media.DATA};
         Cursor cursor = managedQuery(data, proj, null, null, null);
         int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
         cursor.moveToFirst();
 
-        //이미지의 경로 값
-        String imgPath = cursor.getString(column_index);
+        String imgPath = cursor.getString(column_index);//이미지의 경로 값
         Log.d("test", imgPath);//이미지 경로 확인해서 데이터 값 넘기기
-
-        //이미지의 이름 값
-        String imgName = imgPath.substring(imgPath.lastIndexOf("/") + 1);
+        String imgName = imgPath.substring(imgPath.lastIndexOf("/") + 1); //이미지의 이름 값
         Toast.makeText(UpdateActivity.this, "이미지 이름 : " + imgName, Toast.LENGTH_SHORT).show();
         this.imageName = imgName;
-//        this.imagePath = imgPath;
 
         return imgPath;
     }//end of getImagePathToUri()
 
-    //파일 변환
-    private void doMultiPartRequest() {
+
+    private void doMultiPartRequest() {//파일 변환
 
         File f = new File(img_path);
 
         DoActualRequest(f);
     }
 
-    //서버 보내기
-    private void DoActualRequest(File file) {
+
+    private void DoActualRequest(File file) {//서버 보내기
         OkHttpClient client = new OkHttpClient();
         String url = "http://" + urlIp + ":8080/test/multipartRequest.jsp";
 
@@ -278,9 +263,7 @@ public class UpdateActivity extends Activity {
 
         RequestBody body = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
-                .addFormDataPart("image", today + "_" + file.getName(),
-                        RequestBody.create(MediaType.parse("image/jpeg"), file))
-
+                .addFormDataPart("image", today + "_" + file.getName(), RequestBody.create(MediaType.parse("image/jpeg"), file))
                 .build();
 
         Request request = new Request.Builder()
@@ -295,18 +278,12 @@ public class UpdateActivity extends Activity {
 
             e.printStackTrace();
         }
-    }
+    }//서버 보내기 끝
 
 
-    //----------------------이미지 관련 메소드----------------------------------------------
-    //
-    //고종찬 = 바지사장
-    //
-    //---------------------------------------------------------------------------------
 
 
-    //배경 터치 시 키보드 사라지게
-    public boolean dispatchTouchEvent(MotionEvent ev) {
+    public boolean dispatchTouchEvent(MotionEvent ev) {//배경 터치 시 키보드 사라지게
         View view = getCurrentFocus();
         InputMethodManager imm;
         if (view != null && (ev.getAction() == MotionEvent.ACTION_UP || ev.getAction() == MotionEvent.ACTION_MOVE) && view instanceof EditText && !view.getClass().getName().startsWith("android.webkit.")) {

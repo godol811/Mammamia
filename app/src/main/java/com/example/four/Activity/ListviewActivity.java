@@ -39,13 +39,13 @@ import java.util.Locale;
 
 public class ListviewActivity extends AppCompatActivity
         implements OnMapReadyCallback {
-    //ip변수
+
+    final static String TAG = "리스트뷰액티비티";
+
     String urlIp = null;
     String urlAddr = null;
-    //addrAddr 추가
     TextView addrTag, addrName, addrTel, addrDetail, addrAddr;
     ImageView profileImage;
-
     ArrayList<Address> members;
     Button backbtn, upbtn;
     int addrNo;
@@ -54,22 +54,11 @@ public class ListviewActivity extends AppCompatActivity
     String name;
     String detail;
     String imagePath;
-
-    //addr 추가
     String addr;
-    //
     Button delebtn;
-
-
-    //inwoo-------------------------------------
-    //지오코딩 변수
     double intentLat, intentLng;
-
-    //지도 변수
     private GoogleMap mMap;
-    final static String TAG = "리스트뷰액티비티";
-    //주소값 보내주기 위해 선언
-    //-------------------------------------------
+
     private RecyclerView recyclerView = null;
 
     @Override
@@ -78,15 +67,13 @@ public class ListviewActivity extends AppCompatActivity
         setContentView(R.layout.activity_listview);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        ActivityCompat.requestPermissions(ListviewActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MODE_PRIVATE); //사용자에게 사진 사용 권한 받기 (가장중요함)
+        ActivityCompat.requestPermissions(ListviewActivity.this,
+                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MODE_PRIVATE); //사용자에게 사진 사용 권한 받기 (가장중요함)
 
 
-        //inwoo 추가---------------------------------------
-        //Fragment 가져오기
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fg_map_listview);
-        //onMapReady 메소드 호출
-        mapFragment.getMapAsync(this);
-        //-------------------------------------------------------
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fg_map_listview);//Fragment 가져오기
+
+        mapFragment.getMapAsync(this);//onMapReady 메소드 호출
         Intent intent = getIntent();
         urlIp = intent.getStringExtra("urlIp");
 
@@ -96,11 +83,7 @@ public class ListviewActivity extends AppCompatActivity
         tel = intent.getStringExtra("addrTel");
         tagName = intent.getStringExtra("addrTag");
         detail = intent.getStringExtra("addrDetail");
-        //변수명 변경
         addr = intent.getStringExtra("addrAddr");
-
-
-        //--이미지 추가-----//
         imagePath = intent.getStringExtra("addrImagePath");
 
 
@@ -123,53 +106,36 @@ public class ListviewActivity extends AppCompatActivity
                 apply(new RequestOptions().circleCrop()).into(profileImage);
 
 
-        //-------------
         addrDetail = findViewById(R.id.tv_detail_listview);
         upbtn = findViewById(R.id.btn_update_listview);
-//        backbtn = findViewById(R.id.btn_back_listview);
         delebtn = findViewById(R.id.btn_delete_listview);
         addrName.setText(name);
         addrDetail.setText(detail);
-        //addrAddr추가
         addrAddr.setText(addr);
-        //------------------
         addrTel.setText(tel);
         addrTag.setText(tagName);
         upbtn.setOnClickListener(onClickListener);
-//        backbtn.setOnClickListener(onClickListener1);
         delebtn.setOnClickListener(onClickListener2);
-        //inwoo추가-----------------------------------
-        //지오코딩해주는 메소드
-        geocoding();
-        //-------------------------------------------------
+        geocoding();//지오코딩해주는 메소드
     }
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             Intent intent1 = new Intent(ListviewActivity.this, UpdateActivity.class);
-            //ip값 보내기
-            intent1.putExtra("urlIp", urlIp);
+            intent1.putExtra("urlIp", urlIp); //ip값 보내기
             intent1.putExtra("urlAddr", urlAddr);
             intent1.putExtra("addrNo", addrNo);
             intent1.putExtra("addrName", name);
             intent1.putExtra("addrTag", tagName);
             intent1.putExtra("addrTel", tel);
             intent1.putExtra("addrDetail", detail);
-            //imagepath
-            intent1.putExtra("addrImagePath",imagePath);
-            //addr 변경
             intent1.putExtra("addrAddr", addr);
-            //-----------------
+            intent1.putExtra("addrImagePath", imagePath);   //imagepath
             startActivity(intent1);
         }
     };
-    //    View.OnClickListener onClickListener1 = new View.OnClickListener() {
-//        @Override
-//        public void onClick(View v) {
-//            onBackPressed();
-//        }
-//    };
+
     View.OnClickListener onClickListener2 = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -194,15 +160,12 @@ public class ListviewActivity extends AppCompatActivity
         }
     }
 
-    //  inwoo추가--------------------------------------------------
-    //  OnMapReadyCallback 인터페이스의 onMapReady 메소드를 구현해줘야 한다.
-    //  맵이 사용할 준비가 되었을 때(NULL이 아닌 GoogleMap 객체를 파라미터로 제공해 줄 수 있을 때) 호출되어지는 메소드
+
     @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-        //다시 변환후 넣어줘야됨
-//        String name2 = (String) name1.getText();
-        //변환한 latlng값 마커위치로 조정
+    public void onMapReady(GoogleMap googleMap) {//OnMapReadyCallback 인터페이스의 onMapReady 메소드를 구현해줘야 한다.
+                                                 //맵이 사용할 준비가 되었을 때(NULL이 아닌 GoogleMap 객체를 파라미터로 제공해 줄 수 있을 때) 호출되어지는 메소드
+        mMap = googleMap;  //다시 변환후 넣어줘야됨
+
         LatLng markerPosition = new LatLng(intentLat, intentLng);
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(markerPosition);//마커 표시 위치
@@ -256,12 +219,6 @@ public class ListviewActivity extends AppCompatActivity
             Log.v(TAG, "intentLat : " + String.valueOf(intentLat));
             Log.v(TAG, "intentLng : " + String.valueOf(intentLng));
 
-            // builder.setMessage(buffer.toString()).setPositiveButton("OK",null).create().show();
-
-
-            //다이얼로그로 좌표 띄우기
-
-//            builder.setMessage(buffer.toString()).setPositiveButton("OK",null).create().show();
 
 
         } catch (IOException e) {
