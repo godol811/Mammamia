@@ -108,6 +108,7 @@ public class SearchActivity extends Activity {
                 intent.putExtra("addrTel", members.get(position).getAddrTel());
                 intent.putExtra("addrDetail", members.get(position).getAddrDetail());
                 intent.putExtra("addrAddr", members.get(position).getAddrAddr());
+                intent.putExtra("addrImagePath",members.get(position).getAddrImagePath());
 
 
                 startActivity(intent);
