@@ -59,6 +59,8 @@ public class MainActivity extends Activity {
 
     ImageButton ivSearchActivity;//검색버튼
 
+    ImageButton IblikelistActivity;//좋아요 목록 버튼
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,7 +79,7 @@ public class MainActivity extends Activity {
         recyclerView.setLayoutManager(layoutManager);
 
 /////////////////-자기 아이피 챙기기-////////////////////////
-//        urlIp = "192.168.0.105";//하진                //
+       urlIp = "192.168.2.2";//하진                //
 //        urlIp = "172.30.1.27";//혜정                  //
 //        urlIp = "222.106.89.206";//이누               //
       urlIp = "192.168.0.105";//보람                  //
@@ -91,6 +93,9 @@ public class MainActivity extends Activity {
         ivSearchActivity.setOnClickListener(searchClickListener);
 
 
+
+       // IblikelistActivity = findViewById(R.id.mo);//좋아요 목록으로 이동하기 위해 버튼 선언
+        //IblikelistActivity.setOnClickListener(likelistClickListener);
 
         findViewById(R.id.btn_insert_listview).setOnClickListener(new View.OnClickListener() {
 
@@ -156,8 +161,8 @@ public class MainActivity extends Activity {
     };
 
 
-    //하진추가- 라이크 리스트 버튼--------
-    View.OnClickListener likelistClickListener = new View.OnClickListener() {
+
+    View.OnClickListener likelistClickListener = new View.OnClickListener() {//라이크 리스트로 이동
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(getApplicationContext(),LikelistActivity.class);
@@ -184,7 +189,6 @@ public class MainActivity extends Activity {
 
 
             helper.attachToRecyclerView(recyclerView);//RecyclerView에 ItemTouchHelper 붙이기
-
 
 
 

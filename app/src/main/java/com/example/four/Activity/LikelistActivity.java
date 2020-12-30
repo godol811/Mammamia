@@ -31,7 +31,7 @@ public class LikelistActivity extends  Activity {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
-
+        setContentView(R.layout.activity_likelist);
         recyclerView = findViewById(R.id.rv_likelist);
 
 
