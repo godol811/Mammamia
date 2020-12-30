@@ -245,15 +245,7 @@ public class InsertActivity extends Activity {
                          selectedIndex[0] = which;
                         }
                     })
-//                    .setMultiChoiceItems(R.array.tag, tagSelect,
-//                            new DialogInterface.OnMultiChoiceClickListener() {
-//                                @Override
-//                                public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-////                                    tagSelect[which] = isChecked;
-//                                    selectedIndex[0] = which;
-//                                }
-//                            }
-//                    )
+
 
                     .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                         @Override
