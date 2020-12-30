@@ -29,7 +29,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.maps.android.SphericalUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -88,6 +87,7 @@ public class MapDetailActivity extends FragmentActivity implements OnMapReadyCal
 
         editText = findViewById(R.id.et_search_mapdetail);
         button = findViewById(R.id.btn_search_mapdetail);
+
 
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -151,7 +151,6 @@ public class MapDetailActivity extends FragmentActivity implements OnMapReadyCal
                         .setMessage("현재 마커로부터 선택한 마커까지의 거리는 : " + strdistance + "M입니다.")
                         .setNegativeButton("확인",null)
                         .show();
-
 
                 return false;
             }
@@ -312,7 +311,7 @@ public class MapDetailActivity extends FragmentActivity implements OnMapReadyCal
 
 
 
-            Log.d(TAG, "병원" + tagName);
+//            Log.d(TAG, "병원" + tagName);
             new NRPlaces.Builder()
                     .listener(MapDetailActivity.this)
                     .key("AIzaSyAEAJPO9fRiNPqBPFbvaiKasj7XCYJPl1U")//api키 입력
