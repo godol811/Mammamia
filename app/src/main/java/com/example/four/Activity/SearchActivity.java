@@ -84,8 +84,8 @@ public class SearchActivity extends Activity {
         urlIp = intent.getStringExtra("urlIp");
 
 
-        urlAddr = "http://"+urlIp+":8080/test/mammamiaSearch.jsp";
 
+        urlAddr = "http://"+urlIp+":8080/test/mammamiaSearch.jsp";
 
 
 
