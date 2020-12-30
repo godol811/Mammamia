@@ -21,7 +21,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.four.Activity.ListviewActivity;
 import com.example.four.Bean.AddressDto;
-import com.example.four.ItemHelper.CustomDialog;
+
 import com.example.four.ItemHelper.CustomDialogLeft;
 import com.example.four.ItemHelper.CustomDialogRight;
 import com.example.four.ItemHelper.ItemTouchHelperListener;
@@ -168,7 +168,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
     public void onLeftClick(int position, RecyclerView.ViewHolder viewHolder) {
         Log.v(TAG, "onLeftClick");
 
-        CustomDialog dialog = new CustomDialog(mContext, position, mDataset.get(position));//수정 버튼 클릭시 다이얼로그 생성
+        CustomDialogLeft dialog = new CustomDialogLeft(mContext, position, mDataset.get(position));//수정 버튼 클릭시 다이얼로그 생성
 
         DisplayMetrics dm = mContext.getApplicationContext().getResources().getDisplayMetrics();// 화면 사이즈 구하기
         int width = dm.widthPixels;
@@ -189,7 +189,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
     @Override
     public void onRightClick(int position, RecyclerView.ViewHolder viewHolder) {
 
-        CustomDialog dialog = new CustomDialog(mContext, position, mDataset.get(position)); //수정 버튼 클릭시 다이얼로그 생성
+        CustomDialogRight dialog = new CustomDialogRight(mContext, position, mDataset.get(position)); //수정 버튼 클릭시 다이얼로그 생성
 
         DisplayMetrics dm = mContext.getApplicationContext().getResources().getDisplayMetrics();//화면 사이즈 구하기
         int width = dm.widthPixels;
