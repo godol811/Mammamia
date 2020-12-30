@@ -1,10 +1,11 @@
 package com.example.four.Activity;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.app.Activity;
-
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -13,8 +14,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.telephony.PhoneNumberFormattingTextWatcher;
+import android.telephony.PhoneNumberUtils;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -27,6 +33,7 @@ import com.example.four.R;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Locale;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -65,8 +72,6 @@ public class InsertActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_insert);
-
-
 
 
         //받아오는 ip값
@@ -113,6 +118,8 @@ public class InsertActivity extends Activity {
 
 //---------------------------------------사진 불러오기 onclick-----------------------
 
+        //12월 29일 추가
+        //주소검색 API--------------------------------------------------------------
 
         insertAddr.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,8 +128,68 @@ public class InsertActivity extends Activity {
                 startActivityForResult(i, SEARCH_ADDRESS_ACTIVITY);
             }
         });
+
+
+        //12월 29일 인우 추가
+        //자동으로 "-" 생성해서 전화번호에 붙여주기------------------------
+        insertTel.addTextChangedListener(new TextWatcher() {
+
+
+            private int beforeLenght = 0;
+            private int afterLenght = 0;
+
+            //입력 혹은 삭제 전의 길이와 지금 길이를 비교하기 위해 beforeTextChanged에 저장
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                beforeLenght = s.length();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                //아무글자도 없는데 지우려고 하면 로그띄우기 에러방지
+                if (s.length() <= 0) {
+                    Log.d("addTextChangedListener", "onTextChanged: Intput text is wrong (Type : Length)");
+                    return;
+                }
+
+                //특수문자 입력 방지
+                char inputChar = s.charAt(s.length() - 1);
+                if (inputChar != '-' && (inputChar < '0' || inputChar > '9')) {
+                    insertTel.getText().delete(s.length() - 1, s.length());
+                    Log.d("addTextChangedListener", "onTextChanged: Intput text is wrong (Type : Number)");
+                    return;
+                }
+
+                afterLenght = s.length();
+
+                // 타자를 입력 중이면
+                if (beforeLenght < afterLenght) {
+                    if (afterLenght == 4 && s.toString().indexOf("-") < 0) {
+                      //subSequence로 지정된 문자열을 반환해서 "-"폰을 붙여주고 substring
+                        insertTel.setText(s.toString().subSequence(0, 3) + "-" + s.toString().substring(3, s.length()));
+                        Log.v(TAG, String.valueOf(s.toString().substring(3, s.length())));
+                    } else if (afterLenght == 9) {
+                        insertTel.setText(s.toString().subSequence(0, 8) + "-" + s.toString().substring(8, s.length()));
+                        Log.v(TAG, String.valueOf(s.toString().substring(8, s.length())));
+                    }
+                }
+                insertTel.setSelection(insertTel.length());
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // 생략
+            }
+
+        });
+
     }
-//-----------------------------------------------
+
+////자동으로 "-" 생성해서 전화번호에 붙여주기-------------------------------------------------------
+
+
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
@@ -321,5 +388,18 @@ public class InsertActivity extends Activity {
     //고종찬 = 바지사장
     //
     //---------------------------------------------------------------------------------
-
+//배경 터치 시 키보드 사라지게
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        View view = getCurrentFocus();
+        InputMethodManager imm;
+        if (view != null && (ev.getAction() == MotionEvent.ACTION_UP || ev.getAction() == MotionEvent.ACTION_MOVE) && view instanceof EditText && !view.getClass().getName().startsWith("android.webkit.")) {
+            int scrcoords[] = new int[2];
+            view.getLocationOnScreen(scrcoords);
+            float x = ev.getRawX() + view.getLeft() - scrcoords[0];
+            float y = ev.getRawY() + view.getTop() - scrcoords[1];
+            if (x < view.getLeft() || x > view.getRight() || y < view.getTop() || y > view.getBottom())
+                ((InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow((this.getWindow().getDecorView().getApplicationWindowToken()), 0);
+        }
+        return super.dispatchTouchEvent(ev);
+    }
 }//-------------------------------

@@ -30,8 +30,7 @@
                 android:id="@+id/iv_image_insert"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/shape_circle"
-                />
+                android:src="@drawable/shape_circle" />
 
         </LinearLayout>
 
@@ -46,18 +45,19 @@
                 android:orientation="horizontal">
 
                 <EditText
-                android:id="@+id/et_tagname_insert"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:id="@+id/et_tagname_insert"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="9"
-                android:hint="태그" />
+                    android:hint="태그" />
 
                 <Button
                     android:id="@+id/btn_tagselect_insert"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="선택"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1"
+                    android:text="선택" />
             </LinearLayout>
 
             <EditText
@@ -71,22 +71,21 @@
                 android:id="@+id/et_tel_insert"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="전화번호"
                 android:inputType="phone"
-                android:maxLength="13"
-                android:hint="전화번호" />
+                android:maxLength="13" />
 
             <EditText
                 android:id="@+id/et_addr_insert"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="주소를 찾기 위해 눌러주세요"
-                />
+                android:hint="주소를 찾기 위해 눌러주세요" />
 
             <EditText
                 android:id="@+id/et_detail_insert"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="상세정보"/>
+                android:hint="상세정보" />
 
 
         </LinearLayout>
@@ -112,16 +111,5 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="지도" />
-
-    </LinearLayout>
 </LinearLayout>
