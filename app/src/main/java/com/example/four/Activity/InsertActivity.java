@@ -67,6 +67,9 @@ public class InsertActivity extends Activity {
 
     boolean[] tagSelect = {false, false, false, false};//Tag 추가
 
+    //추가
+    final int[] selectedIndex = {0};
+
 
     final static String TAG = "인설트액티비티";
 
@@ -230,27 +233,37 @@ public class InsertActivity extends Activity {
             new AlertDialog.Builder(InsertActivity.this)
                     .setTitle("태그를 선택하세요")
                     .setIcon(R.mipmap.ic_icon)
+//                    .setSingleChoiceItems(R.array.tag, 1, new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//
+//                        }
+//                    })
                     .setMultiChoiceItems(R.array.tag, tagSelect,
                             new DialogInterface.OnMultiChoiceClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                                    tagSelect[which] = isChecked;
+//                                    tagSelect[which] = isChecked;
+                                    selectedIndex[0] = which;
                                 }
                             }
                     )
+
                     .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+
                             String[] tag = getResources().getStringArray(R.array.tag);
                             TextView text = findViewById(R.id.et_tagname_insert);
 
-                            String result = "";
-                            for (int i = 0; i < tagSelect.length; i++) {
-                                if (tagSelect[i]) {
-                                    result += tag[i] + " ";
-                                }
-                            }
-                            text.setText(result.trim());
+//                            String result = "";
+//                            for (int i=0; i<tagSelect.length; i++){
+//                                if (tagSelect[i]){
+//                                    result += tag[i]+ " ";
+//                                }
+//                            }
+
+                            text.setText(tag[selectedIndex[0]]);
                         }
                     })
                     .setNegativeButton("취소", null)
@@ -323,6 +336,7 @@ public class InsertActivity extends Activity {
         String imgName = imgPath.substring(imgPath.lastIndexOf("/") + 1); //이미지의 이름 값
         Toast.makeText(InsertActivity.this, "이미지 이름 : " + imgName, Toast.LENGTH_SHORT).show();
         this.imageName = imgName;
+//        this.imagePath = imgPath;
 
         return imgPath;
     }//end of getImagePathToUri()
