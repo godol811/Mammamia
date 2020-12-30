@@ -1,12 +1,17 @@
 package com.example.four.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -18,6 +23,7 @@ import android.widget.ImageButton;
 
 import com.example.four.Adapter.AddressAdapter;
 import com.example.four.Bean.AddressDto;
+import com.example.four.ItemHelper.ItemTouchHelperCallback;
 import com.example.four.NetworkTask.NetworkTask;
 import com.example.four.R;
 
@@ -29,14 +35,19 @@ public class SearchActivity extends Activity {
 
     final static String TAG = "서치액티비티";
 
-
     String urlAddr = null;
+
     String urlIp = null;
+    //-----------------
     ArrayList<AddressDto> members;
     AddressAdapter adapter = null;
     private RecyclerView recyclerView = null;
 
+
     private RecyclerView.LayoutManager layoutManager = null;
+
+
+    ItemTouchHelper helper;
 
     //검색을 위한 선언
     EditText etSearch;
@@ -49,10 +60,13 @@ public class SearchActivity extends Activity {
         setContentView(R.layout.activity_search);
 
         //검색 editText, Button---------------------------------
-        etSearch= findViewById(R.id.et_search);
+        etSearch = findViewById(R.id.et_search);
         ibSearch = findViewById(R.id.btn_search_searchactivity);
         ibSearch.setOnClickListener(searchClickListener);
         //-----------------------------------------------------
+
+        ActivityCompat.requestPermissions(SearchActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MODE_PRIVATE); //사용자에게 사진 사용 권한 받기 (가장중요함)
+
 
         recyclerView = findViewById(R.id.rl_address);
 
@@ -64,17 +78,28 @@ public class SearchActivity extends Activity {
         recyclerView.setLayoutManager(layoutManager);
 
 
-
         //받아오는 ip값
         Intent intent = getIntent();
 
         urlIp = intent.getStringExtra("urlIp");
 
 
-        urlAddr = "http://"+urlIp+":8080/test/mammamiaSearch.jsp";
+        urlAddr = "http://" + urlIp + ":8080/test/mammamiaSearch.jsp";
 
 
 
+        findViewById(R.id.btn_insert_listview).setOnClickListener(new View.OnClickListener() {
+
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SearchActivity.this, InsertActivity.class);
+
+
+                intent.putExtra("urlIp", urlIp);//ip주소 보내기
+                startActivity(intent);
+            }
+        });
 
 
     }
@@ -89,6 +114,7 @@ public class SearchActivity extends Activity {
         connectGetData();
         registerForContextMenu(recyclerView);
 
+        Log.v(TAG, "onResume"); //태그 선언
 
 
         Log.v(TAG, "onResume");
@@ -96,19 +122,17 @@ public class SearchActivity extends Activity {
             @Override
             public void onItemClick(View v, int position) {
 
-
-
-                Intent intent = new Intent(SearchActivity.this, ListviewActivity.class);
-
-
+                Intent intent = new Intent(SearchActivity.this, ListviewActivity.class);//리스트 클릭시 리스트뷰 넘어가기
+                intent.putExtra("urlIp", urlIp);//ip주소 보내기 ---종찬추가 12/30
                 intent.putExtra("urlAddr", urlAddr);
+                intent.putExtra("urlIp",urlIp);
                 intent.putExtra("addrNo", members.get(position).getAddrNo());
                 intent.putExtra("addrName", members.get(position).getAddrName());
                 intent.putExtra("addrTag", members.get(position).getAddrTag());
                 intent.putExtra("addrTel", members.get(position).getAddrTel());
                 intent.putExtra("addrDetail", members.get(position).getAddrDetail());
                 intent.putExtra("addrAddr", members.get(position).getAddrAddr());
-                intent.putExtra("addrImagePath",members.get(position).getAddrImagePath());
+                intent.putExtra("addrImagePath", members.get(position).getAddrImagePath());
 
 
                 startActivity(intent);
@@ -117,6 +141,7 @@ public class SearchActivity extends Activity {
             }
         });
     }
+
 
     //돋보기 버튼 클릭
     View.OnClickListener searchClickListener = new View.OnClickListener() {
@@ -135,7 +160,7 @@ public class SearchActivity extends Activity {
     private void connectGetData() {
         try {
 
-            NetworkTask networkTask = new NetworkTask(SearchActivity.this, urlAddr,"select");
+            NetworkTask networkTask = new NetworkTask(SearchActivity.this, urlAddr, "select");
             Object obj = networkTask.execute().get();
             members = (ArrayList<AddressDto>) obj;
 
@@ -144,11 +169,28 @@ public class SearchActivity extends Activity {
             recyclerView.setAdapter(adapter);
 
 
+            helper = new ItemTouchHelper(new ItemTouchHelperCallback(adapter)); //ItemTouchHelper 생성
+
+
+            helper.attachToRecyclerView(recyclerView);//RecyclerView에 ItemTouchHelper 붙이기
+
+
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+
+    private void setUpRecyclerView() {
+        recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void onDraw(@NonNull Canvas c, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+                helper.onDraw(c, parent, state);
+            }
+        });
+    }
 
     //배경 터치 시 키보드 사라지게
     public boolean dispatchTouchEvent(MotionEvent ev) {
