@@ -39,7 +39,7 @@ public class MainActivity extends Activity {
 
 
     String urlAddr = null;
-    //ip 변수 추가
+
     String urlIp = null;
     //-----------------
     ArrayList<AddressDto> members;
@@ -49,15 +49,10 @@ public class MainActivity extends Activity {
 
     private RecyclerView.LayoutManager layoutManager = null;
 
-    //여기서부터 하진추가
-    ///////////////////////////////////////////////
 
     ItemTouchHelper helper;
-    ///////////////////////////////////////////////
 
-    //---------------검색 버튼
-    ImageButton ivSearchActivity;
-    //------------------------
+    ImageButton ivSearchActivity;//검색버튼
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,35 +71,25 @@ public class MainActivity extends Activity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-
-        //inwoo 추가
-        //헤이! 여기 아이피만 교체해주세요!
-//        urlIp = "192.168.0.105";//하진
-//        urlIp = "172.30.1.27";//혜정
-//        urlIp = "222.106.89.206";//이누
-     urlIp = "192.168.0.105";//보람
-   //     urlIp = "192.168.35.147";//종찬 아이피
-
+/////////////////-자기 아이피 챙기기-////////////////////////
+//        urlIp = "192.168.0.105";//하진                //
+//        urlIp = "172.30.1.27";//혜정                  //
+//        urlIp = "222.106.89.206";//이누               //
+//      urlIp = "192.168.0.105";//보람                  //
+        urlIp = "192.168.35.147";//종찬 아이피            //
+/////////////////////////////////////////////////////////
 
 
+        urlAddr = "http://" + urlIp + ":8080/test/mammamia.jsp";
 
-
-
-        urlAddr = "http://"+urlIp+":8080/test/mammamia.jsp";
-
-        //검색 인텐트로 이동하기 위해 버튼 선언--------------------
-        ivSearchActivity = findViewById(R.id.btn_search_main);
+        ivSearchActivity = findViewById(R.id.btn_search_main);//검색 인텐트로 이동하기 위해 버튼 선언
         ivSearchActivity.setOnClickListener(searchClickListener);
-        //--------------------------------------------------------
 
 
-        //여기서부터 하진추가
-        //////////////////////////////////////////////////////
-        //ItemTouchHelper 생성
-        helper = new ItemTouchHelper(new ItemTouchHelperCallback(adapter));
+        helper = new ItemTouchHelper(new ItemTouchHelperCallback(adapter)); //ItemTouchHelper 생성
 
-        //RecyclerView에 ItemTouchHelper 붙이기
-        helper.attachToRecyclerView(recyclerView);
+
+        helper.attachToRecyclerView(recyclerView);//RecyclerView에 ItemTouchHelper 붙이기
 
         findViewById(R.id.btn_insert_listview).setOnClickListener(new View.OnClickListener() {
 
@@ -114,8 +99,7 @@ public class MainActivity extends Activity {
                 Intent intent = new Intent(MainActivity.this, InsertActivity.class);
 
 
-                //ip주소 보내기
-                intent.putExtra("urlIp", urlIp);
+                intent.putExtra("urlIp", urlIp);//ip주소 보내기
                 startActivity(intent);
             }
         });
@@ -142,15 +126,7 @@ public class MainActivity extends Activity {
             @Override
             public void onItemClick(View v, int position) {
 
-
-
-                Intent intent = new Intent(MainActivity.this, ListviewActivity.class);
-
-
-
-                intent.putExtra("urlIp", urlIp);
-
-
+                Intent intent = new Intent(MainActivity.this, ListviewActivity.class);//리스트 클릭시 리스트뷰 넘어가기
                 intent.putExtra("urlAddr", urlAddr);
 
                 intent.putExtra("addrNo", members.get(position).getAddrNo());
@@ -170,11 +146,10 @@ public class MainActivity extends Activity {
     }
 
 
-    //돋보기 버튼 클릭 - 검색 인텐트로 이동
-    View.OnClickListener searchClickListener = new View.OnClickListener() {
+    View.OnClickListener searchClickListener = new View.OnClickListener() { //돋보기 버튼 클릭 - 검색 인텐트로 이동
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(getApplicationContext(),SearchActivity.class);
+            Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
             intent.putExtra("urlIp", urlIp);
             startActivity(intent);
         }
@@ -184,7 +159,7 @@ public class MainActivity extends Activity {
     private void connectGetData() {
         try {
 
-            NetworkTask networkTask = new NetworkTask(MainActivity.this, urlAddr,"select");
+            NetworkTask networkTask = new NetworkTask(MainActivity.this, urlAddr, "select");
             Object obj = networkTask.execute().get();
             members = (ArrayList<AddressDto>) obj;
 
@@ -192,10 +167,8 @@ public class MainActivity extends Activity {
             adapter = new AddressAdapter(MainActivity.this, R.layout.listlayout, members);
             recyclerView.setAdapter(adapter);
 
-            //여기서부터 하진추가
-            //////////////////////////////////////////////////////
-            //ItemTouchHelper 생성
-            helper = new ItemTouchHelper(new ItemTouchHelperCallback(adapter));
+
+            helper = new ItemTouchHelper(new ItemTouchHelperCallback(adapter));  //ItemTouchHelper 생성
 
             //RecyclerView에 ItemTouchHelper 붙이기
             helper.attachToRecyclerView(recyclerView);
@@ -215,6 +188,7 @@ public class MainActivity extends Activity {
             }
         });
     }
+
     //배경 터치 시 키보드 사라지게
     public boolean dispatchTouchEvent(MotionEvent ev) {
         View view = getCurrentFocus();
