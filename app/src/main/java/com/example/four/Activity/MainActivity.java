@@ -77,10 +77,10 @@ public class MainActivity extends Activity {
         recyclerView.setLayoutManager(layoutManager);
 
 /////////////////-자기 아이피 챙기기-////////////////////////
-//        urlIp = "192.168.0.105";//하진                //
+       urlIp = "192.168.2.2";//하진                //
 //        urlIp = "172.30.1.27";//혜정                  //
 //        urlIp = "222.106.89.206";//이누               //
-      urlIp = "192.168.0.105";//보람                  //
+//      urlIp = "192.168.0.105";//보람                  //
 //        urlIp = "192.168.35.147";//종찬 아이피            //
 /////////////////////////////////////////////////////////
 
@@ -156,6 +156,18 @@ public class MainActivity extends Activity {
     };
 
 
+    //하진추가- 라이크 리스트 버튼--------
+    View.OnClickListener likelistClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(getApplicationContext(),LikelistActivity.class);
+            intent.putExtra("urlIp", urlIp);
+            startActivity(intent);
+        }
+    };
+    //----------------------
+
+
     private void connectGetData() {
         try {
 
@@ -172,6 +184,8 @@ public class MainActivity extends Activity {
 
 
             helper.attachToRecyclerView(recyclerView);//RecyclerView에 ItemTouchHelper 붙이기
+            //RecyclerView에 ItemTouchHelper 붙이기
+            helper.attachToRecyclerView(recyclerView);
 
 
         } catch (Exception e) {

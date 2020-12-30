@@ -90,6 +90,7 @@ public class MapDetailActivity extends FragmentActivity implements OnMapReadyCal
         button = findViewById(R.id.btn_search_mapdetail);
 
 
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.fg_map_mapdetail);
