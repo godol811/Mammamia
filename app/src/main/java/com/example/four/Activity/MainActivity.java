@@ -27,7 +27,7 @@ import android.widget.Toast;
 import com.example.four.Adapter.AddressAdapter;
 import com.example.four.Bean.AddressDto;
 import com.example.four.ItemHelper.ItemTouchHelperCallback;
-import com.example.four.ItemHelper.ListAdapter;
+
 import com.example.four.NetworkTask.NetworkTask;
 import com.example.four.R;
 
