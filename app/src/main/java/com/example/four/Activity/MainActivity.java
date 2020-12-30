@@ -91,7 +91,6 @@ public class MainActivity extends Activity {
         ivSearchActivity.setOnClickListener(searchClickListener);
 
 
-
         findViewById(R.id.btn_insert_listview).setOnClickListener(new View.OnClickListener() {
 
 
@@ -106,9 +105,7 @@ public class MainActivity extends Activity {
         });
 
 
-
     }
-
 
 
     @Override
@@ -129,11 +126,7 @@ public class MainActivity extends Activity {
 
                 Intent intent = new Intent(MainActivity.this, ListviewActivity.class);//리스트 클릭시 리스트뷰 넘어가기
                 intent.putExtra("urlAddr", urlAddr);
-<<<<<<<<< Temporary merge branch 1
-                intent.putExtra("urlIp",urlIp);
-=========
 
->>>>>>>>> Temporary merge branch 2
                 intent.putExtra("addrNo", members.get(position).getAddrNo());
                 intent.putExtra("addrName", members.get(position).getAddrName());
                 intent.putExtra("addrTag", members.get(position).getAddrTag());
@@ -208,7 +201,6 @@ public class MainActivity extends Activity {
         }
         return super.dispatchTouchEvent(ev);
     }
-
 
 
 }//------------------------------
