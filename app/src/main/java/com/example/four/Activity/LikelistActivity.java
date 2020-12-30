@@ -85,13 +85,19 @@ public class LikelistActivity extends Activity {
                 Intent intent = new Intent(LikelistActivity.this, ListviewActivity.class);
 
 
+
+                intent.putExtra("urlIp", urlIp);
+
+
                 intent.putExtra("urlAddr", urlAddr);
+
                 intent.putExtra("addrNo", members.get(position).getAddrNo());
                 intent.putExtra("addrName", members.get(position).getAddrName());
                 intent.putExtra("addrTag", members.get(position).getAddrTag());
                 intent.putExtra("addrTel", members.get(position).getAddrTel());
                 intent.putExtra("addrDetail", members.get(position).getAddrDetail());
                 intent.putExtra("addrAddr", members.get(position).getAddrAddr());
+                intent.putExtra("addrImagePath",members.get(position).getAddrImagePath());
 
 
                 startActivity(intent);
@@ -100,6 +106,9 @@ public class LikelistActivity extends Activity {
             }
         });
     }
+
+
+
 
 
 

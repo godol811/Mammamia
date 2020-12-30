@@ -7,17 +7,33 @@
     android:layout_marginBottom="20dp"
     android:orientation="horizontal">
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/iv_tag_listlayout"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="25dp"
-        android:src="@drawable/shape_circle"
-        android:scaleType="fitXY"
-        />
+        <ImageView
+            android:id="@+id/iv_tag_listlayout"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="25dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/shape_circle" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="50dp" />
+        <ImageButton
+            android:id="@+id/btn_like_listlayout"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="25dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/shape_circle" />
+    </LinearLayout>
 
 
     <ImageView
