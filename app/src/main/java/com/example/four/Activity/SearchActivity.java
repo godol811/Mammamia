@@ -84,26 +84,10 @@ public class SearchActivity extends Activity {
         urlIp = intent.getStringExtra("urlIp");
 
 
-        urlAddr = "http://"+urlIp+":8080/test/mammamiaSearch.jsp";
-
-
-
-        findViewById(R.id.btn_insert_listview).setOnClickListener(new View.OnClickListener() {
-
-
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SearchActivity.this, InsertActivity.class);
-
-
-                intent.putExtra("urlIp", urlIp);//ip주소 보내기
-                startActivity(intent);
-            }
-        });
+        urlAddr = "http://" + urlIp + ":8080/test/mammamiaSearch.jsp";
 
 
     }
-
 
 
     @Override
