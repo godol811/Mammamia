@@ -145,7 +145,6 @@ public class LoginActivity extends Activity {
         });
 
 
-
         etUserTel.addTextChangedListener(new TextWatcher() {//자동으로 "-" 생성해서 전화번호에 붙여주기
 
 
@@ -213,8 +212,6 @@ public class LoginActivity extends Activity {
                 break;
         }
 //주소검색 API--------------------------------------------------------------
-
-
 
     }//onCreate
 
@@ -296,9 +293,6 @@ public class LoginActivity extends Activity {
                 && cbAgree.isChecked();
 
     }
-
-
-
 
 
     //배경 터치 시 키보드 사라지게

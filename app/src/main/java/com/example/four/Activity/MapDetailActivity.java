@@ -29,6 +29,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.SphericalUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -89,7 +90,6 @@ public class MapDetailActivity extends FragmentActivity implements OnMapReadyCal
         button = findViewById(R.id.btn_search_mapdetail);
 
 
-
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.fg_map_mapdetail);
@@ -142,17 +142,14 @@ public class MapDetailActivity extends FragmentActivity implements OnMapReadyCal
 
                 //거리를 잴 두 마커의 정보 입력 메소드
                 double distance = getDistance(currentmakerPosition,previousmakerPosition);
-                String strDistance = String.valueOf(distance);
-//                String[] strdistance = Double.toString(distance).split("\\.");
-//                String text = "현재 주소록 마커에서 선택한 마커까지의 거리는"
-//                        + strdistance + "m입니다";
 
-                Log.d(TAG, String.valueOf(getDistance(currentmakerPosition,previousmakerPosition)));
-//                Toast.makeText(MapDetailActivity.this, text, Toast.LENGTH_SHORT).show();
+                String strDistance = String.valueOf(distance);
+                String strDistance1 = Double.toString(distance);
+                Log.d(TAG, "m : " + String.valueOf(getDistance(currentmakerPosition,previousmakerPosition)));
 
                 new AlertDialog.Builder(MapDetailActivity.this)
-                        .setTitle("거리")
-                        .setMessage("선택한 마커까지의 거리는 "+strDistance +"M입니다.")
+                        .setTitle("마커사이의 거리")
+                        .setMessage("선택한 마커까지의 거리는 " + strDistance + "미터입니다")
                         .setNegativeButton("확인",null)
                         .show();
 
@@ -316,7 +313,7 @@ public class MapDetailActivity extends FragmentActivity implements OnMapReadyCal
 
 
 
-            Log.d(TAG, "병원" + tagName);
+//            Log.d(TAG, "병원" + tagName);
             new NRPlaces.Builder()
                     .listener(MapDetailActivity.this)
                     .key("AIzaSyAEAJPO9fRiNPqBPFbvaiKasj7XCYJPl1U")//api키 입력
@@ -393,8 +390,8 @@ public class MapDetailActivity extends FragmentActivity implements OnMapReadyCal
 
 
         if (addresses == null || addresses.size() == 0) {
-            Toast.makeText(this, "주소 미발견", Toast.LENGTH_LONG).show();
-            return "주소 미발견";
+            Toast.makeText(this, "더 자세한 주소를 입력해주세요", Toast.LENGTH_LONG).show();
+            return "더 자세한 주소를 입력해주세요";
 
         } else {
             Address address = addresses.get(0);

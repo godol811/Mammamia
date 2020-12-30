@@ -5,7 +5,9 @@ import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -23,6 +25,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -64,7 +67,11 @@ public class UpdateActivity extends Activity {
 
     Button okbtn;
     Button backbtn;
+    Button tagSelectBtn;
 
+    private static final int SEARCH_ADDRESS_ACTIVITY = 10000;//12월 30일 주소 api 변수 추가
+
+    final int[] selectedIndex = {0}; //tag 추가
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +113,8 @@ public class UpdateActivity extends Activity {
         okbtn = findViewById(R.id.btn_ok_update);
         backbtn = findViewById(R.id.btn_back_update);
 
+        //tag btn 추가
+        tagSelectBtn = findViewById(R.id.btn_tagselect_update);
 
         tag.setText(tag1);
         name.setText(name1);
@@ -139,6 +148,8 @@ public class UpdateActivity extends Activity {
         okbtn.setOnClickListener(onClickListener);
         backbtn.setOnClickListener(onClickListener1);
 
+        //update tag 버튼 추가
+        tagSelectBtn.setOnClickListener(tagselectClick);
         //12월 29일 인우 추가
         //자동으로 "-" 생성해서 전화번호에 붙여주기------------------------
         tel.addTextChangedListener(new TextWatcher() {
@@ -193,8 +204,45 @@ public class UpdateActivity extends Activity {
             }
 
         });
+
+        //주소검색 API----------------------
+        addr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(UpdateActivity.this, AddressWebViewActivity.class);
+                startActivityForResult(i, SEARCH_ADDRESS_ACTIVITY);
+            }
+        });
     }
 
+
+    View.OnClickListener tagselectClick = new View.OnClickListener() {//태그 선택했을경우
+        @Override
+        public void onClick(View v) {
+            new AlertDialog.Builder(UpdateActivity.this)
+                    .setTitle("태그를 선택하세요")
+                    .setIcon(R.mipmap.ic_icon)
+                    .setSingleChoiceItems(R.array.tag, 0, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            selectedIndex[0] = which;
+                        }
+                    })
+                    .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            String[] tag = getResources().getStringArray(R.array.tag);
+                            TextView text = findViewById(R.id.et_tagname_update);
+                            text.setText(tag[selectedIndex[0]]);
+                        }
+                    })
+                    .setNegativeButton("취소", null)
+                    .show();
+        }
+    };//태그 선택 끝
+
+
+    //주소검색 API----------------------------
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -254,6 +302,19 @@ public class UpdateActivity extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {//주석
+
+            super.onActivityResult(requestCode, resultCode, data);//주소 검색 api 추가
+            switch (requestCode) {
+                case SEARCH_ADDRESS_ACTIVITY:
+                    if (resultCode == RESULT_OK) {
+                        String data1 = data.getExtras().getString("data");
+                        if (data1 != null) {
+                            addr.setText(data1);
+                        }
+                    }
+                    break;
+            }//주소 검색 api 추가
+
 
         Toast.makeText(getBaseContext(), "resultCode : " + data, Toast.LENGTH_SHORT).show();
 
