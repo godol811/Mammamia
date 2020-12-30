@@ -18,23 +18,30 @@ import com.example.four.R;
 public class CustomDialogLeft extends Dialog {
     private OnDialogListener listener;
     private Button mod_bt;
-    String macIP;
 
+    String urlIp = null;
     String urlAddr = null;
 
+    int addrNo;
 
-    final String TAG = "커스텀다이얼로그1";
+
+
+
+    final String TAG = "커스텀다이얼로그왼쪽";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.customdialog_left);
 
-       // Intent intent = getIntent();
+
 
         //macIP = intent.getStringExtra("macIP");
         //입력하는 데이터를 위해 ? 추가
-        urlAddr = "http://" + macIP + ":8080/test/mammamialikeupdate.jsp?";
+        addrNo= Variable.publicaddrno;
+        urlAddr = "http://"+urlIp+":8080/test/mammamiaLikeupdate.jsp?";
+        urlAddr = urlAddr + "addrNo=" + addrNo;
+        connectLike();
 
     }
 
@@ -52,19 +59,17 @@ public class CustomDialogLeft extends Dialog {
         mod_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (listener != null) {
-
-                    dismiss();
-                }
+                dismiss();
             }
         });
+
     }
 
 
-    private void connectDeleteData(){
+    private void connectLike(){
         try {
-           // NetworkTask insertworkTask = new NetworkTask(CustomDialog1.this,urlAddr,"delete");
-            //insertworkTask.execute().get();
+            DialogNetworkTask networkTask = new DialogNetworkTask(CustomDialogLeft.this,urlAddr,"like");
+            networkTask.execute().get();
         }catch (Exception e){
             e.printStackTrace();
         }

@@ -26,6 +26,7 @@ import com.example.four.ItemHelper.CustomDialogLeft;
 import com.example.four.ItemHelper.CustomDialogRight;
 import com.example.four.ItemHelper.ItemTouchHelperListener;
 import com.example.four.ItemHelper.OnDialogListener;
+import com.example.four.ItemHelper.Variable;
 import com.example.four.R;
 
 import com.squareup.picasso.Picasso;
@@ -36,18 +37,22 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         //하진추가
         implements ItemTouchHelperListener, OnDialogListener {
     final static String TAG = "어드레스어뎁터";
+    static int publicaddrno;
 
 
     Context mContext = null;
     int layout = 0;
     LayoutInflater inflater = null;
     private ArrayList<AddressDto> mDataset;
+    int publicposition;
+
+    int addrno = mDataset.get(publicposition).getAddrNo();
 ///////////////////////////////////////-자기 아이피 챙기기-//////////////////////////////////////////////
 //    String urlAddr = "http://192.168.35.147:8080/pictures/";//자기 ip로 바꾸기 종찬                    //
 //    String urlAddr = "http://172.30.1.27:8080/pictures/";//자기 ip로 바꾸기 애정                     //
 //    String urlAddr = "http://222.106.89.206:8080/pictures/";//자기 ip로 바꾸기 이누                  //
 //    String urlAddr = "http://192.168.0.105:8080/pictures/";//자기 ip로 바꾸기 보람                   //
-    String urlAddr = "http://192.168.2.2.147:8080/pictures/";//자기 ip로 바꾸기 하진                  //
+    String urlAddr = "http://192.168.2.2:8080/pictures/";//자기 ip로 바꾸기 하진                  //
 ///////////////////////////////////////-자기 아이피 챙기기-//////////////////////////////////////////////
 
     int pos = 0;
@@ -159,9 +164,12 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         notifyItemRemoved(position);
     }
 
-    //왼쪽 버튼 누르면 수정할 다이얼로그 띄우기
+    //왼쪽 버튼 누르면 즐겨찾기
     @Override
     public void onLeftClick(int position, RecyclerView.ViewHolder viewHolder) {
+
+
+        //publicaddrno =
         Log.v(TAG, "onLeftClick");
         //수정 버튼 클릭시 다이얼로그 생성
         CustomDialogLeft dialog = new CustomDialogLeft(mContext, position, mDataset.get(position));
@@ -172,8 +180,8 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         //다이얼로그 사이즈 세팅
         WindowManager.LayoutParams wm = dialog.getWindow().getAttributes();
         wm.copyFrom(dialog.getWindow().getAttributes());
-        wm.width = (int) (width * 0.7);
-        wm.height = height/2;
+        wm.width = (int) (width * 0.8);
+        wm.height = height/4;
         //다이얼로그 Listener 세팅
         dialog.setDialogListener(this);
         //다이얼로그 띄우기
@@ -184,6 +192,9 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
     //오른쪽 버튼 누르면 아이템 삭제
     @Override
     public void onRightClick(int position, RecyclerView.ViewHolder viewHolder) {
+
+
+        Variable.publicaddrno= position;
         //수정 버튼 클릭시 다이얼로그 생성
         CustomDialogRight dialog = new CustomDialogRight(mContext, position, mDataset.get(position));
         //화면 사이즈 구하기
@@ -193,8 +204,8 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         //다이얼로그 사이즈 세팅
         WindowManager.LayoutParams wm = dialog.getWindow().getAttributes();
         wm.copyFrom(dialog.getWindow().getAttributes());
-        wm.width = (int) (width * 0.7);
-        wm.height = height / 2;
+        wm.width = (int) (width * 0.8);
+        wm.height = height / 5;
         //다이얼로그 Listener 세팅
         dialog.setDialogListener(this);
         //다이얼로그 띄우기
