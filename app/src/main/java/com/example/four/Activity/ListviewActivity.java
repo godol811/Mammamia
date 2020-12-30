@@ -77,7 +77,7 @@ public class ListviewActivity extends AppCompatActivity
         Intent intent = getIntent();
         urlIp = intent.getStringExtra("urlIp");
 
-//        Log.d(TAG, urlIp);
+
         addrNo = intent.getIntExtra("addrNo", 0);
         name = intent.getStringExtra("addrName");
         tel = intent.getStringExtra("addrTel");
@@ -176,7 +176,6 @@ public class ListviewActivity extends AppCompatActivity
         mMap.addMarker(markerOptions);//마커 추가
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(markerPosition, 16));
         mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
-
             @Override
             public void onMapLongClick(LatLng latLng) {
                 //mapdetail로 이동

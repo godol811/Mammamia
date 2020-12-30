@@ -13,6 +13,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,10 +29,11 @@ import com.example.four.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
 public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHolder>
-        //하진추가
+
+
         implements ItemTouchHelperListener, OnDialogListener {
-    ////////////////////////
     final static String TAG = "어드레스어뎁터";
 
 
@@ -102,9 +104,6 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
     }
 
 
-
-
-
     //인터페이스 선언
     public interface OnItemClickListener {
         void onItemClick(View v, int position);
@@ -151,12 +150,14 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         notifyItemMoved(from_position, to_position);
         return true;
     }
+
     @Override
     public void onItemSwipe(int position) {
         Log.v(TAG, "onItemSwipe");
         mDataset.remove(position);
         notifyItemRemoved(position);
     }
+
     //왼쪽 버튼 누르면 수정할 다이얼로그 띄우기
     @Override
     public void onLeftClick(int position, RecyclerView.ViewHolder viewHolder) {
@@ -179,6 +180,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
 
 
     }
+
     //오른쪽 버튼 누르면 아이템 삭제
     @Override
     public void onRightClick(int position, RecyclerView.ViewHolder viewHolder) {
@@ -212,11 +214,8 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         public TextView addrAddr;
         public ImageView addrProfile;
         public ImageView addrTagImg;
-
         //추가
         public TextView addrLike;
-
-
 
         MyViewHolder(View v) {
 
