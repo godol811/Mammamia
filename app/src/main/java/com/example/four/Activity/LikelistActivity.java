@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -47,7 +48,7 @@ public class LikelistActivity extends  Activity {
         urlIp = intent.getStringExtra("urlIp");
 
 
-        urlAddr = "http://"+urlIp+":8080/test/mammamialikelist.jsp?";
+        urlAddr = "http://"+urlIp+":8080/test/mammamialikelist.jsp";
 
     }
 
@@ -58,7 +59,7 @@ public class LikelistActivity extends  Activity {
 
         connectGetData();
         registerForContextMenu(recyclerView);
-
+        Log.v(TAG,"온리줌");
         adapter.setOnItemClickListener(new AddressAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
