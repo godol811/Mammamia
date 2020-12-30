@@ -1,12 +1,17 @@
 package com.example.four.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -18,6 +23,7 @@ import android.widget.ImageButton;
 
 import com.example.four.Adapter.AddressAdapter;
 import com.example.four.Bean.AddressDto;
+import com.example.four.ItemHelper.ItemTouchHelperCallback;
 import com.example.four.NetworkTask.NetworkTask;
 import com.example.four.R;
 
@@ -31,12 +37,18 @@ public class SearchActivity extends Activity {
 
 
     String urlAddr = null;
+
     String urlIp = null;
+    //-----------------
     ArrayList<AddressDto> members;
     AddressAdapter adapter = null;
     private RecyclerView recyclerView = null;
 
+
     private RecyclerView.LayoutManager layoutManager = null;
+
+
+    ItemTouchHelper helper;
 
     //검색을 위한 선언
     EditText etSearch;
@@ -53,6 +65,9 @@ public class SearchActivity extends Activity {
         ibSearch = findViewById(R.id.btn_search_searchactivity);
         ibSearch.setOnClickListener(searchClickListener);
         //-----------------------------------------------------
+
+        ActivityCompat.requestPermissions(SearchActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MODE_PRIVATE); //사용자에게 사진 사용 권한 받기 (가장중요함)
+
 
         recyclerView = findViewById(R.id.rl_address);
 
@@ -75,6 +90,18 @@ public class SearchActivity extends Activity {
 
 
 
+        findViewById(R.id.btn_insert_listview).setOnClickListener(new View.OnClickListener() {
+
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SearchActivity.this, InsertActivity.class);
+
+
+                intent.putExtra("urlIp", urlIp);//ip주소 보내기
+                startActivity(intent);
+            }
+        });
 
 
     }
@@ -102,7 +129,7 @@ public class SearchActivity extends Activity {
 
 
                 intent.putExtra("urlAddr", urlAddr);
-
+                intent.putExtra("urlIp",urlIp);
                 intent.putExtra("addrNo", members.get(position).getAddrNo());
                 intent.putExtra("addrName", members.get(position).getAddrName());
                 intent.putExtra("addrTag", members.get(position).getAddrTag());
@@ -145,11 +172,28 @@ public class SearchActivity extends Activity {
             recyclerView.setAdapter(adapter);
 
 
+            helper = new ItemTouchHelper(new ItemTouchHelperCallback(adapter)); //ItemTouchHelper 생성
+
+
+            helper.attachToRecyclerView(recyclerView);//RecyclerView에 ItemTouchHelper 붙이기
+
+
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+
+    private void setUpRecyclerView() {
+        recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void onDraw(@NonNull Canvas c, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+                helper.onDraw(c, parent, state);
+            }
+        });
+    }
 
     //배경 터치 시 키보드 사라지게
     public boolean dispatchTouchEvent(MotionEvent ev) {
