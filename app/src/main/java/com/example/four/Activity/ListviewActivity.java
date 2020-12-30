@@ -77,7 +77,6 @@ public class ListviewActivity extends AppCompatActivity
         Intent intent = getIntent();
         urlIp = intent.getStringExtra("urlIp");
 
-        Log.d(TAG, urlIp);
         addrNo = intent.getIntExtra("addrNo", 0);
         name = intent.getStringExtra("addrName");
         tel = intent.getStringExtra("addrTel");
@@ -85,6 +84,8 @@ public class ListviewActivity extends AppCompatActivity
         detail = intent.getStringExtra("addrDetail");
         addr = intent.getStringExtra("addrAddr");
         imagePath = intent.getStringExtra("addrImagePath");
+
+        Log.d(TAG,imagePath);
 
 
         addrName = findViewById(R.id.tv_name_listview);
