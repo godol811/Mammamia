@@ -23,9 +23,12 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.four.Activity.ListviewActivity;
 import com.example.four.Bean.AddressDto;
 import com.example.four.ItemHelper.CustomDialog;
+import com.example.four.ItemHelper.CustomDialogLeft;
+import com.example.four.ItemHelper.CustomDialogRight;
 import com.example.four.ItemHelper.ItemTouchHelperListener;
 import com.example.four.ItemHelper.OnDialogListener;
 import com.example.four.R;
+
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -42,10 +45,10 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
     LayoutInflater inflater = null;
     private ArrayList<AddressDto> mDataset;
 ///////////////////////////////////////-자기 아이피 챙기기-//////////////////////////////////////////////
-    String urlAddr = "http://192.168.35.147:8080/pictures/";//자기 ip로 바꾸기 종찬                    //
+//    String urlAddr = "http://192.168.35.147:8080/pictures/";//자기 ip로 바꾸기 종찬                    //
 //    String urlAddr = "http://172.30.1.27:8080/pictures/";//자기 ip로 바꾸기 애정                     //
 //    String urlAddr = "http://222.106.89.206:8080/pictures/";//자기 ip로 바꾸기 이누                  //
-//   String urlAddr = "http://192.168.0.105:8080/pictures/";//자기 ip로 바꾸기 보람                   //
+   String urlAddr = "http://192.168.0.105:8080/pictures/";//자기 ip로 바꾸기 보람                   //
 //    String urlAddr = "http://192.168.35.147:8080/pictures/";//자기 ip로 바꾸기 하진                  //
 ///////////////////////////////////////-자기 아이피 챙기기-//////////////////////////////////////////////
 

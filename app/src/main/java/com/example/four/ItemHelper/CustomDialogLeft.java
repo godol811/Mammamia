@@ -4,11 +4,10 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.util.Log;
+import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.EditText;
 
 import com.example.four.Bean.AddressDto;
 import com.example.four.R;
@@ -16,23 +15,38 @@ import com.example.four.R;
 //import com.example.swipe.Person;
 //import com.example.swipe.R;
 
-public class CustomDialog extends Dialog {
+public class CustomDialogLeft extends Dialog {
     private OnDialogListener listener;
-    private Context context;
     private Button mod_bt;
-    private EditText mod_name, mod_tel, mod_add;
-    private String name, tel, add;
-    private int image, age;
+    String macIP;
 
-    final String TAG = "커스텀다이얼로그";
+    String urlAddr = null;
 
-    public CustomDialog(Context context, final int position, AddressDto addressDto) {
+
+    final String TAG = "커스텀다이얼로그1";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.customdialog_left);
+
+       // Intent intent = getIntent();
+
+        //macIP = intent.getStringExtra("macIP");
+        //입력하는 데이터를 위해 ? 추가
+        urlAddr = "http://" + macIP + ":8080/test/mammamialikeupdate.jsp?";
+
+    }
+
+    public CustomDialogLeft(Context context, final int position, AddressDto addressDto) {
         super(context);
+
+
 
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        setContentView(R.layout.customdialog);
+        setContentView(R.layout.customdialog_left);
 
         mod_bt = findViewById(R.id.mod_bt);
         mod_bt.setOnClickListener(new View.OnClickListener() {
@@ -44,6 +58,17 @@ public class CustomDialog extends Dialog {
                 }
             }
         });
+    }
+
+
+    private void connectDeleteData(){
+        try {
+           // NetworkTask insertworkTask = new NetworkTask(CustomDialog1.this,urlAddr,"delete");
+            //insertworkTask.execute().get();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     public void setDialogListener(OnDialogListener listener) {
