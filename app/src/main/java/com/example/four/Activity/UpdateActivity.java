@@ -131,7 +131,7 @@ public class UpdateActivity extends Activity {
                 .placeholder(R.drawable.noimg)
                 .apply(new RequestOptions().circleCrop())
                 .into(profileImage);
-        Log.d(TAG, "http://" + urlIp + ":8080/pictures/" + imagePath);
+//        Log.d(TAG, "http://" + urlIp + ":8080/pictures/" + imagePath);
 
 
 
@@ -172,7 +172,7 @@ public class UpdateActivity extends Activity {
 
                 //아무글자도 없는데 지우려고 하면 로그띄우기 에러방지
                 if (s.length() <= 0) {
-                    Log.d("addTextChangedListener", "onTextChanged: Intput text is wrong (Type : Length)");
+//                    Log.d("addTextChangedListener", "onTextChanged: Intput text is wrong (Type : Length)");
                     return;
                 }
 
@@ -180,7 +180,7 @@ public class UpdateActivity extends Activity {
                 char inputChar = s.charAt(s.length() - 1);
                 if (inputChar != '-' && (inputChar < '0' || inputChar > '9')) {
                     tel.getText().delete(s.length() - 1, s.length());
-                    Log.d("addTextChangedListener", "onTextChanged: Intput text is wrong (Type : Number)");
+//                    Log.d("addTextChangedListener", "onTextChanged: Intput text is wrong (Type : Number)");
                     return;
                 }
 
@@ -192,10 +192,10 @@ public class UpdateActivity extends Activity {
                     if (afterLenght == 4 && s.toString().indexOf("-") < 0) {
                         //subSequence로 지정된 문자열을 반환해서 "-"폰을 붙여주고 substring
                         tel.setText(s.toString().subSequence(0, 3) + "-" + s.toString().substring(3, s.length()));
-                        Log.v(TAG, String.valueOf(s.toString().substring(3, s.length())));
+//                        Log.v(TAG, String.valueOf(s.toString().substring(3, s.length())));
                     } else if (afterLenght == 9) {
                         tel.setText(s.toString().subSequence(0, 8) + "-" + s.toString().substring(8, s.length()));
-                        Log.v(TAG, String.valueOf(s.toString().substring(8, s.length())));
+//                        Log.v(TAG, String.valueOf(s.toString().substring(8, s.length())));
                     }
                 }
                 tel.setSelection(tel.length());
@@ -302,7 +302,7 @@ public class UpdateActivity extends Activity {
 
 
             connectUpdateData();
-            Log.d(TAG, urlAddr);
+//            Log.d(TAG, urlAddr);
 
             Intent intent = new Intent(UpdateActivity.this, MainActivity.class);
             Toast.makeText(UpdateActivity.this, "수정이완료돼싸", Toast.LENGTH_SHORT).show();
@@ -379,7 +379,7 @@ public class UpdateActivity extends Activity {
         int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
         cursor.moveToFirst();
         String imgPath = cursor.getString(column_index);//이미지의 경로 값
-        Log.d("test", imgPath);//이미지 경로 확인해서 데이터 값 넘기기
+//        Log.d("test", imgPath);//이미지 경로 확인해서 데이터 값 넘기기
         String imgName = imgPath.substring(imgPath.lastIndexOf("/") + 1); //이미지의 이름 값
         Toast.makeText(UpdateActivity.this, "이미지 이름 : " + imgName, Toast.LENGTH_SHORT).show();
         this.imageName = imgName;

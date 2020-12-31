@@ -22,7 +22,7 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         android:layout_gravity="center"
         android:orientation="vertical">
 
@@ -30,8 +30,8 @@
 
         <ImageView
             android:id="@+id/iv_profile_update"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="1650dp"
+            android:layout_height="165dp"
             android:layout_gravity="center"
             android:layout_margin="20dp"
             android:padding="8dp"
@@ -41,7 +41,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="246dp"
+        android:layout_height="280dp"
         android:layout_margin="25dp"
         android:orientation="vertical">
 
@@ -96,16 +96,18 @@
             />
 
         <EditText
-            android:maxLines="1"
+            android:maxLines="2"
             android:id="@+id/et_addr_update"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
+            android:layout_width="204dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:ellipsize="end"
+            />
 
         <EditText
             android:maxLines="1"
             android:id="@+id/et_detail_update"
-            android:layout_width="231dp"
+            android:layout_width="204dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             />

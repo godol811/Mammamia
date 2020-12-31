@@ -86,7 +86,7 @@ public class ListviewActivity extends AppCompatActivity
         addr = intent.getStringExtra("addrAddr");
         imagePath = intent.getStringExtra("addrImagePath");
 
-        Log.d(TAG,imagePath);
+//        Log.d(TAG,imagePath);
 
 
         addrName = findViewById(R.id.tv_name_listview);
@@ -103,7 +103,7 @@ public class ListviewActivity extends AppCompatActivity
 //        Picasso.get().load(urlAddr+imagePath).into(profileImage);
         Glide.with(ListviewActivity.this).
                 load(urlAddr + imagePath).
-                override(300, 300).
+                override(165, 165).
                 placeholder(R.drawable.noimg).
                 apply(new RequestOptions().circleCrop()).into(profileImage);
 
@@ -146,7 +146,7 @@ public class ListviewActivity extends AppCompatActivity
             urlAddr = "http://" + urlIp + ":8080/test/mammamiaDelete.jsp?";
             urlAddr = urlAddr + "addrNo=" + addrNo;
             connectDeleteData();
-            Log.v("헤이~", urlAddr);
+//            Log.v("헤이~", urlAddr);
             Toast.makeText(ListviewActivity.this, "삭제가 완료되었습니다 ", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(ListviewActivity.this, MainActivity.class);
             startActivity(intent);
@@ -189,7 +189,7 @@ public class ListviewActivity extends AppCompatActivity
                 //주소값 보내주기 마커위치에서 시작하기 위해서
                 intent.putExtra("intentLat", intentLat);
                 intent.putExtra("intentLng", intentLng);
-                Log.d(TAG, addr);
+//                Log.d(TAG, addr);
                 startActivity(intent);
             }
         });
@@ -218,8 +218,8 @@ public class ListviewActivity extends AppCompatActivity
             //좌표값 저장
             intentLat = addresses.get(0).getLatitude();
             intentLng = addresses.get(0).getLongitude();
-            Log.v(TAG, "intentLat : " + String.valueOf(intentLat));
-            Log.v(TAG, "intentLng : " + String.valueOf(intentLng));
+//            Log.v(TAG, "intentLat : " + String.valueOf(intentLat));
+//            Log.v(TAG, "intentLng : " + String.valueOf(intentLng));
 
 
 

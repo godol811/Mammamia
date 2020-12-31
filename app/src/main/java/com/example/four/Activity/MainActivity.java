@@ -88,8 +88,8 @@ public class MainActivity extends Activity {
 //        urlIp = "192.168.0.105";//하진                //
 //        urlIp = "172.30.1.27";//혜정                  //
 //        urlIp = "222.106.89.206";//이누               //
-      urlIp = "192.168.0.105";//보람                  //
-//        urlIp = "192.168.35.147";//종찬 아이피            //
+//      urlIp = "192.168.0.105";//보람                  //
+        urlIp = "192.168.35.147";//종찬 아이피            //
 /////////////////////////////////////////////////////////
 
 
@@ -126,10 +126,10 @@ public class MainActivity extends Activity {
         connectGetData();
         registerForContextMenu(recyclerView);
 
-        Log.v(TAG, "onResume"); //태그 선언
+//        Log.v(TAG, "onResume"); //태그 선언
 
 
-        Log.v(TAG, "onResume");
+//        Log.v(TAG, "onResume");
         adapter.setOnItemClickListener(new AddressAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
