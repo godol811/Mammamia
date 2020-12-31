@@ -5,29 +5,29 @@
 
 This is a normal paragraph:
 
-dependencies {........
+	dependencies {........
 
- //리사이클러뷰
-    implementation 'com.android.support:recyclerview-v7:30.0.0'
-
- 
-//Google Play Services 라이브러리 추가
-    implementation 'com.google.android.gms:play-services-maps:17.0.0'
-    implementation 'com.google.android.gms:play-services-location:17.1.0'
-
-//Google places 라이브러리 추가
-    implementation 'noman.placesapi:placesAPI:1.1.3'
-
-//Google 거리재기 라이브러리 추가
-    implementation 'com.google.maps.android:android-maps-utils:0.5'
+	 //리사이클러뷰
+	    implementation 'com.android.support:recyclerview-v7:30.0.0'
 
 
+	//Google Play Services 라이브러리 추가
+	    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+	    implementation 'com.google.android.gms:play-services-location:17.1.0'
 
-//사진 업로드 관련 라이브러리 추가   
-    implementation 'com.github.bumptech.glide:glide:4.11.0'
-    implementation 'com.squareup.picasso:picasso:2.71828'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
-}
+	//Google places 라이브러리 추가
+	    implementation 'noman.placesapi:placesAPI:1.1.3'
+
+	//Google 거리재기 라이브러리 추가
+	    implementation 'com.google.maps.android:android-maps-utils:0.5'
+
+
+
+	//사진 업로드 관련 라이브러리 추가   
+	    implementation 'com.github.bumptech.glide:glide:4.11.0'
+	    implementation 'com.squareup.picasso:picasso:2.71828'
+	    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+	}
 
 end code block.
 ***
@@ -60,14 +60,14 @@ Link: [MY SQL Connector][MY SQL Connector]
 
 This is a normal paragraph:
 
-  String stSearch =  request.getParameter("addrName");
-	String url_mysql = "jdbc:mysql://이부분에 데이터베이스주소를 수정하세요/MYSQL스키마이름?serverTimezone=Asia/Seoul&characterEncoding=utf8&useSSL=false";
- 	String id_mysql = "아이디";
- 	String pw_mysql = "암호";
-  String WhereDefault = "select addrNo, addrName, addrTel, addrAddr,addrDetail,addrLike,addrTag,addrImagePath from addrlist Where addrLike = 1";
-  int count = 0;
-  PreparedStatement ps = null;
-  ResultSet rs = null;
+	  String stSearch =  request.getParameter("addrName");
+		String url_mysql = "jdbc:mysql://이부분에 데이터베이스주소를 수정하세요/MYSQL스키마이름?serverTimezone=Asia/Seoul&characterEncoding=utf8&useSSL=false";
+		String id_mysql = "아이디";
+		String pw_mysql = "암호";
+	  String WhereDefault = "select addrNo, addrName, addrTel, addrAddr,addrDetail,addrLike,addrTag,addrImagePath from addrlist Where addrLike = 1";
+	  int count = 0;
+	  PreparedStatement ps = null;
+	  ResultSet rs = null;
 
 end code block.
 
