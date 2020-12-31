@@ -2,7 +2,7 @@
 
 ## 1.Build gradle에 추가를 한다.
 
-This is a normal paragraph:
+
 
     dependencies {........
 
@@ -28,7 +28,7 @@ This is a normal paragraph:
         annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     }
 
-end code block.
+
 
 ---
 
@@ -64,7 +64,6 @@ Link: [MYSQL Connector][my sql connector]
 ## 5.test 폴더 안에 jsp MYSQL 데이터 베이스의 주소를 수정하도록한다.
 이를테면
 
-This is a normal paragraph:
 
     String stSearch =  request.getParameter("addrName");
 
@@ -75,7 +74,7 @@ This is a normal paragraph:
     String pw_mysql = "암호";
 
 
-end code block.
+
 
 한글로 적혀있는 부분은 각자 환경에 맞게 채우면 된다.
 
@@ -87,6 +86,5 @@ end code block.
 |int(11),AI,PK|varchar(45)|varchar(45)|varchar(150)|varchar(45)|varchar(45),Default'0'|varchar(45)|varchar(100)|
 
 ---
-
 
 
