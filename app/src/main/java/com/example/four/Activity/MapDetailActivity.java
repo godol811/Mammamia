@@ -311,7 +311,7 @@ public class MapDetailActivity extends FragmentActivity implements OnMapReadyCal
 
 
 
-//            Log.d(TAG, "병원" + tagName);
+
             new NRPlaces.Builder()
                     .listener(MapDetailActivity.this)
                     .key("AIzaSyAEAJPO9fRiNPqBPFbvaiKasj7XCYJPl1U")//api키 입력
@@ -319,46 +319,6 @@ public class MapDetailActivity extends FragmentActivity implements OnMapReadyCal
                     .radius(500) //500 미터 내에서 검색
                     .build()
                     .execute();
-
-
-// 지우지 말기----------------------------------
-//        if (tagName == "키즈카페") {
-//            Log.d(TAG, "키 : " + tagName);
-//            new NRPlaces.Builder()
-//                    .listener(MapDetailActivity.this)
-//                    .key("AIzaSyAEAJPO9fRiNPqBPFbvaiKasj7XCYJPl1U")//api키 입력
-//                    .latlng(intentLat, intentLng)//현재 마커 위치
-//                    .radius(500) //500 미터 내에서 검색
-//                    .type(PlaceType.CAFE)
-//                    .type(PlaceType.BAKERY)
-//                    .build()
-//                    .execute();
-//        }
-//
-//            case "유치원":
-//                Log.d(TAG, "유치원 : " + tagName);
-//                new NRPlaces.Builder()
-//                        .listener(MapDetailActivity.this)
-//                        .key("AIzaSyAEAJPO9fRiNPqBPFbvaiKasj7XCYJPl1U")//api키 입력
-//                        .latlng(intentLat, intentLng)//현재 마커 위치
-//                        .radius(500) //500 미터 내에서 검색
-//                        .type(PlaceType.SCHOOL)
-//                        .type(PlaceType.UNIVERSITY)
-//                        .build()
-//                        .execute();
-//                break;
-//
-//            case "기타":
-//                new NRPlaces.Builder()
-//                        .listener(MapDetailActivity.this)
-//                        .key("AIzaSyAEAJPO9fRiNPqBPFbvaiKasj7XCYJPl1U")//api키 입력
-//                        .latlng(intentLat, intentLng)//현재 마커 위치
-//                        .radius(500) //500 미터 내에서 검색
-//                        .build()
-//                        .execute();
-//                break;
-//
-//        }
 
     }
 
@@ -388,7 +348,6 @@ public class MapDetailActivity extends FragmentActivity implements OnMapReadyCal
 
 
         if (addresses == null || addresses.size() == 0) {
-            Toast.makeText(this, "더 자세한 주소를 입력해주세요", Toast.LENGTH_LONG).show();
             return "더 자세한 주소를 입력해주세요";
 
         } else {

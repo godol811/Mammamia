@@ -160,8 +160,6 @@ public class InsertActivity extends Activity {
             private int beforeLenght = 0;
             private int afterLenght = 0;
 
-
-
             //입력 혹은 삭제 전의 길이와 지금 길이를 비교하기 위해 beforeTextChanged에 저장
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

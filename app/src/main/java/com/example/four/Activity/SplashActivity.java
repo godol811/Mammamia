@@ -17,6 +17,8 @@ import com.example.four.R;
 public class SplashActivity extends Activity {
 
 
+    //field
+
     Animation animation, animation2;
     ImageView view;
     ImageView star1, star2;

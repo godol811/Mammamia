@@ -47,8 +47,6 @@ public class CustomDialogRight extends Dialog {
                 connectDeleteData();
 
 
-//                Intent intent = new Intent(CustomDialog2.this, urlAddr,"delete");
-//                startActivity(intent);
 
             }
         });

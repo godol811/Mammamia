@@ -22,7 +22,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.four.R;
 import com.example.four.SqliteDB.MemberInfo;
@@ -33,6 +32,8 @@ public class LoginActivity extends Activity {
 
     final static String TAG = "로그인";
 
+
+    //field
     EditText etUserName, etUserTel, etUserAddrDetail;
     TextView tvUserAddr;
     Button btnLoginButton;
@@ -40,6 +41,9 @@ public class LoginActivity extends Activity {
     CheckBox cbAgree;
 
     private static final int SEARCH_ADDRESS_ACTIVITY = 10000;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

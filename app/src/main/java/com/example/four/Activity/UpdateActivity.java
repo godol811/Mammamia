@@ -247,7 +247,7 @@ public class UpdateActivity extends Activity {
                 return "";
             }
             //글자수 제한
-        }, new InputFilter.LengthFilter(10)});//특수문자 제한
+        }, new InputFilter.LengthFilter(5)});//특수문자 제한
 
     }
 
@@ -312,7 +312,7 @@ public class UpdateActivity extends Activity {
 
 
             connectUpdateData();
-            Log.d(TAG, urlAddr);
+//            Log.d(TAG, urlAddr);
 
             Intent intent = new Intent(UpdateActivity.this, MainActivity.class);
             Toast.makeText(UpdateActivity.this, "수정이완료돼싸", Toast.LENGTH_SHORT).show();

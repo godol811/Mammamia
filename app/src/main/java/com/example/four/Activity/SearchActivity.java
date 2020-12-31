@@ -35,20 +35,15 @@ public class SearchActivity extends Activity {
 
     final static String TAG = "서치액티비티";
 
-    String urlAddr = null;
 
+    //field
+    String urlAddr = null;
     String urlIp = null;
-    //-----------------
     ArrayList<AddressDto> members;
     AddressAdapter adapter = null;
     private RecyclerView recyclerView = null;
-
-
     private RecyclerView.LayoutManager layoutManager = null;
-
-
     ItemTouchHelper helper;
-
     //검색을 위한 선언
     EditText etSearch;
     ImageButton ibSearch;
@@ -66,21 +61,12 @@ public class SearchActivity extends Activity {
         //-----------------------------------------------------
 
         ActivityCompat.requestPermissions(SearchActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MODE_PRIVATE); //사용자에게 사진 사용 권한 받기 (가장중요함)
-
-
         recyclerView = findViewById(R.id.rl_address);
-
-
         recyclerView.setHasFixedSize(true);
-
-
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-
         etSearch = findViewById(R.id.et_search);
-
         ibSearch = findViewById(R.id.btn_search_searchactivity);
-        ibSearch.setOnClickListener(searchClickListener);
 
         Intent intent = getIntent();   //IP 받아오자
         urlIp = intent.getStringExtra("urlIp");
@@ -89,6 +75,7 @@ public class SearchActivity extends Activity {
 
 
 
+        ibSearch.setOnClickListener(searchClickListener);
 
 
 
