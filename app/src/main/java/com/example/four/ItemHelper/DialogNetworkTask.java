@@ -151,12 +151,13 @@ public class DialogNetworkTask extends AsyncTask<Integer, String, Object> {
                 String addrAddr = jsonObject1.getString("addrAddr");
                 String addrDetail = jsonObject1.getString("addrDetail");
                 String addrTag = jsonObject1.getString("addrTag");
+                String addrLike = jsonObject1.getString("addrLike");
 
                 String addrImagePath = jsonObject1.getString("addrImagePath");
 
 
 
-                AddressDto address = new AddressDto(addrNo,addrName,addrTel,addrAddr,addrDetail,addrTag,addrImagePath);
+                AddressDto address = new AddressDto(addrNo,addrName,addrTel,addrAddr,addrDetail,addrLike,addrTag,addrImagePath);
                 Address.add(address);
                 // Log.v(TAG, member.toString());
                 Log.v(TAG, "----------------------------------");
