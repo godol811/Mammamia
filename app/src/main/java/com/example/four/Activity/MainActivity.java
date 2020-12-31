@@ -17,17 +17,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
-import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.Toast;
+
 
 import com.example.four.Adapter.AddressAdapter;
 import com.example.four.Bean.AddressDto;
@@ -43,28 +40,17 @@ public class MainActivity extends Activity {
     final static String TAG = "메인";
 
 
-    String urlAddr = null;
 
+    //field
+
+    String urlAddr = null;
     String urlIp = null;
-    //-----------------
     ArrayList<AddressDto> members;
     AddressAdapter adapter = null;
     private RecyclerView recyclerView = null;
-
-
     private RecyclerView.LayoutManager layoutManager = null;
-
-
     ItemTouchHelper helper;
-
-
-
-
-
-
-
     ImageButton ivSearchActivity;//검색버튼
-
     ImageButton Iblikelistbtn;//라이크리스트버튼
 
     @Override
@@ -76,11 +62,7 @@ public class MainActivity extends Activity {
 
 
         recyclerView = findViewById(R.id.rl_address);
-
-
         recyclerView.setHasFixedSize(true);
-
-
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
@@ -96,26 +78,28 @@ public class MainActivity extends Activity {
         urlAddr = "http://" + urlIp + ":8080/test/mammamia.jsp";
 
         ivSearchActivity = findViewById(R.id.btn_search_main);//검색 인텐트로 이동하기 위해 버튼 선언
-        ivSearchActivity.setOnClickListener(searchClickListener);
-
         Iblikelistbtn =findViewById((R.id.btn_likelist_main));
-        Iblikelistbtn.setOnClickListener(likelistClickListener);
 
+
+        ivSearchActivity.setOnClickListener(searchClickListener);//검색 버튼 리스너
+        Iblikelistbtn.setOnClickListener(likelistClickListener);//즐겨찾기 리스트 리스너
+
+
+
+        //입력  버튼 클릭 하면 입력창으로 가게됨
         findViewById(R.id.btn_insert_listview).setOnClickListener(new View.OnClickListener() {
-
-
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, InsertActivity.class);
-
-
                 intent.putExtra("urlIp", urlIp);//ip주소 보내기
                 startActivity(intent);
             }
         });
 
 
-    }
+    }//-----------------onCreate
+
+
 
 
     @Override
@@ -151,7 +135,8 @@ public class MainActivity extends Activity {
 
             }
         });
-    }
+    }//-----------------------onResume
+
 
 
     View.OnClickListener searchClickListener = new View.OnClickListener() { //돋보기 버튼 클릭 - 검색 인텐트로 이동
@@ -208,6 +193,8 @@ public class MainActivity extends Activity {
             }
         });
     }
+
+
 
     //배경 터치 시 키보드 사라지게
     public boolean dispatchTouchEvent(MotionEvent ev) {

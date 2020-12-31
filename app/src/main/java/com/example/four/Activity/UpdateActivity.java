@@ -28,7 +28,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -51,23 +50,21 @@ import okhttp3.Response;
 
 public class UpdateActivity extends Activity {
 
+
+    //field
     String imagePath = null;
     String imageName = null;
     private String img_path = new String();
     private Bitmap image_bitmap_copy = null;
     private Bitmap image_bitmap = null;
     private final int REQ_CODE_SELECT_IMAGE = 100;
-
     final static String TAG = "업데이트액티비티";
     String tag1, name1, tel1, detail1, addr1;
     int num;
-    EditText tag, name, tel, detail,addr;
-
+    EditText tag, name, tel, detail, addr;
     ImageView profileImage;
-
     String urlAddr = null;
     String urlIp = null;
-
     Button okbtn;
     Button backbtn;
     Button tagSelectBtn;
@@ -75,6 +72,7 @@ public class UpdateActivity extends Activity {
     private static final int SEARCH_ADDRESS_ACTIVITY = 10000;//12월 30일 주소 api 변수 추가
 
     final int[] selectedIndex = {0}; //tag 추가
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,7 +132,6 @@ public class UpdateActivity extends Activity {
         Log.d(TAG, "http://" + urlIp + ":8080/pictures/" + imagePath);
 
 
-
         profileImage.setOnClickListener(new View.OnClickListener() {//이미지 올리기
             @Override
             public void onClick(View v) {
@@ -148,8 +145,8 @@ public class UpdateActivity extends Activity {
         });
 
 
-        okbtn.setOnClickListener(onClickListener);
-        backbtn.setOnClickListener(onClickListener1);
+        okbtn.setOnClickListener(onClickListener); //수정완료 버튼 리스너
+        backbtn.setOnClickListener(onClickListener1); //뒤로가기 버튼 리스너
 
         //update tag 버튼 추가
         tagSelectBtn.setOnClickListener(tagselectClick);
@@ -231,7 +228,7 @@ public class UpdateActivity extends Activity {
                 new androidx.appcompat.app.AlertDialog.Builder(UpdateActivity.this)
                         .setTitle("알림")
                         .setMessage("한글, 영문만 입력 가능합니다.")
-                        .setNegativeButton("확인",null)
+                        .setNegativeButton("확인", null)
                         .setCancelable(false)
                         .show();
                 return "";
@@ -239,7 +236,7 @@ public class UpdateActivity extends Activity {
             //글자수 제한
         }, new InputFilter.LengthFilter(5)});//특수문자 제한
 
-    }
+    }//-----------------onCreate
 
 
     View.OnClickListener tagselectClick = new View.OnClickListener() {//태그 선택했을경우
@@ -268,57 +265,70 @@ public class UpdateActivity extends Activity {
     };//태그 선택 끝
 
 
-    //주소검색 API----------------------------
+    //수정완료 버튼 리스너 클릭시 이벤트
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    doMultiPartRequest();//사진 넣는 okHttp3 메소드}}}
-                }
-            }).start();
-
-
-            String st_tag = tag.getText().toString();
-            String st_name = name.getText().toString();
-            String st_tel = tel.getText().toString();
-            String st_addr = addr.getText().toString();
-            String st_detail = detail.getText().toString();
-
-            Calendar calendar = Calendar.getInstance();
-            java.util.Date date = calendar.getTime();
-            String today = (new SimpleDateFormat("yyyyMMddHHmmss").format(date));
-
-            imageName = today + "_" + imageName;
-
-            if(img_path.trim().length()==0){//사진 둥록을 해서 들어오는 값이 없으면 기존의 데이터를 그냥 다시 씌우기
-                urlAddr = urlAddr + "addrNo=" + num + "&addrName=" + st_name + "&addrTel=" + st_tel + "&addrAddr=" + st_addr + "&addrDetail=" + st_detail + "&addrTag=" + st_tag+ "&addrImagePath=" + imagePath;
-            }else{//사진 등록되면 걍 넣기
-                urlAddr = urlAddr + "addrNo=" + num + "&addrName=" + st_name + "&addrTel=" + st_tel + "&addrAddr=" + st_addr + "&addrDetail=" + st_detail + "&addrTag=" + st_tag + "&addrImagePath=" + imageName;
-            }
+            new AlertDialog.Builder(UpdateActivity.this)
+                    .setTitle("알림")
+                    .setMessage("수정 하시겠습니까?")
+                    .setCancelable(false)
+                    .setIcon(R.mipmap.ic_icon)
+                    .setPositiveButton("취소", null)
+                    .setNegativeButton("확인", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
 
 
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    doMultiPartRequest();//사진 넣는 okHttp3 메소드}}}
+                                }
+                            }).start();
 
-            connectUpdateData();
-            Log.d(TAG, urlAddr);
 
-            Intent intent = new Intent(UpdateActivity.this, MainActivity.class);
-            Toast.makeText(UpdateActivity.this, "수정이완료돼싸", Toast.LENGTH_SHORT).show();
-            startActivity(intent);
+                            String st_tag = tag.getText().toString();
+                            String st_name = name.getText().toString();
+                            String st_tel = tel.getText().toString();
+                            String st_addr = addr.getText().toString();
+                            String st_detail = detail.getText().toString();
 
+                            Calendar calendar = Calendar.getInstance();
+                            java.util.Date date = calendar.getTime();
+                            String today = (new SimpleDateFormat("yyyyMMddHHmmss").format(date));
+
+                            imageName = today + "_" + imageName;
+
+                            if (img_path.trim().length() == 0) {//사진 둥록을 해서 들어오는 값이 없으면 기존의 데이터를 그냥 다시 씌우기
+                                urlAddr = urlAddr + "addrNo=" + num + "&addrName=" + st_name + "&addrTel=" + st_tel + "&addrAddr=" + st_addr + "&addrDetail=" + st_detail + "&addrTag=" + st_tag + "&addrImagePath=" + imagePath;
+                            } else {//사진 등록되면 걍 넣기
+                                urlAddr = urlAddr + "addrNo=" + num + "&addrName=" + st_name + "&addrTel=" + st_tel + "&addrAddr=" + st_addr + "&addrDetail=" + st_detail + "&addrTag=" + st_tag + "&addrImagePath=" + imageName;
+                            }
+
+
+                            connectUpdateData();
+                            Log.d(TAG, urlAddr);
+
+                            Intent intent = new Intent(UpdateActivity.this, MainActivity.class);
+                            startActivity(intent);
+
+
+                        }
+                    })
+                    .show();
 
         }
     };
 
-
+    //뒤로가기 버튼 리스너
     View.OnClickListener onClickListener1 = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             onBackPressed();
         }
     };
+
 
     private void connectUpdateData() {
         try {
@@ -333,26 +343,23 @@ public class UpdateActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {//주석
 
-            super.onActivityResult(requestCode, resultCode, data);//주소 검색 api 추가
-            switch (requestCode) {
-                case SEARCH_ADDRESS_ACTIVITY:
-                    if (resultCode == RESULT_OK) {
-                        String data1 = data.getExtras().getString("data");
-                        if (data1 != null) {
-                            addr.setText(data1);
-                        }
+        super.onActivityResult(requestCode, resultCode, data);//주소 검색 api 추가
+        switch (requestCode) {
+            case SEARCH_ADDRESS_ACTIVITY:
+                if (resultCode == RESULT_OK) {
+                    String data1 = data.getExtras().getString("data");
+                    if (data1 != null) {
+                        addr.setText(data1);
                     }
-                    break;
-            }//주소 검색 api 추가
+                }
+                break;
+        }//주소 검색 api 추가
 
-
-        Toast.makeText(getBaseContext(), "resultCode : " + data, Toast.LENGTH_SHORT).show();
 
         if (requestCode == REQ_CODE_SELECT_IMAGE) {
             if (resultCode == Activity.RESULT_OK) {
                 try {
-                    img_path = getImagePathToUri(data.getData()); //이미지의 URI를 얻어 경로값으로 반환.
-                    Toast.makeText(getBaseContext(), "img_path : " + img_path, Toast.LENGTH_SHORT).show();//이미지를 비트맵형식으로 반환
+                    img_path = getImagePathToUri(data.getData()); //이미지의 URI를 얻어 경로값으로 반환
                     image_bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
                     ImageView image = (ImageView) findViewById(R.id.iv_profile_update);  //이미지를 띄울 위젯 ID값
                     image.setImageBitmap(image_bitmap_copy);
@@ -381,7 +388,6 @@ public class UpdateActivity extends Activity {
         String imgPath = cursor.getString(column_index);//이미지의 경로 값
         Log.d("test", imgPath);//이미지 경로 확인해서 데이터 값 넘기기
         String imgName = imgPath.substring(imgPath.lastIndexOf("/") + 1); //이미지의 이름 값
-        Toast.makeText(UpdateActivity.this, "이미지 이름 : " + imgName, Toast.LENGTH_SHORT).show();
         this.imageName = imgName;
 
         return imgPath;
@@ -429,7 +435,6 @@ public class UpdateActivity extends Activity {
     //고종찬 = 바지사장
     //
     //---------------------------------------------------------------------------------
-
 
 
     public boolean dispatchTouchEvent(MotionEvent ev) {//배경 터치 시 키보드 사라지게

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.location.Address;
@@ -42,11 +43,12 @@ public class ListviewActivity extends AppCompatActivity
 
     final static String TAG = "리스트뷰액티비티";
 
+    //field
+
     String urlIp = null;
     String urlAddr = null;
     TextView addrTag, addrName, addrTel, addrDetail, addrAddr;
     ImageView profileImage;
-    ArrayList<Address> members;
     Button backbtn, upbtn;
     int addrNo;
     String tagName;
@@ -61,6 +63,7 @@ public class ListviewActivity extends AppCompatActivity
 
     private RecyclerView recyclerView = null;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,10 +77,11 @@ public class ListviewActivity extends AppCompatActivity
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fg_map_listview);//Fragment 가져오기
 
         mapFragment.getMapAsync(this);//onMapReady 메소드 호출
+
+
+        //Intent 받아오기
         Intent intent = getIntent();
         urlIp = intent.getStringExtra("urlIp");
-
-
         addrNo = intent.getIntExtra("addrNo", 0);
         name = intent.getStringExtra("addrName");
         tel = intent.getStringExtra("addrTel");
@@ -86,28 +90,13 @@ public class ListviewActivity extends AppCompatActivity
         addr = intent.getStringExtra("addrAddr");
         imagePath = intent.getStringExtra("addrImagePath");
 
-        Log.d(TAG,imagePath);
 
-
+        //아이디 찾기
         addrName = findViewById(R.id.tv_name_listview);
         addrTag = findViewById(R.id.tv_tagname_listview);
         addrTel = findViewById(R.id.tv_tel_listview);
-        //addrAddr추가
         addrAddr = findViewById(R.id.tv_addr_listview);
-        //------------------
-
-        //addrimage 추가
         profileImage = findViewById(R.id.iv_profile_listview);
-
-        String urlAddr = "http://" + urlIp + ":8080/pictures/";
-//        Picasso.get().load(urlAddr+imagePath).into(profileImage);
-        Glide.with(ListviewActivity.this).
-                load(urlAddr + imagePath).
-                override(300, 300).
-                placeholder(R.drawable.noimg).
-                apply(new RequestOptions().circleCrop()).into(profileImage);
-
-
         addrDetail = findViewById(R.id.tv_detail_listview);
         upbtn = findViewById(R.id.btn_update_listview);
         delebtn = findViewById(R.id.btn_delete_listview);
@@ -116,11 +105,23 @@ public class ListviewActivity extends AppCompatActivity
         addrAddr.setText(addr);
         addrTel.setText(tel);
         addrTag.setText(tagName);
-        upbtn.setOnClickListener(onClickListener);
-        delebtn.setOnClickListener(onClickListener2);
+
+
+        String urlAddr = "http://" + urlIp + ":8080/pictures/";
+        Glide.with(ListviewActivity.this).
+                load(urlAddr + imagePath).
+                override(300, 300).
+                placeholder(R.drawable.noimg).
+                apply(new RequestOptions().circleCrop()).into(profileImage);
+
+        upbtn.setOnClickListener(onClickListener); //수정버튼클릭
+        delebtn.setOnClickListener(onClickListener2); //삭제버큰클릭
         geocoding();//지오코딩해주는 메소드
+
+
     }
 
+    //수정 버튼 클릭시 이동
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -138,18 +139,28 @@ public class ListviewActivity extends AppCompatActivity
         }
     };
 
+
+    //삭제 버튼 클릭시 이동
     View.OnClickListener onClickListener2 = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
-
-            urlAddr = "http://" + urlIp + ":8080/test/mammamiaDelete.jsp?";
-            urlAddr = urlAddr + "addrNo=" + addrNo;
-            connectDeleteData();
-            Log.v("헤이~", urlAddr);
-            Toast.makeText(ListviewActivity.this, "삭제가 완료되었습니다 ", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(ListviewActivity.this, MainActivity.class);
-            startActivity(intent);
+            new AlertDialog.Builder(ListviewActivity.this)
+                    .setIcon(R.mipmap.ic_icon)
+                    .setCancelable(false)
+                    .setTitle("경고")
+                    .setMessage("삭제 하시겠습니까?")
+                    .setPositiveButton("취소", null)
+                    .setNegativeButton("네", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            urlAddr = "http://" + urlIp + ":8080/test/mammamiaDelete.jsp?";
+                            urlAddr = urlAddr + "addrNo=" + addrNo;
+                            connectDeleteData();
+                            Intent intent = new Intent(ListviewActivity.this, MainActivity.class);
+                            startActivity(intent);
+                        }
+                    })
+                    .show();
         }
     };
 
@@ -165,7 +176,7 @@ public class ListviewActivity extends AppCompatActivity
 
     @Override
     public void onMapReady(GoogleMap googleMap) {//OnMapReadyCallback 인터페이스의 onMapReady 메소드를 구현해줘야 한다.
-                                                 //맵이 사용할 준비가 되었을 때(NULL이 아닌 GoogleMap 객체를 파라미터로 제공해 줄 수 있을 때) 호출되어지는 메소드
+        //맵이 사용할 준비가 되었을 때(NULL이 아닌 GoogleMap 객체를 파라미터로 제공해 줄 수 있을 때) 호출되어지는 메소드
         mMap = googleMap;  //다시 변환후 넣어줘야됨
 
         LatLng markerPosition = new LatLng(intentLat, intentLng);
@@ -222,9 +233,8 @@ public class ListviewActivity extends AppCompatActivity
             Log.v(TAG, "intentLng : " + String.valueOf(intentLng));
 
 
-
         } catch (IOException e) {
-            Toast.makeText(this, "검색 실패", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "지도 불러오기에 실패하였습니다.", Toast.LENGTH_SHORT).show();
         }
     }
 }//------------------------------
