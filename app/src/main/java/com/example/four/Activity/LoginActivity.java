@@ -22,7 +22,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.four.R;
 import com.example.four.SqliteDB.MemberInfo;
@@ -33,6 +32,8 @@ public class LoginActivity extends Activity {
 
     final static String TAG = "로그인";
 
+
+    //field
     EditText etUserName, etUserTel, etUserAddrDetail;
     TextView tvUserAddr;
     Button btnLoginButton;
@@ -40,6 +41,9 @@ public class LoginActivity extends Activity {
     CheckBox cbAgree;
 
     private static final int SEARCH_ADDRESS_ACTIVITY = 10000;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,6 +148,7 @@ public class LoginActivity extends Activity {
         etUserTel.addTextChangedListener(new TextWatcher() {//자동으로 "-" 생성해서 전화번호에 붙여주기
 
 
+            String tel = String.valueOf(etUserTel.getText());
             private int beforeLenght = 0;
             private int afterLenght = 0;
 
@@ -172,15 +177,24 @@ public class LoginActivity extends Activity {
 
                 afterLenght = s.length();
 
-
                 if (beforeLenght < afterLenght) {// 타자를 입력 중이면
-                    if (afterLenght == 4 && s.toString().indexOf("-") < 0) { //subSequence로 지정된 문자열을 반환해서 "-"폰을 붙여주고 substring
+                    if (s.toString().indexOf("01") < 0 && afterLenght == 2) { //subSequence로 지정된 문자열을 반환해서 "-"폰을 붙여주고 substring
+                        etUserTel.setText(s.toString().subSequence(0, 2) + "-" + s.toString().substring(2, s.length()));
+                        Log.v(TAG, "들어와줘");
+                    } else if (s.toString().indexOf("01") < 0 && afterLenght == 6) {
+                        etUserTel.setText(s.toString().subSequence(0, 6) + "-" + s.toString().substring(6, s.length()));
+                        Log.v(TAG, "너도 들어와줘");
+                    } else {
+                        if (afterLenght == 4 && s.toString().indexOf("-") < 0) { //subSequence로 지정된 문자열을 반환해서 "-"폰을 붙여주고 substring
+                            etUserTel.setText(s.toString().subSequence(0, 3) + "-" + s.toString().substring(3, s.length()));
+                            Log.v(TAG, "subSequence1" + String.valueOf(s.toString().subSequence(0, 3)));
+                            Log.v(TAG, "substring1" + String.valueOf(s.toString().substring(3, s.length())));
 
-                        etUserTel.setText(s.toString().subSequence(0, 3) + "-" + s.toString().substring(3, s.length()));
-                        Log.v(TAG, String.valueOf(s.toString().substring(3, s.length())));
-                    } else if (afterLenght == 9) {
-                        etUserTel.setText(s.toString().subSequence(0, 8) + "-" + s.toString().substring(8, s.length()));
-                        Log.v(TAG, String.valueOf(s.toString().substring(8, s.length())));
+                        } else if (s.toString().indexOf("02") < 0 && afterLenght == 9) {
+                            etUserTel.setText(s.toString().subSequence(0, 8) + "-" + s.toString().substring(8, s.length()));
+                            Log.v(TAG, "subSequence2" + String.valueOf(s.toString().subSequence(0, 8)));
+                            Log.v(TAG, "substring2" + String.valueOf(s.toString().substring(8, s.length())));
+                        }
                     }
                 }
                 etUserTel.setSelection(etUserTel.length());
@@ -215,7 +229,7 @@ public class LoginActivity extends Activity {
                         .show();
                 return "";
             }
-        }, new InputFilter.LengthFilter(5)});//특수문자 제한
+        }, new InputFilter.LengthFilter(10)});//특수문자 제한
 
 }
 

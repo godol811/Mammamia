@@ -48,8 +48,8 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
         Log.v(TAG, "onPreExecute()");
         progressDialog = new ProgressDialog(context);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.setTitle("Dialogue");
-        progressDialog.setMessage("Get ....");
+        progressDialog.setTitle("");
+        progressDialog.setMessage("주소록 불러오는중");
         progressDialog.show();
 
     }

@@ -35,20 +35,15 @@ public class SearchActivity extends Activity {
 
     final static String TAG = "서치액티비티";
 
-    String urlAddr = null;
 
+    //field
+    String urlAddr = null;
     String urlIp = null;
-    //-----------------
     ArrayList<AddressDto> members;
     AddressAdapter adapter = null;
     private RecyclerView recyclerView = null;
-
-
     private RecyclerView.LayoutManager layoutManager = null;
-
-
     ItemTouchHelper helper;
-
     //검색을 위한 선언
     EditText etSearch;
     ImageButton ibSearch;
@@ -66,30 +61,21 @@ public class SearchActivity extends Activity {
         //-----------------------------------------------------
 
         ActivityCompat.requestPermissions(SearchActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MODE_PRIVATE); //사용자에게 사진 사용 권한 받기 (가장중요함)
-
-
         recyclerView = findViewById(R.id.rl_address);
-
-
         recyclerView.setHasFixedSize(true);
-
-
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-
         etSearch = findViewById(R.id.et_search);
-
         ibSearch = findViewById(R.id.btn_search_searchactivity);
-        ibSearch.setOnClickListener(searchClickListener);
 
         Intent intent = getIntent();   //IP 받아오자
         urlIp = intent.getStringExtra("urlIp");
-        urlAddr = "http://"+urlIp+":8080/test/mammamiaSearch.jsp";
 
 
 
 
 
+        ibSearch.setOnClickListener(searchClickListener);
 
 
 
@@ -102,7 +88,31 @@ public class SearchActivity extends Activity {
         super.onResume();
 
 
+        connectGetData();
+        registerForContextMenu(recyclerView);
 
+        Log.v(TAG, "onResume");
+        adapter.setOnItemClickListener(new AddressAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+
+                Intent intent = new Intent(SearchActivity.this, ListviewActivity.class);//리스트 클릭시 리스트뷰 넘어가기
+                intent.putExtra("urlIp", urlIp);//ip주소 보내기 ---종찬추가 12/30
+                intent.putExtra("urlAddr", urlAddr);
+                intent.putExtra("addrNo", members.get(position).getAddrNo());
+                intent.putExtra("addrName", members.get(position).getAddrName());
+                intent.putExtra("addrTag", members.get(position).getAddrTag());
+                intent.putExtra("addrTel", members.get(position).getAddrTel());
+                intent.putExtra("addrDetail", members.get(position).getAddrDetail());
+                intent.putExtra("addrAddr", members.get(position).getAddrAddr());
+                intent.putExtra("addrImagePath",members.get(position).getAddrImagePath());
+
+
+                startActivity(intent);
+
+
+            }
+        });
     }
 
 
