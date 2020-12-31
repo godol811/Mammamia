@@ -28,6 +28,7 @@ dependencies {........
     implementation 'com.squareup.picasso:picasso:2.71828'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 }
+
 end code block.
 ***
 
@@ -56,6 +57,7 @@ Link: [MY SQL Connector][MY SQL Connector]
 
 ##test 폴더 안에 jsp MYSQL 데이터 베이스의 주소를 수정하도록한다.
 이를테면
+
 This is a normal paragraph:
 
   String stSearch =  request.getParameter("addrName");
@@ -66,7 +68,9 @@ This is a normal paragraph:
   int count = 0;
   PreparedStatement ps = null;
   ResultSet rs = null;
+
 end code block.
+
 안에 한글로 적혀있는 부분은 각자 환경에 맞게 채우면 된다.
 
 ***
