@@ -191,20 +191,20 @@ public class UpdateActivity extends Activity {
                 if (beforeLenght < afterLenght) {// 타자를 입력 중이면
                     if (s.toString().indexOf("01") < 0 && afterLenght == 2) { //subSequence로 지정된 문자열을 반환해서 "-"폰을 붙여주고 substring
                         tel.setText(s.toString().subSequence(0, 2) + "-" + s.toString().substring(2, s.length()));
-                        Log.v(TAG, "들어와줘");
+//                        Log.v(TAG, "들어와줘");
                     } else if (s.toString().indexOf("01") < 0 && afterLenght == 6) {
                         tel.setText(s.toString().subSequence(0, 6) + "-" + s.toString().substring(6, s.length()));
-                        Log.v(TAG, "너도 들어와줘");
+//                        Log.v(TAG, "너도 들어와줘");
                     } else {
                         if (afterLenght == 4 && s.toString().indexOf("-") < 0) { //subSequence로 지정된 문자열을 반환해서 "-"폰을 붙여주고 substring
                             tel.setText(s.toString().subSequence(0, 3) + "-" + s.toString().substring(3, s.length()));
-                            Log.v(TAG, "subSequence1" + String.valueOf(s.toString().subSequence(0, 3)));
-                            Log.v(TAG, "substring1" + String.valueOf(s.toString().substring(3, s.length())));
+//                            Log.v(TAG, "subSequence1" + String.valueOf(s.toString().subSequence(0, 3)));
+//                            Log.v(TAG, "substring1" + String.valueOf(s.toString().substring(3, s.length())));
 
                         } else if (s.toString().indexOf("02") < 0 && afterLenght == 9) {
                             tel.setText(s.toString().subSequence(0, 8) + "-" + s.toString().substring(8, s.length()));
-                            Log.v(TAG, "subSequence2" + String.valueOf(s.toString().subSequence(0, 8)));
-                            Log.v(TAG, "substring2" + String.valueOf(s.toString().substring(8, s.length())));
+//                            Log.v(TAG, "subSequence2" + String.valueOf(s.toString().subSequence(0, 8)));
+//                            Log.v(TAG, "substring2" + String.valueOf(s.toString().substring(8, s.length())));
                         }
                     }
                 }
