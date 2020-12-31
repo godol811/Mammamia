@@ -93,8 +93,7 @@ public class InsertActivity extends Activity {
                 .permitNetwork().build());//쓰레드 사용시 문제 없게 하는 용도
 
         ActivityCompat.requestPermissions(InsertActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}
-        , MODE_PRIVATE); //사용자에게 사진 사용 권한 받기 (가장중요함)
-
+                , MODE_PRIVATE); //사용자에게 사진 사용 권한 받기 (가장중요함)
 
 
         Intent intent = getIntent();
@@ -118,11 +117,7 @@ public class InsertActivity extends Activity {
         tagSelectBtn.setOnClickListener(tagselectClick);
 
 
-
         image = findViewById(R.id.iv_image_insert);  //이미지를 띄울 위젯 ID값
-
-        
-
 
 
         findViewById(R.id.iv_image_insert).setOnClickListener(new View.OnClickListener() {//사진 불러오기 onclick
@@ -213,7 +208,7 @@ public class InsertActivity extends Activity {
                 new androidx.appcompat.app.AlertDialog.Builder(InsertActivity.this)
                         .setTitle("알림")
                         .setMessage("한글, 영문만 입력 가능합니다.")
-                        .setNegativeButton("확인",null)
+                        .setNegativeButton("확인", null)
                         .setCancelable(false)
                         .show();
                 return "";
@@ -223,47 +218,57 @@ public class InsertActivity extends Activity {
 
     }
 
-
-
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            new AlertDialog.Builder(InsertActivity.this)
-                    .setTitle("알림")
-                    .setIcon(R.mipmap.ic_icon)
-                    .setMessage("입력 하시겠습니까?")
-                    .setCancelable(false)
-                    .setPositiveButton("취소", null)
-                    .setNegativeButton("네", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) { // "네"클릭시 발생되는 이벤트
-                            new Thread(new Runnable() {//Thread 추가해서 사진파일 넣기 위한 기초 마련
-                                @Override
-                                public void run() {
-                                    doMultiPartRequest();//사진 넣는 okHttp3 메소드}}}
-                                }
-                            }).start();
-                            ////////////MYSQL 에 넣을 조건들 /////////////////
-                            String addrTag = insertTag.getText().toString();
-                            String addrName = insertName.getText().toString();
-                            String addrTel = insertTel.getText().toString();
-                            String addrAddr = insertAddr.getText().toString();
-                            String addrDetail = insertDetail.getText().toString();
+    // 입력 빈칸이면 경고띄우기 추가
+            if (insertTel.getText().length() == 0 || insertName.getText().length() == 0 || insertAddr.getText().length() == 0) {
 
-                            Calendar calendar = Calendar.getInstance();//파일 식별을 위한 날짜 추기
-                            java.util.Date date = calendar.getTime();
-                            String today = (new SimpleDateFormat("yyyyMMddHHmmss").format(date));
-                            imageName = today + "_" + imageName;//파일 이름 앞에 입력일(현재시간)_파일명
-                            //JSP에 넣을 urlAddr
-                            urlAddr = urlAddr + "addrTag=" + addrTag + "&addrName=" + addrName + "&addrTel=" + addrTel + "&addrAddr=" + addrAddr + "&addrDetail=" + addrDetail + "&addrImagePath=" + imageName;
-                            Intent intent = new Intent(InsertActivity.this, MainActivity.class);//입력이 완료되고 메인으로 넘어감
-                            startActivity(intent);
-                            connectInsertData();
+                new androidx.appcompat.app.AlertDialog.Builder(InsertActivity.this)
+                        .setTitle("경고")
+                        .setMessage("정보를 입력해주세요!")
+                        .setCancelable(false)//아무데나 눌렀을때 안꺼지게 하는거 (버튼을 통해서만 닫게)
+                        .setPositiveButton("확인", null)
+                        .show();
+            } else {
+                new AlertDialog.Builder(InsertActivity.this)
+                        .setTitle("알림")
+                        .setIcon(R.mipmap.ic_icon)
+                        .setMessage("입력 하시겠습니까?")
+                        .setCancelable(false)
+                        .setPositiveButton("취소", null)
+                        .setNegativeButton("네", new DialogInterface.OnClickListener() {
 
-                        }
-                    })
-                    .show();
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) { // "네"클릭시 발생되는 이벤트
+                                new Thread(new Runnable() {//Thread 추가해서 사진파일 넣기 위한 기초 마련
+                                    @Override
+                                    public void run() {
+                                        doMultiPartRequest();//사진 넣는 okHttp3 메소드}}}
+                                    }
+                                }).start();
+                                ////////////MYSQL 에 넣을 조건들 /////////////////
+                                String addrTag = insertTag.getText().toString();
+                                String addrName = insertName.getText().toString();
+                                String addrTel = insertTel.getText().toString();
+                                String addrAddr = insertAddr.getText().toString();
+                                String addrDetail = insertDetail.getText().toString();
 
+                                Calendar calendar = Calendar.getInstance();//파일 식별을 위한 날짜 추기
+                                java.util.Date date = calendar.getTime();
+                                String today = (new SimpleDateFormat("yyyyMMddHHmmss").format(date));
+                                imageName = today + "_" + imageName;//파일 이름 앞에 입력일(현재시간)_파일명
+                                //JSP에 넣을 urlAddr
+                                urlAddr = urlAddr + "addrTag=" + addrTag + "&addrName=" + addrName + "&addrTel=" + addrTel + "&addrAddr=" + addrAddr + "&addrDetail=" + addrDetail + "&addrImagePath=" + imageName;
+                                Intent intent = new Intent(InsertActivity.this, MainActivity.class);//입력이 완료되고 메인으로 넘어감
+                                startActivity(intent);
+                                connectInsertData();
+
+                            }
+                        })
+                        .show();
+
+            }
         }
     };
     View.OnClickListener onClickListener1 = new View.OnClickListener() {
@@ -284,7 +289,7 @@ public class InsertActivity extends Activity {
                     .setSingleChoiceItems(R.array.tag, 0, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                         selectedIndex[0] = which;
+                            selectedIndex[0] = which;
                         }
                     })
 
@@ -371,6 +376,7 @@ public class InsertActivity extends Activity {
         File f = new File(img_path);
         DoActualRequest(f);
     }
+
     private void DoActualRequest(File file) {//서버 보내기
         OkHttpClient client = new OkHttpClient();
         String url = "http://" + urlIp + ":8080/test/multipartRequest.jsp";
@@ -380,7 +386,7 @@ public class InsertActivity extends Activity {
 
         RequestBody body = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
-                .addFormDataPart("image", today+"_"+file.getName(),RequestBody.create(MediaType.parse("image/jpeg"), file))
+                .addFormDataPart("image", today + "_" + file.getName(), RequestBody.create(MediaType.parse("image/jpeg"), file))
                 .build();
 
         Request request = new Request.Builder()
@@ -396,8 +402,6 @@ public class InsertActivity extends Activity {
             e.printStackTrace();
         }
     }
-
-
 
 
     public boolean dispatchTouchEvent(MotionEvent ev) {//배경 터치 시 키보드 사라지게
