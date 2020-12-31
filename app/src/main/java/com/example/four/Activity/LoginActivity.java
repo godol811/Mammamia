@@ -272,7 +272,7 @@ public class LoginActivity extends Activity {
                         DB.execSQL(query);
                         memberInfo.close();
 
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        Intent intent = new Intent(LoginActivity.this, Tutorial1.class);
                         intent.putExtra("USERNAME", strUserName);
                         intent.putExtra("USERTEL", strUserTel);
                         intent.putExtra("USERADDR", strUserAddr);

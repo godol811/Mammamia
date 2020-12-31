@@ -6,18 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".Activity.Tutorial1"
     android:orientation="vertical"
+    android:background="@drawable/tuto2"
+    android:gravity="bottom"
     >
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/back"
-        />
+
 
     <Button
-        android:layout_gravity="right|bottom"
         android:id="@+id/btn_next_tutorial1"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="다음"
         />
