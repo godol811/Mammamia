@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.four">
-<!--11111111111111111-->
+    <!-- 11111111111111111 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
-<!--   allowBackup : false로 변경  -->
     <application
         android:allowBackup="false"
         android:icon="@mipmap/ic_icon"
@@ -16,37 +15,33 @@
         android:roundIcon="@mipmap/ic_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.Four">
-
-        <!--    에러 방지 코드    -->
-        <uses-library android:name="org.apache.http.legacy"
-            android:required="false"/>
-        <!--        -->
-
-
-
-
+        <activity android:name=".Activity.Tutorial3"></activity>
+        <activity android:name=".Activity.Tutorial2" /> <!-- 에러 방지 코드 -->
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" /> <!--  -->
         <!-- Google ApiKey -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAb4ctbCXHZBEsWIv5zeVn7dckjSDqHRe8" />
-        <!--  -->
-
+            android:value="AIzaSyAb4ctbCXHZBEsWIv5zeVn7dckjSDqHRe8" /> <!--  -->
         <activity android:name=".Activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.MapDetailActivity"/>
+        <activity android:name=".Activity.MapDetailActivity" />
         <activity android:name=".Activity.LikelistActivity" />
         <activity android:name=".Activity.LoginActivity" />
         <activity android:name=".Activity.SearchActivity" />
         <activity android:name=".Activity.InsertActivity" />
         <activity android:name=".Activity.UpdateActivity" />
-        <activity android:name=".Activity.ListviewActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
-        <activity android:name=".Activity.AddressWebViewActivity"/>
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity android:name=".Activity.Tutorial1" />
+        <activity
+            android:name=".Activity.ListviewActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity android:name=".Activity.AddressWebViewActivity" />
         <activity android:name=".Activity.MainActivity" />
     </application>
 

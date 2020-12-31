@@ -342,13 +342,13 @@ public class InsertActivity extends Activity {
 
 
 
-        Toast.makeText(getBaseContext(), "resultCode : " + data, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getBaseContext(), "resultCode : " + data, Toast.LENGTH_SHORT).show();
 
         if (requestCode == REQ_CODE_SELECT_IMAGE) {
             if (resultCode == Activity.RESULT_OK) {
                 try {
                     img_path = getImagePathToUri(data.getData()); //이미지의 URI를 얻어 경로값으로 반환.
-                    Toast.makeText(getBaseContext(), "img_path : " + img_path, Toast.LENGTH_SHORT).show();//이미지를 비트맵형식으로 반환
+//                    Toast.makeText(getBaseContext(), "img_path : " + img_path, Toast.LENGTH_SHORT).show();//이미지를 비트맵형식으로 반환
                     image_bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
                     Glide.with(InsertActivity.this).load(img_path)//사진 띄우기 Glide 사용
                             .override(300, 300)
@@ -374,7 +374,7 @@ public class InsertActivity extends Activity {
         String imgPath = cursor.getString(column_index);//이미지의 경로 값
         Log.d("test", imgPath);//이미지 경로 확인해서 데이터 값 넘기기
         String imgName = imgPath.substring(imgPath.lastIndexOf("/") + 1); //이미지의 이름 값
-        Toast.makeText(InsertActivity.this, "이미지 이름 : " + imgName, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(InsertActivity.this, "이미지 이름 : " + imgName, Toast.LENGTH_SHORT).show();
         this.imageName = imgName;
 //        this.imagePath = imgPath;
 

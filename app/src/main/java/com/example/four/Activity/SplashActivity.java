@@ -78,7 +78,7 @@ public class SplashActivity extends Activity {
             public void run() {
 
 
-                Intent mainIntent = new Intent(SplashActivity.this, MainActivity.class); //Splash 끝나고 이동경로
+                Intent mainIntent = new Intent(SplashActivity.this, LoginActivity.class); //Splash 끝나고 이동경로
                 SplashActivity.this.startActivity(mainIntent);
                 SplashActivity.this.finish();
             }

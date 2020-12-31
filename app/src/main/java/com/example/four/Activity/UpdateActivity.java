@@ -247,7 +247,7 @@ public class UpdateActivity extends Activity {
                 return "";
             }
             //글자수 제한
-        }, new InputFilter.LengthFilter(5)});//특수문자 제한
+        }, new InputFilter.LengthFilter(10)});//특수문자 제한
 
     }
 
@@ -315,7 +315,7 @@ public class UpdateActivity extends Activity {
 //            Log.d(TAG, urlAddr);
 
             Intent intent = new Intent(UpdateActivity.this, MainActivity.class);
-            Toast.makeText(UpdateActivity.this, "수정이완료돼싸", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(UpdateActivity.this, "수정이완료돼싸", Toast.LENGTH_SHORT).show();
             startActivity(intent);
 
 
@@ -356,13 +356,13 @@ public class UpdateActivity extends Activity {
             }//주소 검색 api 추가
 
 
-        Toast.makeText(getBaseContext(), "resultCode : " + data, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getBaseContext(), "resultCode : " + data, Toast.LENGTH_SHORT).show();
 
         if (requestCode == REQ_CODE_SELECT_IMAGE) {
             if (resultCode == Activity.RESULT_OK) {
                 try {
                     img_path = getImagePathToUri(data.getData()); //이미지의 URI를 얻어 경로값으로 반환.
-                    Toast.makeText(getBaseContext(), "img_path : " + img_path, Toast.LENGTH_SHORT).show();//이미지를 비트맵형식으로 반환
+//                    Toast.makeText(getBaseContext(), "img_path : " + img_path, Toast.LENGTH_SHORT).show();//이미지를 비트맵형식으로 반환
                     image_bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
                     ImageView image = (ImageView) findViewById(R.id.iv_profile_update);  //이미지를 띄울 위젯 ID값
                     image.setImageBitmap(image_bitmap_copy);
@@ -391,7 +391,7 @@ public class UpdateActivity extends Activity {
         String imgPath = cursor.getString(column_index);//이미지의 경로 값
 //        Log.d("test", imgPath);//이미지 경로 확인해서 데이터 값 넘기기
         String imgName = imgPath.substring(imgPath.lastIndexOf("/") + 1); //이미지의 이름 값
-        Toast.makeText(UpdateActivity.this, "이미지 이름 : " + imgName, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(UpdateActivity.this, "이미지 이름 : " + imgName, Toast.LENGTH_SHORT).show();
         this.imageName = imgName;
 
         return imgPath;

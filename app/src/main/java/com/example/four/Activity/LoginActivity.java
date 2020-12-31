@@ -148,7 +148,7 @@ public class LoginActivity extends Activity {
         etUserTel.addTextChangedListener(new TextWatcher() {//자동으로 "-" 생성해서 전화번호에 붙여주기
 
 
-            String tel = String.valueOf(etUserTel.getText());
+            final String tel = String.valueOf(etUserTel.getText());
             private int beforeLenght = 0;
             private int afterLenght = 0;
 
@@ -262,6 +262,7 @@ public class LoginActivity extends Activity {
             String strUserAddr = tvUserAddr.getText().toString().trim();
             String strUserTel = etUserTel.getText().toString().trim();
             String strUserAddrDetail = etUserAddrDetail.getText().toString().trim();
+
             switch (v.getId()) {
                 case R.id.btn_login_login:
 
@@ -289,6 +290,8 @@ public class LoginActivity extends Activity {
 
     //만약에 데이터 베이스 값이 있으면 그대로 유지 하되 다음 페이지로 넘기기
     public void selectAction() {
+
+
         Log.d(TAG, "selectAction()");
         SQLiteDatabase DB;
         try {
@@ -323,6 +326,7 @@ public class LoginActivity extends Activity {
     }
 
     public boolean validation(){//빈칸 다 채워졌는지 확인하는 메소드 true이면 빈칸이 없고 false면 빈칸이 있다.
+
         return etUserName.getText().toString().trim().length() !=0 && etUserTel.getText().toString().trim().length() !=0&&
                 tvUserAddr.getText().toString().trim().length() !=0&& etUserAddrDetail.getText().toString().trim().length() !=0
                 && cbAgree.isChecked();
