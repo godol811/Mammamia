@@ -15,6 +15,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
@@ -77,11 +78,11 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Log.d(TAG, mDataset.get(position).getAddrImagePath());
 
-
         holder.addrTag.setText(mDataset.get(position).getAddrTag());
         holder.addrName.setText(mDataset.get(position).getAddrName());
         holder.addrAddr.setText(mDataset.get(position).getAddrAddr());
         holder.addrTel.setText(mDataset.get(position).getAddrTel());
+
 
         Glide.with(holder.addrProfile)
                 .load(urlAddr + mDataset
@@ -113,6 +114,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
     //인터페이스 선언
     public interface OnItemClickListener {
         void onItemClick(View v, int position);
+
     }
 
     private OnItemClickListener mListener = null;
@@ -150,10 +152,12 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         AddressDto addressDto = mDataset.get(from_position);
         //이동할 객체 삭제
         mDataset.remove(from_position);
+
         //이동하고 싶은 position에 추가
         mDataset.add(to_position, addressDto);
         //Adapter에 데이터 이동알림
         notifyItemMoved(from_position, to_position);
+
         return true;
     }
     @Override
@@ -185,8 +189,8 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
     //오른쪽 버튼 누르면 아이템 삭제
     @Override
     public void onRightClick(int position, RecyclerView.ViewHolder viewHolder) {
-
         new AlertDialog.Builder(mContext) // 저장 후 입력 완료 되었다는 Alert 창, 확인 클릭 시 리스트 창으로 이동
+
                 .setTitle("")
                 .setMessage(""+mDataset.get(position).getAddrTel())
                 .setCancelable(false)//아무데나 눌렀을때 안꺼지게 하는거 (버튼을 통해서만 닫게)
@@ -201,6 +205,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
                     }
                 })
                 .show();
+
     }
 
     @Override

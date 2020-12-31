@@ -131,7 +131,7 @@ public class UpdateActivity extends Activity {
                 .placeholder(R.drawable.noimg)
                 .apply(new RequestOptions().circleCrop())
                 .into(profileImage);
-        Log.d(TAG, "http://" + urlIp + ":8080/pictures/" + imagePath);
+//        Log.d(TAG, "http://" + urlIp + ":8080/pictures/" + imagePath);
 
 
 
@@ -172,7 +172,7 @@ public class UpdateActivity extends Activity {
 
                 //아무글자도 없는데 지우려고 하면 로그띄우기 에러방지
                 if (s.length() <= 0) {
-                    Log.d("addTextChangedListener", "onTextChanged: Intput text is wrong (Type : Length)");
+//                    Log.d("addTextChangedListener", "onTextChanged: Intput text is wrong (Type : Length)");
                     return;
                 }
 
@@ -180,7 +180,7 @@ public class UpdateActivity extends Activity {
                 char inputChar = s.charAt(s.length() - 1);
                 if (inputChar != '-' && (inputChar < '0' || inputChar > '9')) {
                     tel.getText().delete(s.length() - 1, s.length());
-                    Log.d("addTextChangedListener", "onTextChanged: Intput text is wrong (Type : Number)");
+//                    Log.d("addTextChangedListener", "onTextChanged: Intput text is wrong (Type : Number)");
                     return;
                 }
 
@@ -389,7 +389,7 @@ public class UpdateActivity extends Activity {
         int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
         cursor.moveToFirst();
         String imgPath = cursor.getString(column_index);//이미지의 경로 값
-        Log.d("test", imgPath);//이미지 경로 확인해서 데이터 값 넘기기
+//        Log.d("test", imgPath);//이미지 경로 확인해서 데이터 값 넘기기
         String imgName = imgPath.substring(imgPath.lastIndexOf("/") + 1); //이미지의 이름 값
         Toast.makeText(UpdateActivity.this, "이미지 이름 : " + imgName, Toast.LENGTH_SHORT).show();
         this.imageName = imgName;

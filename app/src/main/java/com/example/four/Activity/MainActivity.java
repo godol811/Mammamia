@@ -57,6 +57,12 @@ public class MainActivity extends Activity {
 
     ItemTouchHelper helper;
 
+
+
+
+
+
+
     ImageButton ivSearchActivity;//검색버튼
 
     ImageButton Iblikelistbtn;//라이크리스트버튼
@@ -120,10 +126,10 @@ public class MainActivity extends Activity {
         connectGetData();
         registerForContextMenu(recyclerView);
 
-        Log.v(TAG, "onResume"); //태그 선언
+//        Log.v(TAG, "onResume"); //태그 선언
 
 
-        Log.v(TAG, "onResume");
+//        Log.v(TAG, "onResume");
         adapter.setOnItemClickListener(new AddressAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {

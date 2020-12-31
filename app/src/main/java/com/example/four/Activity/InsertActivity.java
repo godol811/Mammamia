@@ -71,6 +71,8 @@ public class InsertActivity extends Activity {
     Button insertBackBtn;
     Button tagSelectBtn;
 
+    ImageView image;
+
     private static final int SEARCH_ADDRESS_ACTIVITY = 10000;
 
 
@@ -119,7 +121,7 @@ public class InsertActivity extends Activity {
 
 
 
-
+        image = findViewById(R.id.iv_image_insert);  //이미지를 띄울 위젯 ID값
 
         
 
@@ -350,7 +352,6 @@ public class InsertActivity extends Activity {
                     img_path = getImagePathToUri(data.getData()); //이미지의 URI를 얻어 경로값으로 반환.
                     Toast.makeText(getBaseContext(), "img_path : " + img_path, Toast.LENGTH_SHORT).show();//이미지를 비트맵형식으로 반환
                     image_bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
-                    ImageView image = (ImageView) findViewById(R.id.iv_image_insert);  //이미지를 띄울 위젯 ID값
                     Glide.with(InsertActivity.this).load(img_path)//사진 띄우기 Glide 사용
                             .override(300, 300)
                             .placeholder(R.drawable.noimg)
