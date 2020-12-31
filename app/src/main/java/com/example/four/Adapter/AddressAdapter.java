@@ -90,7 +90,6 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
                 .override(120, 120)
                 .apply(new RequestOptions().circleCrop()).into(holder.addrProfile);//사진
 
-//        Log.d(TAG, urlAddr + mDataset.get(position).getAddrImagePath());
 
 
         if (mDataset.get(position).getAddrTag().equals("병원")) {
