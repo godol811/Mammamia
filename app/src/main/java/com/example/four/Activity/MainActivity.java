@@ -200,6 +200,8 @@ public class MainActivity extends Activity {
     }
 
 
+
+
     private void setUpRecyclerView() {
         recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override

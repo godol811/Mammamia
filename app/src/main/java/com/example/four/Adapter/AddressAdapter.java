@@ -95,14 +95,30 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
 //        Log.d(TAG, urlAddr + mDataset.get(position).getAddrImagePath());
 
 
-        if (mDataset.get(position).getAddrTag().equals("병원")) {
+        if (mDataset.get(position).getAddrTag().equals("병원") && mDataset.get(position).getAddrLike().equals("0")) {
             holder.addrTagImg.setImageResource(R.drawable.tag_hospital);
-        } else if (mDataset.get(position).getAddrTag().equals("유치원")) {
+            holder.addrLike.setImageResource(R.drawable.unlike);
+        } else if (mDataset.get(position).getAddrTag().equals("유치원") && mDataset.get(position).getAddrLike().equals("0")) {
             holder.addrTagImg.setImageResource(R.drawable.tag_kindergaden);
-        } else if (mDataset.get(position).getAddrTag().equals("키즈카페")) {
+            holder.addrLike.setImageResource(R.drawable.unlike);
+        } else if (mDataset.get(position).getAddrTag().equals("키즈카페") && mDataset.get(position).getAddrLike().equals("0")) {
             holder.addrTagImg.setImageResource(R.drawable.tag_cafe);
-        } else if (mDataset.get(position).getAddrTag().equals("기타")) {
+            holder.addrLike.setImageResource(R.drawable.unlike);
+        } else if (mDataset.get(position).getAddrTag().equals("기타") && mDataset.get(position).getAddrLike().equals("0")) {
             holder.addrTagImg.setImageResource(R.drawable.tag_user);
+            holder.addrLike.setImageResource(R.drawable.unlike);
+        }else if(mDataset.get(position).getAddrTag().equals("병원") && mDataset.get(position).getAddrLike().equals("1")) {
+            holder.addrTagImg.setImageResource(R.drawable.tag_hospital);
+            holder.addrLike.setImageResource(R.drawable.like);
+        } else if (mDataset.get(position).getAddrTag().equals("유치원") && mDataset.get(position).getAddrLike().equals("1")) {
+            holder.addrTagImg.setImageResource(R.drawable.tag_kindergaden);
+            holder.addrLike.setImageResource(R.drawable.like);
+        } else if (mDataset.get(position).getAddrTag().equals("키즈카페") && mDataset.get(position).getAddrLike().equals("1")) {
+            holder.addrTagImg.setImageResource(R.drawable.tag_cafe);
+            holder.addrLike.setImageResource(R.drawable.like);
+        } else if (mDataset.get(position).getAddrTag().equals("기타") && mDataset.get(position).getAddrLike().equals("1")) {
+            holder.addrTagImg.setImageResource(R.drawable.tag_user);
+            holder.addrLike.setImageResource(R.drawable.like);
         }
 
         holder.onBind(mDataset.get(position));
@@ -169,17 +185,16 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
     //왼쪽 버튼 누르면 수정할 다이얼로그 띄우기
     @Override
     public void onLeftClick(int position, RecyclerView.ViewHolder viewHolder) {
-//        Intent intent1 = new Intent(mContext, UpdateActivity.class );
-//        switch ((int) viewHolder.getItemId()){
-//
-//            case 0:
-//                intent1.putExtra("addrLike",mDataset.get(pos).getAddrLike());
-//                mContext.startActivity(intent1);
-//                break;
-//            case 1:
-//                intent1.putExtra("addrLike",mDataset.get(pos).getAddrLike());
-//                mContext.startActivity(intent1);
-//                break;
+        CustomDialogLeft dialog = new CustomDialogLeft(mContext, position, mDataset.get(position));//수정 버튼 클릭시 다이얼로그 생성
+        DisplayMetrics dm = mContext.getApplicationContext().getResources().getDisplayMetrics();// 화면 사이즈 구하기
+        int width = dm.widthPixels;
+        int height = dm.heightPixels;
+        WindowManager.LayoutParams wm = dialog.getWindow().getAttributes();//다이얼로그 사이즈 세팅
+        wm.copyFrom(dialog.getWindow().getAttributes());
+        wm.width = (int) (width * 0.8);
+        wm.height = height / 4;
+        dialog.setDialogListener(this);//다이얼로그 Listener 세팅
+        dialog.show();//다이얼로그 띄우기
 
     }
 
@@ -224,7 +239,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         public ImageView addrProfile;
         public ImageView addrTagImg;
         //추가
-        public TextView addrLike;
+        public ImageView addrLike;
 
         MyViewHolder(View v) {
 
@@ -235,6 +250,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
             addrTel = v.findViewById(R.id.tv_tel_listlayout);
             addrProfile = v.findViewById(R.id.iv_profile_listlayout);
             addrTagImg = v.findViewById(R.id.iv_tag_listlayout);
+            addrLike = v.findViewById(R.id.iv_like_listlayout);
             Log.v(TAG1, "MyViewHolder");
             // 뷰홀더에서만 리스트 포지션값을 불러올 수 있음.
 

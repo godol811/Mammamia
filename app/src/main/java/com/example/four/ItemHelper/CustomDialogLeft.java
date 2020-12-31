@@ -9,23 +9,23 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 
+import com.example.four.Activity.UpdateActivity;
 import com.example.four.Bean.AddressDto;
+import com.example.four.NetworkTask.NetworkTask;
 import com.example.four.R;
+
 //import com.example.swipe.OnDialogListener;
 //import com.example.swipe.Person;
 //import com.example.swipe.R;
-
 public class CustomDialogLeft extends Dialog {
     private OnDialogListener listener;
-    private Button mod_bt;
+    private Button mod_bt2, mod_bt2_cancle;
     String macIP;
-
     String urlAddr = null;
-
-
+    String urlIp = null;
     final String TAG = "커스텀다이얼로그왼쪽";
 
-//    @Override
+    //    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
 //
@@ -37,33 +37,56 @@ public class CustomDialogLeft extends Dialog {
 //        urlAddr = "http://" + macIP + ":8080/test/mammamialikeupdate.jsp?";
 //
 //    }
-
     public CustomDialogLeft(Context context, final int position, AddressDto addressDto) {
         super(context);
-
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         setContentView(R.layout.customdialog_left);
-
-        mod_bt = findViewById(R.id.mod_bt);
-        mod_bt.setOnClickListener(new View.OnClickListener() {
+        mod_bt2 = findViewById(R.id.mod_bt2);
+        mod_bt2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-                    dismiss();
-
+//                urlAddr = "http://" + urlIp + ":8080/test/mammamiaLikeupdate.jsp?";
+//                urlAddr = urlAddr + "addrLike=" + addrNo;
+//                connectUpdateData();
+//
+//
+//                Intent intent = new Intent(CustomDialog2.this, urlAddr,"delete");
+//                startActivity(intent);
+            }
+        });
+        mod_bt2_cancle = findViewById(R.id.mod_bt2_cancle);
+        mod_bt2_cancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
             }
         });
     }
 
-
-
+    private void connectUpdateData() {
+        try {
+            NetworkTask updateworkTask = new NetworkTask(getContext(), urlAddr, "update");
+            updateworkTask.execute().get();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public void setDialogListener(OnDialogListener listener) {
         this.listener = listener;
     }
 }
+
+
+
+
+
+
+
+
+
+
 
 
 
