@@ -69,6 +69,8 @@ public class InsertActivity extends Activity {
     Button insertBackBtn;
     Button tagSelectBtn;
 
+    ImageView image;
+
     private static final int SEARCH_ADDRESS_ACTIVITY = 10000;
 
 
@@ -91,7 +93,8 @@ public class InsertActivity extends Activity {
                 .permitNetwork().build());//쓰레드 사용시 문제 없게 하는 용도
 
         ActivityCompat.requestPermissions(InsertActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}
-                , MODE_PRIVATE); //사용자에게 사진 사용 권한 받기 (가장중요함)
+        , MODE_PRIVATE); //사용자에게 사진 사용 권한 받기 (가장중요함)
+
 
 
         Intent intent = getIntent();
@@ -110,20 +113,25 @@ public class InsertActivity extends Activity {
         addrinsertBtn = findViewById(R.id.btn_ok_insert);
         insertBackBtn = findViewById(R.id.btn_back_insert);
         ////////////OnclickListener 할당/////////////////
-        addrinsertBtn.setOnClickListener(onClickListener);//입력확인 버튼
-        insertBackBtn.setOnClickListener(onClickListener1);//뒤로가기 버튼
-        tagSelectBtn.setOnClickListener(tagselectClick);//태그선택 버튼
+        addrinsertBtn.setOnClickListener(onClickListener);
+        insertBackBtn.setOnClickListener(onClickListener1);
+        tagSelectBtn.setOnClickListener(tagselectClick);
+
+
+
+        image = findViewById(R.id.iv_image_insert);  //이미지를 띄울 위젯 ID값
+
+        
+
 
 
         findViewById(R.id.iv_image_insert).setOnClickListener(new View.OnClickListener() {//사진 불러오기 onclick
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
                 intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
-
 
             }
         });
@@ -205,7 +213,7 @@ public class InsertActivity extends Activity {
                 new androidx.appcompat.app.AlertDialog.Builder(InsertActivity.this)
                         .setTitle("알림")
                         .setMessage("한글, 영문만 입력 가능합니다.")
-                        .setNegativeButton("확인", null)
+                        .setNegativeButton("확인",null)
                         .setCancelable(false)
                         .show();
                 return "";
@@ -216,7 +224,7 @@ public class InsertActivity extends Activity {
     }
 
 
-    //입력 버튼 리스너
+
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -258,8 +266,6 @@ public class InsertActivity extends Activity {
 
         }
     };
-
-    //뒤로가기 버튼 리스너
     View.OnClickListener onClickListener1 = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -278,7 +284,7 @@ public class InsertActivity extends Activity {
                     .setSingleChoiceItems(R.array.tag, 0, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            selectedIndex[0] = which;
+                         selectedIndex[0] = which;
                         }
                     })
 
@@ -330,7 +336,6 @@ public class InsertActivity extends Activity {
                 try {
                     img_path = getImagePathToUri(data.getData()); //이미지의 URI를 얻어 경로값으로 반환.
                     image_bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
-                    ImageView image = (ImageView) findViewById(R.id.iv_image_insert);  //이미지를 띄울 위젯 ID값
                     Glide.with(InsertActivity.this).load(img_path)//사진 띄우기 Glide 사용
                             .override(300, 300)
                             .placeholder(R.drawable.noimg)
@@ -366,7 +371,6 @@ public class InsertActivity extends Activity {
         File f = new File(img_path);
         DoActualRequest(f);
     }
-
     private void DoActualRequest(File file) {//서버 보내기
         OkHttpClient client = new OkHttpClient();
         String url = "http://" + urlIp + ":8080/test/multipartRequest.jsp";
@@ -376,7 +380,7 @@ public class InsertActivity extends Activity {
 
         RequestBody body = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
-                .addFormDataPart("image", today + "_" + file.getName(), RequestBody.create(MediaType.parse("image/jpeg"), file))
+                .addFormDataPart("image", today+"_"+file.getName(),RequestBody.create(MediaType.parse("image/jpeg"), file))
                 .build();
 
         Request request = new Request.Builder()
@@ -392,6 +396,8 @@ public class InsertActivity extends Activity {
             e.printStackTrace();
         }
     }
+
+
 
 
     public boolean dispatchTouchEvent(MotionEvent ev) {//배경 터치 시 키보드 사라지게

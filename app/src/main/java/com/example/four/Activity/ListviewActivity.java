@@ -90,8 +90,9 @@ public class ListviewActivity extends AppCompatActivity
         addr = intent.getStringExtra("addrAddr");
         imagePath = intent.getStringExtra("addrImagePath");
 
+//        Log.d(TAG,imagePath);
 
-        //아이디 찾기
+
         addrName = findViewById(R.id.tv_name_listview);
         addrTag = findViewById(R.id.tv_tagname_listview);
         addrTel = findViewById(R.id.tv_tel_listview);
@@ -117,8 +118,6 @@ public class ListviewActivity extends AppCompatActivity
         upbtn.setOnClickListener(onClickListener); //수정버튼클릭
         delebtn.setOnClickListener(onClickListener2); //삭제버큰클릭
         geocoding();//지오코딩해주는 메소드
-
-
     }
 
     //수정 버튼 클릭시 이동
@@ -200,7 +199,7 @@ public class ListviewActivity extends AppCompatActivity
                 //주소값 보내주기 마커위치에서 시작하기 위해서
                 intent.putExtra("intentLat", intentLat);
                 intent.putExtra("intentLng", intentLng);
-                Log.d(TAG, addr);
+//                Log.d(TAG, addr);
                 startActivity(intent);
             }
         });
@@ -229,8 +228,9 @@ public class ListviewActivity extends AppCompatActivity
             //좌표값 저장
             intentLat = addresses.get(0).getLatitude();
             intentLng = addresses.get(0).getLongitude();
-            Log.v(TAG, "intentLat : " + String.valueOf(intentLat));
-            Log.v(TAG, "intentLng : " + String.valueOf(intentLng));
+//            Log.v(TAG, "intentLat : " + String.valueOf(intentLat));
+//            Log.v(TAG, "intentLng : " + String.valueOf(intentLng));
+
 
 
         } catch (IOException e) {

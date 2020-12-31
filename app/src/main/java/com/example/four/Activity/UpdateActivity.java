@@ -50,21 +50,23 @@ import okhttp3.Response;
 
 public class UpdateActivity extends Activity {
 
-
-    //field
     String imagePath = null;
     String imageName = null;
     private String img_path = new String();
     private Bitmap image_bitmap_copy = null;
     private Bitmap image_bitmap = null;
     private final int REQ_CODE_SELECT_IMAGE = 100;
+
     final static String TAG = "업데이트액티비티";
     String tag1, name1, tel1, detail1, addr1;
     int num;
-    EditText tag, name, tel, detail, addr;
+    EditText tag, name, tel, detail,addr;
+
     ImageView profileImage;
+
     String urlAddr = null;
     String urlIp = null;
+
     Button okbtn;
     Button backbtn;
     Button tagSelectBtn;
@@ -72,7 +74,6 @@ public class UpdateActivity extends Activity {
     private static final int SEARCH_ADDRESS_ACTIVITY = 10000;//12월 30일 주소 api 변수 추가
 
     final int[] selectedIndex = {0}; //tag 추가
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,7 +130,8 @@ public class UpdateActivity extends Activity {
                 .placeholder(R.drawable.noimg)
                 .apply(new RequestOptions().circleCrop())
                 .into(profileImage);
-        Log.d(TAG, "http://" + urlIp + ":8080/pictures/" + imagePath);
+//        Log.d(TAG, "http://" + urlIp + ":8080/pictures/" + imagePath);
+
 
 
         profileImage.setOnClickListener(new View.OnClickListener() {//이미지 올리기
@@ -228,7 +230,7 @@ public class UpdateActivity extends Activity {
                 new androidx.appcompat.app.AlertDialog.Builder(UpdateActivity.this)
                         .setTitle("알림")
                         .setMessage("한글, 영문만 입력 가능합니다.")
-                        .setNegativeButton("확인", null)
+                        .setNegativeButton("확인",null)
                         .setCancelable(false)
                         .show();
                 return "";
@@ -329,7 +331,6 @@ public class UpdateActivity extends Activity {
         }
     };
 
-
     private void connectUpdateData() {
         try {
             NetworkTask updateworkTask = new NetworkTask(UpdateActivity.this, urlAddr, "update");
@@ -343,17 +344,17 @@ public class UpdateActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {//주석
 
-        super.onActivityResult(requestCode, resultCode, data);//주소 검색 api 추가
-        switch (requestCode) {
-            case SEARCH_ADDRESS_ACTIVITY:
-                if (resultCode == RESULT_OK) {
-                    String data1 = data.getExtras().getString("data");
-                    if (data1 != null) {
-                        addr.setText(data1);
+            super.onActivityResult(requestCode, resultCode, data);//주소 검색 api 추가
+            switch (requestCode) {
+                case SEARCH_ADDRESS_ACTIVITY:
+                    if (resultCode == RESULT_OK) {
+                        String data1 = data.getExtras().getString("data");
+                        if (data1 != null) {
+                            addr.setText(data1);
+                        }
                     }
-                }
-                break;
-        }//주소 검색 api 추가
+                    break;
+            }//주소 검색 api 추가
 
 
         if (requestCode == REQ_CODE_SELECT_IMAGE) {
@@ -386,7 +387,7 @@ public class UpdateActivity extends Activity {
         int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
         cursor.moveToFirst();
         String imgPath = cursor.getString(column_index);//이미지의 경로 값
-        Log.d("test", imgPath);//이미지 경로 확인해서 데이터 값 넘기기
+//        Log.d("test", imgPath);//이미지 경로 확인해서 데이터 값 넘기기
         String imgName = imgPath.substring(imgPath.lastIndexOf("/") + 1); //이미지의 이름 값
         this.imageName = imgName;
 
@@ -435,6 +436,7 @@ public class UpdateActivity extends Activity {
     //고종찬 = 바지사장
     //
     //---------------------------------------------------------------------------------
+
 
 
     public boolean dispatchTouchEvent(MotionEvent ev) {//배경 터치 시 키보드 사라지게
