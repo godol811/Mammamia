@@ -28,6 +28,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -147,8 +148,8 @@ public class UpdateActivity extends Activity {
         });
 
 
-        okbtn.setOnClickListener(onClickListener); //수정완료 버튼 리스너
-        backbtn.setOnClickListener(onClickListener1); //뒤로가기 버튼 리스너
+        okbtn.setOnClickListener(onClickListener);
+        backbtn.setOnClickListener(onClickListener1);
 
         //update tag 버튼 추가
         tagSelectBtn.setOnClickListener(tagselectClick);
@@ -171,7 +172,7 @@ public class UpdateActivity extends Activity {
 
                 //아무글자도 없는데 지우려고 하면 로그띄우기 에러방지
                 if (s.length() <= 0) {
-                    Log.d("addTextChangedListener", "onTextChanged: Intput text is wrong (Type : Length)");
+//                    Log.d("addTextChangedListener", "onTextChanged: Intput text is wrong (Type : Length)");
                     return;
                 }
 
@@ -179,7 +180,7 @@ public class UpdateActivity extends Activity {
                 char inputChar = s.charAt(s.length() - 1);
                 if (inputChar != '-' && (inputChar < '0' || inputChar > '9')) {
                     tel.getText().delete(s.length() - 1, s.length());
-                    Log.d("addTextChangedListener", "onTextChanged: Intput text is wrong (Type : Number)");
+//                    Log.d("addTextChangedListener", "onTextChanged: Intput text is wrong (Type : Number)");
                     return;
                 }
 
@@ -187,14 +188,24 @@ public class UpdateActivity extends Activity {
 
 
                 // 타자를 입력 중이면
-                if (beforeLenght < afterLenght) {
-                    if (afterLenght == 4 && s.toString().indexOf("-") < 0) {
-                        //subSequence로 지정된 문자열을 반환해서 "-"폰을 붙여주고 substring
-                        tel.setText(s.toString().subSequence(0, 3) + "-" + s.toString().substring(3, s.length()));
-                        Log.v(TAG, String.valueOf(s.toString().substring(3, s.length())));
-                    } else if (afterLenght == 9) {
-                        tel.setText(s.toString().subSequence(0, 8) + "-" + s.toString().substring(8, s.length()));
-                        Log.v(TAG, String.valueOf(s.toString().substring(8, s.length())));
+                if (beforeLenght < afterLenght) {// 타자를 입력 중이면
+                    if (s.toString().indexOf("01") < 0 && afterLenght == 2) { //subSequence로 지정된 문자열을 반환해서 "-"폰을 붙여주고 substring
+                        tel.setText(s.toString().subSequence(0, 2) + "-" + s.toString().substring(2, s.length()));
+                        Log.v(TAG, "들어와줘");
+                    } else if (s.toString().indexOf("01") < 0 && afterLenght == 6) {
+                        tel.setText(s.toString().subSequence(0, 6) + "-" + s.toString().substring(6, s.length()));
+                        Log.v(TAG, "너도 들어와줘");
+                    } else {
+                        if (afterLenght == 4 && s.toString().indexOf("-") < 0) { //subSequence로 지정된 문자열을 반환해서 "-"폰을 붙여주고 substring
+                            tel.setText(s.toString().subSequence(0, 3) + "-" + s.toString().substring(3, s.length()));
+                            Log.v(TAG, "subSequence1" + String.valueOf(s.toString().subSequence(0, 3)));
+                            Log.v(TAG, "substring1" + String.valueOf(s.toString().substring(3, s.length())));
+
+                        } else if (s.toString().indexOf("02") < 0 && afterLenght == 9) {
+                            tel.setText(s.toString().subSequence(0, 8) + "-" + s.toString().substring(8, s.length()));
+                            Log.v(TAG, "subSequence2" + String.valueOf(s.toString().subSequence(0, 8)));
+                            Log.v(TAG, "substring2" + String.valueOf(s.toString().substring(8, s.length())));
+                        }
                     }
                 }
                 tel.setSelection(tel.length());
@@ -238,7 +249,7 @@ public class UpdateActivity extends Activity {
             //글자수 제한
         }, new InputFilter.LengthFilter(5)});//특수문자 제한
 
-    }//-----------------onCreate
+    }
 
 
     View.OnClickListener tagselectClick = new View.OnClickListener() {//태그 선택했을경우
@@ -267,63 +278,51 @@ public class UpdateActivity extends Activity {
     };//태그 선택 끝
 
 
-    //수정완료 버튼 리스너 클릭시 이벤트
+    //주소검색 API----------------------------
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            new AlertDialog.Builder(UpdateActivity.this)
-                    .setTitle("알림")
-                    .setMessage("수정 하시겠습니까?")
-                    .setCancelable(false)
-                    .setIcon(R.mipmap.ic_icon)
-                    .setPositiveButton("취소", null)
-                    .setNegativeButton("확인", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    doMultiPartRequest();//사진 넣는 okHttp3 메소드}}}
+                }
+            }).start();
 
 
-                            new Thread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    doMultiPartRequest();//사진 넣는 okHttp3 메소드}}}
-                                }
-                            }).start();
+            String st_tag = tag.getText().toString();
+            String st_name = name.getText().toString();
+            String st_tel = tel.getText().toString();
+            String st_addr = addr.getText().toString();
+            String st_detail = detail.getText().toString();
+
+            Calendar calendar = Calendar.getInstance();
+            java.util.Date date = calendar.getTime();
+            String today = (new SimpleDateFormat("yyyyMMddHHmmss").format(date));
+
+            imageName = today + "_" + imageName;
+
+            if(img_path.trim().length()==0){//사진 둥록을 해서 들어오는 값이 없으면 기존의 데이터를 그냥 다시 씌우기
+                urlAddr = urlAddr + "addrNo=" + num + "&addrName=" + st_name + "&addrTel=" + st_tel + "&addrAddr=" + st_addr + "&addrDetail=" + st_detail + "&addrTag=" + st_tag+ "&addrImagePath=" + imagePath;
+            }else{//사진 등록되면 걍 넣기
+                urlAddr = urlAddr + "addrNo=" + num + "&addrName=" + st_name + "&addrTel=" + st_tel + "&addrAddr=" + st_addr + "&addrDetail=" + st_detail + "&addrTag=" + st_tag + "&addrImagePath=" + imageName;
+            }
 
 
-                            String st_tag = tag.getText().toString();
-                            String st_name = name.getText().toString();
-                            String st_tel = tel.getText().toString();
-                            String st_addr = addr.getText().toString();
-                            String st_detail = detail.getText().toString();
 
-                            Calendar calendar = Calendar.getInstance();
-                            java.util.Date date = calendar.getTime();
-                            String today = (new SimpleDateFormat("yyyyMMddHHmmss").format(date));
+            connectUpdateData();
+//            Log.d(TAG, urlAddr);
 
-                            imageName = today + "_" + imageName;
+            Intent intent = new Intent(UpdateActivity.this, MainActivity.class);
+            Toast.makeText(UpdateActivity.this, "수정이완료돼싸", Toast.LENGTH_SHORT).show();
+            startActivity(intent);
 
-                            if (img_path.trim().length() == 0) {//사진 둥록을 해서 들어오는 값이 없으면 기존의 데이터를 그냥 다시 씌우기
-                                urlAddr = urlAddr + "addrNo=" + num + "&addrName=" + st_name + "&addrTel=" + st_tel + "&addrAddr=" + st_addr + "&addrDetail=" + st_detail + "&addrTag=" + st_tag + "&addrImagePath=" + imagePath;
-                            } else {//사진 등록되면 걍 넣기
-                                urlAddr = urlAddr + "addrNo=" + num + "&addrName=" + st_name + "&addrTel=" + st_tel + "&addrAddr=" + st_addr + "&addrDetail=" + st_detail + "&addrTag=" + st_tag + "&addrImagePath=" + imageName;
-                            }
-
-
-                            connectUpdateData();
-                            Log.d(TAG, urlAddr);
-
-                            Intent intent = new Intent(UpdateActivity.this, MainActivity.class);
-                            startActivity(intent);
-
-
-                        }
-                    })
-                    .show();
 
         }
     };
 
-    //뒤로가기 버튼 리스너
+
     View.OnClickListener onClickListener1 = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -357,10 +356,13 @@ public class UpdateActivity extends Activity {
             }//주소 검색 api 추가
 
 
+        Toast.makeText(getBaseContext(), "resultCode : " + data, Toast.LENGTH_SHORT).show();
+
         if (requestCode == REQ_CODE_SELECT_IMAGE) {
             if (resultCode == Activity.RESULT_OK) {
                 try {
-                    img_path = getImagePathToUri(data.getData()); //이미지의 URI를 얻어 경로값으로 반환
+                    img_path = getImagePathToUri(data.getData()); //이미지의 URI를 얻어 경로값으로 반환.
+                    Toast.makeText(getBaseContext(), "img_path : " + img_path, Toast.LENGTH_SHORT).show();//이미지를 비트맵형식으로 반환
                     image_bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
                     ImageView image = (ImageView) findViewById(R.id.iv_profile_update);  //이미지를 띄울 위젯 ID값
                     image.setImageBitmap(image_bitmap_copy);
@@ -389,6 +391,7 @@ public class UpdateActivity extends Activity {
         String imgPath = cursor.getString(column_index);//이미지의 경로 값
 //        Log.d("test", imgPath);//이미지 경로 확인해서 데이터 값 넘기기
         String imgName = imgPath.substring(imgPath.lastIndexOf("/") + 1); //이미지의 이름 값
+        Toast.makeText(UpdateActivity.this, "이미지 이름 : " + imgName, Toast.LENGTH_SHORT).show();
         this.imageName = imgName;
 
         return imgPath;

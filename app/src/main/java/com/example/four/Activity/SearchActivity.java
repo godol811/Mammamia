@@ -70,7 +70,6 @@ public class SearchActivity extends Activity {
 
         Intent intent = getIntent();   //IP 받아오자
         urlIp = intent.getStringExtra("urlIp");
-        urlAddr = "http://"+urlIp+":8080/test/mammamiaSearch.jsp";
 
 
 
@@ -89,7 +88,31 @@ public class SearchActivity extends Activity {
         super.onResume();
 
 
+        connectGetData();
+        registerForContextMenu(recyclerView);
 
+        Log.v(TAG, "onResume");
+        adapter.setOnItemClickListener(new AddressAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+
+                Intent intent = new Intent(SearchActivity.this, ListviewActivity.class);//리스트 클릭시 리스트뷰 넘어가기
+                intent.putExtra("urlIp", urlIp);//ip주소 보내기 ---종찬추가 12/30
+                intent.putExtra("urlAddr", urlAddr);
+                intent.putExtra("addrNo", members.get(position).getAddrNo());
+                intent.putExtra("addrName", members.get(position).getAddrName());
+                intent.putExtra("addrTag", members.get(position).getAddrTag());
+                intent.putExtra("addrTel", members.get(position).getAddrTel());
+                intent.putExtra("addrDetail", members.get(position).getAddrDetail());
+                intent.putExtra("addrAddr", members.get(position).getAddrAddr());
+                intent.putExtra("addrImagePath",members.get(position).getAddrImagePath());
+
+
+                startActivity(intent);
+
+
+            }
+        });
     }
 
 

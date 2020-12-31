@@ -28,6 +28,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.core.app.ActivityCompat;
@@ -93,7 +95,8 @@ public class InsertActivity extends Activity {
                 .permitNetwork().build());//쓰레드 사용시 문제 없게 하는 용도
 
         ActivityCompat.requestPermissions(InsertActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}
-                , MODE_PRIVATE); //사용자에게 사진 사용 권한 받기 (가장중요함)
+        , MODE_PRIVATE); //사용자에게 사진 사용 권한 받기 (가장중요함)
+
 
 
         Intent intent = getIntent();
@@ -117,7 +120,11 @@ public class InsertActivity extends Activity {
         tagSelectBtn.setOnClickListener(tagselectClick);
 
 
+
         image = findViewById(R.id.iv_image_insert);  //이미지를 띄울 위젯 ID값
+
+        
+
 
 
         findViewById(R.id.iv_image_insert).setOnClickListener(new View.OnClickListener() {//사진 불러오기 onclick
@@ -132,6 +139,10 @@ public class InsertActivity extends Activity {
         });
 
 
+
+
+
+
         insertAddr.setOnClickListener(new View.OnClickListener() {//주소검색 API
             @Override
             public void onClick(View v) {
@@ -139,6 +150,8 @@ public class InsertActivity extends Activity {
                 startActivityForResult(i, SEARCH_ADDRESS_ACTIVITY);
             }
         });
+
+
 
 
         insertTel.addTextChangedListener(new TextWatcher() {//자동으로 "-" 생성해서 전화번호에 붙여주기
@@ -172,15 +185,28 @@ public class InsertActivity extends Activity {
 
                 afterLenght = s.length();
 
+                String tel = String.valueOf(insertTel.getText());
+                tel.substring(0,1);
+                Log.v(TAG, "after" + String.valueOf(afterLenght));
 
                 if (beforeLenght < afterLenght) {// 타자를 입력 중이면
-                    if (afterLenght == 4 && s.toString().indexOf("-") < 0) { //subSequence로 지정된 문자열을 반환해서 "-"폰을 붙여주고 substring
+                    if (s.toString().indexOf("01") < 0 && afterLenght == 2) { //subSequence로 지정된 문자열을 반환해서 "-"폰을 붙여주고 substring
+                        insertTel.setText(s.toString().subSequence(0, 2) + "-" + s.toString().substring(2, s.length()));
+                        Log.v(TAG, "들어와줘");
+                    } else if (s.toString().indexOf("01") < 0 && afterLenght == 6) {
+                        insertTel.setText(s.toString().subSequence(0, 6) + "-" + s.toString().substring(6, s.length()));
+                        Log.v(TAG, "너도 들어와줘");
+                    } else {
+                        if (afterLenght == 4 && s.toString().indexOf("-") < 0) { //subSequence로 지정된 문자열을 반환해서 "-"폰을 붙여주고 substring
+                            insertTel.setText(s.toString().subSequence(0, 3) + "-" + s.toString().substring(3, s.length()));
+                            Log.v(TAG, "subSequence1" + String.valueOf(s.toString().subSequence(0, 3)));
+                            Log.v(TAG, "substring1" + String.valueOf(s.toString().substring(3, s.length())));
 
-                        insertTel.setText(s.toString().subSequence(0, 3) + "-" + s.toString().substring(3, s.length()));
-                        Log.v(TAG, String.valueOf(s.toString().substring(3, s.length())));
-                    } else if (afterLenght == 9) {
-                        insertTel.setText(s.toString().subSequence(0, 8) + "-" + s.toString().substring(8, s.length()));
-                        Log.v(TAG, String.valueOf(s.toString().substring(8, s.length())));
+                        } else if (s.toString().indexOf("02") < 0 && afterLenght == 9) {
+                            insertTel.setText(s.toString().subSequence(0, 8) + "-" + s.toString().substring(8, s.length()));
+                            Log.v(TAG, "subSequence2" + String.valueOf(s.toString().subSequence(0, 8)));
+                            Log.v(TAG, "substring2" + String.valueOf(s.toString().substring(8, s.length())));
+                        }
                     }
                 }
                 insertTel.setSelection(insertTel.length());
@@ -193,6 +219,8 @@ public class InsertActivity extends Activity {
             }
 
         });//자동으로 전화번호 누르기 끝
+
+
 
 
         insertName.setFilters(new InputFilter[]{new InputFilter() {//특수문자 제한
@@ -208,67 +236,44 @@ public class InsertActivity extends Activity {
                 new androidx.appcompat.app.AlertDialog.Builder(InsertActivity.this)
                         .setTitle("알림")
                         .setMessage("한글, 영문만 입력 가능합니다.")
-                        .setNegativeButton("확인", null)
+                        .setNegativeButton("확인",null)
                         .setCancelable(false)
                         .show();
                 return "";
             }
             //글자수 제한
-        }, new InputFilter.LengthFilter(5)});//특수문자 제한
+        }, new InputFilter.LengthFilter(10)});//특수문자 제한
 
     }
+
+
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-    // 입력 빈칸이면 경고띄우기 추가
-            if (insertTel.getText().length() == 0 || insertName.getText().length() == 0 || insertAddr.getText().length() == 0) {
+            new Thread(new Runnable() {//Thread 추가해서 사진파일 넣기 위한 기초 마련
+                @Override
+                public void run() {
+                    doMultiPartRequest();//사진 넣는 okHttp3 메소드}}}
+                }
+            }).start();
+            ////////////MYSQL 에 넣을 조건들 /////////////////
+            String addrTag = insertTag.getText().toString();
+            String addrName = insertName.getText().toString();
+            String addrTel = insertTel.getText().toString();
+            String addrAddr = insertAddr.getText().toString();
+            String addrDetail = insertDetail.getText().toString();
 
-                new androidx.appcompat.app.AlertDialog.Builder(InsertActivity.this)
-                        .setTitle("경고")
-                        .setMessage("정보를 입력해주세요!")
-                        .setCancelable(false)//아무데나 눌렀을때 안꺼지게 하는거 (버튼을 통해서만 닫게)
-                        .setPositiveButton("확인", null)
-                        .show();
-            } else {
-                new AlertDialog.Builder(InsertActivity.this)
-                        .setTitle("알림")
-                        .setIcon(R.mipmap.ic_icon)
-                        .setMessage("입력 하시겠습니까?")
-                        .setCancelable(false)
-                        .setPositiveButton("취소", null)
-                        .setNegativeButton("네", new DialogInterface.OnClickListener() {
+            Calendar calendar = Calendar.getInstance();//파일 식별을 위한 날짜 추기
+            java.util.Date date = calendar.getTime();
+            String today = (new SimpleDateFormat("yyyyMMddHHmmss").format(date));
+            imageName = today+"_"+imageName;//파일 이름 앞에 입력일(현재시간)_파읾명
 
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) { // "네"클릭시 발생되는 이벤트
-                                new Thread(new Runnable() {//Thread 추가해서 사진파일 넣기 위한 기초 마련
-                                    @Override
-                                    public void run() {
-                                        doMultiPartRequest();//사진 넣는 okHttp3 메소드}}}
-                                    }
-                                }).start();
-                                ////////////MYSQL 에 넣을 조건들 /////////////////
-                                String addrTag = insertTag.getText().toString();
-                                String addrName = insertName.getText().toString();
-                                String addrTel = insertTel.getText().toString();
-                                String addrAddr = insertAddr.getText().toString();
-                                String addrDetail = insertDetail.getText().toString();
-
-                                Calendar calendar = Calendar.getInstance();//파일 식별을 위한 날짜 추기
-                                java.util.Date date = calendar.getTime();
-                                String today = (new SimpleDateFormat("yyyyMMddHHmmss").format(date));
-                                imageName = today + "_" + imageName;//파일 이름 앞에 입력일(현재시간)_파일명
-                                //JSP에 넣을 urlAddr
-                                urlAddr = urlAddr + "addrTag=" + addrTag + "&addrName=" + addrName + "&addrTel=" + addrTel + "&addrAddr=" + addrAddr + "&addrDetail=" + addrDetail + "&addrImagePath=" + imageName;
-                                Intent intent = new Intent(InsertActivity.this, MainActivity.class);//입력이 완료되고 메인으로 넘어감
-                                startActivity(intent);
-                                connectInsertData();
-
-                            }
-                        })
-                        .show();
-
-            }
+            //JSP에 넣을 urlAddr
+            urlAddr = urlAddr + "addrTag=" + addrTag + "&addrName=" + addrName + "&addrTel=" + addrTel + "&addrAddr=" + addrAddr + "&addrDetail=" + addrDetail + "&addrImagePath=" + imageName;
+            connectInsertData();
+            Intent intent = new Intent(InsertActivity.this, MainActivity.class);
+            startActivity(intent);
         }
     };
     View.OnClickListener onClickListener1 = new View.OnClickListener() {
@@ -278,8 +283,6 @@ public class InsertActivity extends Activity {
         }
     };
 
-
-    //태그 선택 리스너
     View.OnClickListener tagselectClick = new View.OnClickListener() {//태그 선택했을경우
         @Override
         public void onClick(View v) {
@@ -289,7 +292,7 @@ public class InsertActivity extends Activity {
                     .setSingleChoiceItems(R.array.tag, 0, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            selectedIndex[0] = which;
+                         selectedIndex[0] = which;
                         }
                     })
 
@@ -300,6 +303,7 @@ public class InsertActivity extends Activity {
 
                             String[] tag = getResources().getStringArray(R.array.tag);
                             TextView text = findViewById(R.id.et_tagname_insert);
+
                             text.setText(tag[selectedIndex[0]]);
                         }
                     })
@@ -321,6 +325,7 @@ public class InsertActivity extends Activity {
     }
 
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {//주소 검색 API 이동
 
@@ -336,10 +341,14 @@ public class InsertActivity extends Activity {
         }//주소 검색 끝
 
 
+
+        Toast.makeText(getBaseContext(), "resultCode : " + data, Toast.LENGTH_SHORT).show();
+
         if (requestCode == REQ_CODE_SELECT_IMAGE) {
             if (resultCode == Activity.RESULT_OK) {
                 try {
                     img_path = getImagePathToUri(data.getData()); //이미지의 URI를 얻어 경로값으로 반환.
+                    Toast.makeText(getBaseContext(), "img_path : " + img_path, Toast.LENGTH_SHORT).show();//이미지를 비트맵형식으로 반환
                     image_bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
                     Glide.with(InsertActivity.this).load(img_path)//사진 띄우기 Glide 사용
                             .override(300, 300)
@@ -365,6 +374,7 @@ public class InsertActivity extends Activity {
         String imgPath = cursor.getString(column_index);//이미지의 경로 값
         Log.d("test", imgPath);//이미지 경로 확인해서 데이터 값 넘기기
         String imgName = imgPath.substring(imgPath.lastIndexOf("/") + 1); //이미지의 이름 값
+        Toast.makeText(InsertActivity.this, "이미지 이름 : " + imgName, Toast.LENGTH_SHORT).show();
         this.imageName = imgName;
 //        this.imagePath = imgPath;
 
@@ -376,7 +386,6 @@ public class InsertActivity extends Activity {
         File f = new File(img_path);
         DoActualRequest(f);
     }
-
     private void DoActualRequest(File file) {//서버 보내기
         OkHttpClient client = new OkHttpClient();
         String url = "http://" + urlIp + ":8080/test/multipartRequest.jsp";
@@ -386,7 +395,7 @@ public class InsertActivity extends Activity {
 
         RequestBody body = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
-                .addFormDataPart("image", today + "_" + file.getName(), RequestBody.create(MediaType.parse("image/jpeg"), file))
+                .addFormDataPart("image", today+"_"+file.getName(),RequestBody.create(MediaType.parse("image/jpeg"), file))
                 .build();
 
         Request request = new Request.Builder()
@@ -402,6 +411,8 @@ public class InsertActivity extends Activity {
             e.printStackTrace();
         }
     }
+
+
 
 
     public boolean dispatchTouchEvent(MotionEvent ev) {//배경 터치 시 키보드 사라지게
