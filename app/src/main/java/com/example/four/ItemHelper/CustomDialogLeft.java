@@ -12,14 +12,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.four.Activity.MainActivity;
-import com.example.four.Activity.UpdateActivity;
 import com.example.four.Bean.AddressDto;
 import com.example.four.NetworkTask.NetworkTask;
 import com.example.four.R;
 
-//import com.example.swipe.OnDialogListener;
-//import com.example.swipe.Person;
-//import com.example.swipe.R;
 public class CustomDialogLeft extends Dialog {
     private OnDialogListener listener;
     private Button ok, cancle;
@@ -27,19 +23,6 @@ public class CustomDialogLeft extends Dialog {
     String urlIp = null;
     private TextView tv;
     final String TAG = "커스텀다이얼로그왼쪽";
-
-    //    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//
-//
-//       // Intent intent = getIntent();
-//
-//        //macIP = intent.getStringExtra("macIP");
-//        //입력하는 데이터를 위해 ? 추가
-//        urlAddr = "http://" + macIP + ":8080/test/mammamialikeupdate.jsp?";
-//
-//    }
 
 
     @Override
@@ -54,6 +37,13 @@ public class CustomDialogLeft extends Dialog {
             tv.setText("즐겨찾기를 취소합니다.");
 
         }
+        /////////////////-자기 아이피 챙기기-////////////////////////
+        urlIp = "192.168.1.5"; //하진                //
+//        urlIp = "172.30.1.27";//혜정                  //
+//        urlIp = "222.106.89.206";//이누               //
+//      urlIp = "192.168.0.105";//보람                  //
+//        urlIp = "192.168.35.147";//종찬 아이피            //
+/////////////////////////////////////////////////////////
     }
 
     public CustomDialogLeft(Context context, final int position, AddressDto addressDto) {
@@ -62,13 +52,7 @@ public class CustomDialogLeft extends Dialog {
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         setContentView(R.layout.customdialog_left);
 
-        /////////////////-자기 아이피 챙기기-////////////////////////
-        urlIp = "192.168.1.5"; //하진                //
-//        urlIp = "172.30.1.27";//혜정                  //
-//        urlIp = "222.106.89.206";//이누               //
-//      urlIp = "192.168.0.105";//보람                  //
-//        urlIp = "192.168.35.147";//종찬 아이피            //
-/////////////////////////////////////////////////////////
+
 
 
 
