@@ -1,5 +1,7 @@
 # Mammamia UserGuide
 
+### 제작자 : 고종찬.김보랑,도하진,박인우,주혜정
+
 ## 1.Build gradle에 추가를 한다.
 
 
