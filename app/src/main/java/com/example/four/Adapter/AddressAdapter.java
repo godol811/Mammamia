@@ -30,6 +30,7 @@ import com.example.four.ItemHelper.CustomDialogLeft;
 import com.example.four.ItemHelper.CustomDialogRight;
 import com.example.four.ItemHelper.ItemTouchHelperListener;
 import com.example.four.ItemHelper.OnDialogListener;
+import com.example.four.ItemHelper.Variable;
 import com.example.four.R;
 
 import com.squareup.picasso.Picasso;
@@ -49,9 +50,9 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
     ///////////////////////////////////////-자기 아이피 챙기기-//////////////////////////////////////////////
 //    String urlAddr = "http://192.168.35.147:8080/pictures/";//자기 ip로 바꾸기 종찬                  //
 //    String urlAddr = "http://172.30.1.27:8080/pictures/";//자기 ip로 바꾸기 애정                     //
-   String urlAddr = "http://222.106.89.206:8080/pictures/";//자기 ip로 바꾸기 이누                     //
+//   String urlAddr = "http://222.106.89.206:8080/pictures/";//자기 ip로 바꾸기 이누                     //
 //   String urlAddr = "http://192.168.0.105:8080/pictures/";//자기 ip로 바꾸기 보람                    //
-//    String urlAddr = "http://192.168.35.147:8080/pictures/";//자기 ip로 바꾸기 하진                  //
+    String urlAddr = "http://192.168.1.5:8080/pictures/";//자기 ip로 바꾸기 하진                  //
 ///////////////////////////////////////-자기 아이피 챙기기-//////////////////////////////////////////////
 
     int pos = 0;
@@ -192,7 +193,9 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         WindowManager.LayoutParams wm = dialog.getWindow().getAttributes();//다이얼로그 사이즈 세팅
         wm.copyFrom(dialog.getWindow().getAttributes());
         wm.width = (int) (width * 0.8);
-        wm.height = height / 4;
+        wm.height = height / 5;
+        Variable.publicaddrno = mDataset.get(position).getAddrNo();
+        Variable.whereaddrlike = mDataset.get(position).getAddrLike();
         dialog.setDialogListener(this);//다이얼로그 Listener 세팅
         dialog.show();//다이얼로그 띄우기
 

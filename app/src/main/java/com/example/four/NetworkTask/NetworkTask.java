@@ -97,6 +97,8 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
                 ///////////////////////////////////////////////////////////////////////////////////////
                 if (where.equals("select")) {
                     parserSelect(stringBuffer.toString());
+                } else if (where.equals("like")) {//라이크로 들어오면 파싱하지 않음
+
                 } else {
                     result = parserAction(stringBuffer.toString());
                 }

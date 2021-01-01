@@ -11,6 +11,7 @@
         android:layout_margin="10dp"
         >
         <TextView
+            android:id="@+id/tv_likedial_customleft"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3"
@@ -24,7 +25,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <Button
-            android:id="@+id/mod_bt2"
+            android:id="@+id/btn_Ok_customleft"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -32,7 +33,7 @@
             android:textColor="@android:color/black"
             android:textSize="20sp" />
         <Button
-            android:id="@+id/mod_bt2_cancle"
+            android:id="@+id/btn_cancle_customleft"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
