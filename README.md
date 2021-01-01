@@ -70,6 +70,7 @@ Network_security_config.xml 안에 이 코드를 삽입한다.
 
 방법은 tomcat 라이브러리 폴더의 /webapps/ROOT/안에 넣으면 된다.
 
+
 Link: [JSP파일 Link][jsp link]
 
 [jsp link]: https://github.com/AndroidMammamia/MammamiaDocument/tree/main/test
@@ -88,6 +89,10 @@ Link: [JSP파일 Link][jsp link]
 ## 5.MYSQL 라이브러리를 넣는다
 
 방법은 connector를 받아 tomcat 라이브러리 폴더의 /lib 에 넣어주면 된다.
+
+참고) windowOS는 /webapps/ROOT/WEB-INF에  cos.jar를 넣어주면 된다. MYSQL Connector는 이전과 동일하게 /lib에 넣어주면 된다.
+
+
 
 Link: [MYSQL Connector][my sql connector]
 
@@ -120,3 +125,15 @@ Link: [MYSQL Connector][my sql connector]
 |int(11),AI,PK|varchar(45)|varchar(45)|varchar(150)|varchar(45)|varchar(45),Default'0'|varchar(45)|varchar(100)|
 
 ---
+
+## windowOS를 위한 multipartRequest.jsp 경로 설정 방법
+
+multipartRequest.jsp 파일 내부에 절대 경로를 설정 하는 부분이 있다.
+
+그 부분의 경로를 기입 할시 
+    
+    String realPath  ="C:\\Program Files\\Apache SoftWare Foundation\\Tomcat 8.5\\webapps\\ROOT\\pictures"; 
+    
+처럼 경로마다 \\를 두번 넣으면 된다.
+
+
