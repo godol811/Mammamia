@@ -134,6 +134,11 @@ Link: [MYSQL Connector][my sql connector]
 
 ---
 
+## 8.실행 영상.
+
+썸네일을 클릭하면 유튜브 페이지로 넘어감
+[![](http://img.youtube.com/vi/LE7FDbxkzKM/0.jpg)](http://www.youtube.com/watch?v=LE7FDbxkzKM "")
+
 ## windowOS를 위한 multipartRequest.jsp 경로 설정 방법
 
 multipartRequest.jsp 파일 내부에 절대 경로를 설정 하는 부분이 있다.
@@ -146,5 +151,7 @@ multipartRequest.jsp 파일 내부에 절대 경로를 설정 하는 부분이 �
 ``` 
 
 처럼 경로마다 \\를 두번 넣으면 된다.
+
+
 
 
