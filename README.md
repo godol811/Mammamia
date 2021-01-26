@@ -137,7 +137,7 @@ Link: [MYSQL Connector][my sql connector]
 ## 8.실행 영상.
 
 썸네일을 클릭하면 유튜브 페이지로 넘어감
-[![](http://img.youtube.com/vi/LE7FDbxkzKM/0.jpg)](http://www.youtube.com/watch?v=LE7FDbxkzKM "")
+[![](http://img.youtube.com/vi/-QOxN_vmg-4/0.jpg)](http://www.youtube.com/watch?v=-QOxN_vmg-4 "")
 
 
 ---
