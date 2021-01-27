@@ -1,6 +1,28 @@
 # Mammamia UserGuide
 
 ### 제작자 : 고종찬, 김보람, 도하진, 박인우, 주혜정
+---
+## 프로젝트 개요
+
+![!](https://github.com/AndroidMnS/MammamiaDocument/blob/main/android_mammamia_projectReport/%E1%84%8B%E1%85%A1%E1%86%AB%E1%84%83%E1%85%B3%E1%84%85%E1%85%A9%E1%84%8B%E1%85%B5%E1%84%83%E1%85%B3_%E1%84%86%E1%85%A1%E1%86%B7%E1%84%86%E1%85%A1%E1%84%86%E1%85%B5%E1%84%8B%E1%85%A1.001.jpeg)
+![!](https://github.com/AndroidMnS/MammamiaDocument/blob/main/android_mammamia_projectReport/%E1%84%8B%E1%85%A1%E1%86%AB%E1%84%83%E1%85%B3%E1%84%85%E1%85%A9%E1%84%8B%E1%85%B5%E1%84%83%E1%85%B3_%E1%84%86%E1%85%A1%E1%86%B7%E1%84%86%E1%85%A1%E1%84%86%E1%85%B5%E1%84%8B%E1%85%A1.002.jpeg)
+
+![!](https://github.com/AndroidMnS/MammamiaDocument/blob/main/android_mammamia_projectReport/%E1%84%8B%E1%85%A1%E1%86%AB%E1%84%83%E1%85%B3%E1%84%85%E1%85%A9%E1%84%8B%E1%85%B5%E1%84%83%E1%85%B3_%E1%84%86%E1%85%A1%E1%86%B7%E1%84%86%E1%85%A1%E1%84%86%E1%85%B5%E1%84%8B%E1%85%A1.003.jpeg)
+
+![!](https://github.com/AndroidMnS/MammamiaDocument/blob/main/android_mammamia_projectReport/%E1%84%8B%E1%85%A1%E1%86%AB%E1%84%83%E1%85%B3%E1%84%85%E1%85%A9%E1%84%8B%E1%85%B5%E1%84%83%E1%85%B3_%E1%84%86%E1%85%A1%E1%86%B7%E1%84%86%E1%85%A1%E1%84%86%E1%85%B5%E1%84%8B%E1%85%A1.004.jpeg)
+
+![!](https://github.com/AndroidMnS/MammamiaDocument/blob/main/android_mammamia_projectReport/%E1%84%8B%E1%85%A1%E1%86%AB%E1%84%83%E1%85%B3%E1%84%85%E1%85%A9%E1%84%8B%E1%85%B5%E1%84%83%E1%85%B3_%E1%84%86%E1%85%A1%E1%86%B7%E1%84%86%E1%85%A1%E1%84%86%E1%85%B5%E1%84%8B%E1%85%A1.005.jpeg)
+
+![!](https://github.com/AndroidMnS/MammamiaDocument/blob/main/android_mammamia_projectReport/%E1%84%8B%E1%85%A1%E1%86%AB%E1%84%83%E1%85%B3%E1%84%85%E1%85%A9%E1%84%8B%E1%85%B5%E1%84%83%E1%85%B3_%E1%84%86%E1%85%A1%E1%86%B7%E1%84%86%E1%85%A1%E1%84%86%E1%85%B5%E1%84%8B%E1%85%A1.006.jpeg)
+
+![!](https://github.com/AndroidMnS/MammamiaDocument/blob/main/android_mammamia_projectReport/%E1%84%8B%E1%85%A1%E1%86%AB%E1%84%83%E1%85%B3%E1%84%85%E1%85%A9%E1%84%8B%E1%85%B5%E1%84%83%E1%85%B3_%E1%84%86%E1%85%A1%E1%86%B7%E1%84%86%E1%85%A1%E1%84%86%E1%85%B5%E1%84%8B%E1%85%A1.007.jpeg)
+
+![!](https://github.com/AndroidMnS/MammamiaDocument/blob/main/android_mammamia_projectReport/%E1%84%8B%E1%85%A1%E1%86%AB%E1%84%83%E1%85%B3%E1%84%85%E1%85%A9%E1%84%8B%E1%85%B5%E1%84%83%E1%85%B3_%E1%84%86%E1%85%A1%E1%86%B7%E1%84%86%E1%85%A1%E1%84%86%E1%85%B5%E1%84%8B%E1%85%A1.008.jpeg)
+![!](https://github.com/AndroidMnS/MammamiaDocument/blob/main/android_mammamia_projectReport/%E1%84%8B%E1%85%A1%E1%86%AB%E1%84%83%E1%85%B3%E1%84%85%E1%85%A9%E1%84%8B%E1%85%B5%E1%84%83%E1%85%B3_%E1%84%86%E1%85%A1%E1%86%B7%E1%84%86%E1%85%A1%E1%84%86%E1%85%B5%E1%84%8B%E1%85%A1.009.jpeg)
+![!](https://github.com/AndroidMnS/MammamiaDocument/blob/main/android_mammamia_projectReport/%E1%84%8B%E1%85%A1%E1%86%AB%E1%84%83%E1%85%B3%E1%84%85%E1%85%A9%E1%84%8B%E1%85%B5%E1%84%83%E1%85%B3_%E1%84%86%E1%85%A1%E1%86%B7%E1%84%86%E1%85%A1%E1%84%86%E1%85%B5%E1%84%8B%E1%85%A1.010.jpeg)
+![!](https://github.com/AndroidMnS/MammamiaDocument/blob/main/android_mammamia_projectReport/%E1%84%8B%E1%85%A1%E1%86%AB%E1%84%83%E1%85%B3%E1%84%85%E1%85%A9%E1%84%8B%E1%85%B5%E1%84%83%E1%85%B3_%E1%84%86%E1%85%A1%E1%86%B7%E1%84%86%E1%85%A1%E1%84%86%E1%85%B5%E1%84%8B%E1%85%A1.011.jpeg)
+
+---
 
 ## 1.Build gradle에 추가를 한다.
 
@@ -155,25 +177,7 @@ multipartRequest.jsp 파일 내부에 절대 경로를 설정 하는 부분이 �
 
 처럼 경로마다 \\를 두번 넣으면 된다.
 ---
-## 프로젝트 개요
 
-![!](https://github.com/AndroidMnS/MammamiaDocument/blob/main/android_mammamia_projectReport/%E1%84%8B%E1%85%A1%E1%86%AB%E1%84%83%E1%85%B3%E1%84%85%E1%85%A9%E1%84%8B%E1%85%B5%E1%84%83%E1%85%B3_%E1%84%86%E1%85%A1%E1%86%B7%E1%84%86%E1%85%A1%E1%84%86%E1%85%B5%E1%84%8B%E1%85%A1.001.jpeg)
-![!](https://github.com/AndroidMnS/MammamiaDocument/blob/main/android_mammamia_projectReport/%E1%84%8B%E1%85%A1%E1%86%AB%E1%84%83%E1%85%B3%E1%84%85%E1%85%A9%E1%84%8B%E1%85%B5%E1%84%83%E1%85%B3_%E1%84%86%E1%85%A1%E1%86%B7%E1%84%86%E1%85%A1%E1%84%86%E1%85%B5%E1%84%8B%E1%85%A1.002.jpeg)
-
-![!](https://github.com/AndroidMnS/MammamiaDocument/blob/main/android_mammamia_projectReport/%E1%84%8B%E1%85%A1%E1%86%AB%E1%84%83%E1%85%B3%E1%84%85%E1%85%A9%E1%84%8B%E1%85%B5%E1%84%83%E1%85%B3_%E1%84%86%E1%85%A1%E1%86%B7%E1%84%86%E1%85%A1%E1%84%86%E1%85%B5%E1%84%8B%E1%85%A1.003.jpeg)
-
-![!](https://github.com/AndroidMnS/MammamiaDocument/blob/main/android_mammamia_projectReport/%E1%84%8B%E1%85%A1%E1%86%AB%E1%84%83%E1%85%B3%E1%84%85%E1%85%A9%E1%84%8B%E1%85%B5%E1%84%83%E1%85%B3_%E1%84%86%E1%85%A1%E1%86%B7%E1%84%86%E1%85%A1%E1%84%86%E1%85%B5%E1%84%8B%E1%85%A1.004.jpeg)
-
-![!](https://github.com/AndroidMnS/MammamiaDocument/blob/main/android_mammamia_projectReport/%E1%84%8B%E1%85%A1%E1%86%AB%E1%84%83%E1%85%B3%E1%84%85%E1%85%A9%E1%84%8B%E1%85%B5%E1%84%83%E1%85%B3_%E1%84%86%E1%85%A1%E1%86%B7%E1%84%86%E1%85%A1%E1%84%86%E1%85%B5%E1%84%8B%E1%85%A1.005.jpeg)
-
-![!](https://github.com/AndroidMnS/MammamiaDocument/blob/main/android_mammamia_projectReport/%E1%84%8B%E1%85%A1%E1%86%AB%E1%84%83%E1%85%B3%E1%84%85%E1%85%A9%E1%84%8B%E1%85%B5%E1%84%83%E1%85%B3_%E1%84%86%E1%85%A1%E1%86%B7%E1%84%86%E1%85%A1%E1%84%86%E1%85%B5%E1%84%8B%E1%85%A1.006.jpeg)
-
-![!](https://github.com/AndroidMnS/MammamiaDocument/blob/main/android_mammamia_projectReport/%E1%84%8B%E1%85%A1%E1%86%AB%E1%84%83%E1%85%B3%E1%84%85%E1%85%A9%E1%84%8B%E1%85%B5%E1%84%83%E1%85%B3_%E1%84%86%E1%85%A1%E1%86%B7%E1%84%86%E1%85%A1%E1%84%86%E1%85%B5%E1%84%8B%E1%85%A1.007.jpeg)
-
-![!](https://github.com/AndroidMnS/MammamiaDocument/blob/main/android_mammamia_projectReport/%E1%84%8B%E1%85%A1%E1%86%AB%E1%84%83%E1%85%B3%E1%84%85%E1%85%A9%E1%84%8B%E1%85%B5%E1%84%83%E1%85%B3_%E1%84%86%E1%85%A1%E1%86%B7%E1%84%86%E1%85%A1%E1%84%86%E1%85%B5%E1%84%8B%E1%85%A1.008.jpeg)
-![!](https://github.com/AndroidMnS/MammamiaDocument/blob/main/android_mammamia_projectReport/%E1%84%8B%E1%85%A1%E1%86%AB%E1%84%83%E1%85%B3%E1%84%85%E1%85%A9%E1%84%8B%E1%85%B5%E1%84%83%E1%85%B3_%E1%84%86%E1%85%A1%E1%86%B7%E1%84%86%E1%85%A1%E1%84%86%E1%85%B5%E1%84%8B%E1%85%A1.009.jpeg)
-![!](https://github.com/AndroidMnS/MammamiaDocument/blob/main/android_mammamia_projectReport/%E1%84%8B%E1%85%A1%E1%86%AB%E1%84%83%E1%85%B3%E1%84%85%E1%85%A9%E1%84%8B%E1%85%B5%E1%84%83%E1%85%B3_%E1%84%86%E1%85%A1%E1%86%B7%E1%84%86%E1%85%A1%E1%84%86%E1%85%B5%E1%84%8B%E1%85%A1.010.jpeg)
-![!](https://github.com/AndroidMnS/MammamiaDocument/blob/main/android_mammamia_projectReport/%E1%84%8B%E1%85%A1%E1%86%AB%E1%84%83%E1%85%B3%E1%84%85%E1%85%A9%E1%84%8B%E1%85%B5%E1%84%83%E1%85%B3_%E1%84%86%E1%85%A1%E1%86%B7%E1%84%86%E1%85%A1%E1%84%86%E1%85%B5%E1%84%8B%E1%85%A1.011.jpeg)
 
 
 
